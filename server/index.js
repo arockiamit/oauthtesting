@@ -1,10 +1,14 @@
-const  express = require('express');
-const app = express();
+const express = require('express');
 const cors = require('cors');
 
-app.use(cors({origin:'http://localhost:3000'}));
-app.get('/', function(req, res){
-   res.send("Hello world!");
+const app = express();
+
+app.use(cors({ origin: 'http://localhost:3000' }));
+
+app.get('/', (req, res) => {
+  res.send('Hello world!');
 });
 
-app.listen(3000);
+app.listen(3001, () => {
+  console.log('server Running');
+});
