@@ -2,34 +2,38 @@ import React from "react";
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import { signInWithPhoneNumber } from "firebase/auth";
 import firebase from './firebase'
+import { useState } from "react";
 
-class App extends React.Component{
-  handleChange = (e) =>{
-    const {name,value}=e.target
-    this.setState({
-        [name]:value
-      })
-  }
+export default function App(){
+  const [number,setNumber]=useState('')
+  const [name,setName]=useState('')
+  const [otp,setOtp]=useState('')
+  // handleChange = (e) =>{
+  //   const {name,value}=e.target
+  //   this.setState({
+  //       [name]:value
+  //     })
+  // }
 
-  configureCaptcha = () =>{
+  function configureCaptcha(){
     const auth = getAuth();
 window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
   'size': 'invisible',
   'callback': (response) => {
     // reCAPTCHA solved, allow signInWithPhoneNumber.
-    this.onSignInSubmit();
+    onSignInSubmit();
     console.log("captcha verified")
   },
   defaultCountry :"IN"
 }, auth);
   }
-  onSignInSubmit = (e) =>{
-    e.preventDefault()
-    this.configureCaptcha()
-    const phoneNumber ="+91" + this.state.mobile
+  function onSignInSubmit(){
+    
+    configureCaptcha()
+    const phoneNumber ="+91" + number
     console.log(phoneNumber  )
-    const name=this.state.name
-    console.log(name)
+    const username =name 
+    console.log(username)
   
         
     const appVerifier = window.recaptchaVerifier;
@@ -48,12 +52,12 @@ window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
         }).catch((error) => {
           // Error; SMS not sent
           // ...
-          console.log('otp not send');
+          
         });
   }
-  onSubmitOtp = (e) =>{
-    e.preventDefault()
-    const code = this.state.otp
+  function onSubmitOtp(){
+  
+    const code = otp
     console.log(code);
 window.confirmationResult.confirm(code).then((result) => {
   // User signed in successfully.
@@ -66,23 +70,21 @@ window.confirmationResult.confirm(code).then((result) => {
   // ...
 });
   }
-  render(){
+  
     return(
       <div>
       <h2>PHONE NUMBER</h2>
-      <form onSubmit={this.onSignInSubmit}>
+      
         <div id="sign-in-button"></div>
-        <input type="number" name="mobile" placeholder="mobile number" required onChange={this.handleChange}  />
-        <input type="text" name="name" placeholder="name" required onChange={this.handleChange}  />
-        <button type="submit">submit</button>
-      </form>
+        <input type="number" name="mobile" placeholder="mobile number" required onChange={e=>setNumber(e.target.value)}  />
+        <input type="text" name="name" placeholder="name" required onChange={e=>setName(e.target.value)}  />
+        <button onClick={onSignInSubmit}>submit</button>
+      
       <h2>OTP NUMBER</h2>
-      <form onSubmit={this.onSubmitOtp}>
-        <input type="number" name="otp" placeholder="otp number" required onChange={this.handleChange}/>
-        <button type="submit">submit</button>
-      </form>
+      
+        <input type="number" name="otp" placeholder="otp number" required onChange={e=>setOtp(e.target.value)}/>
+        <button onClick={ onSubmitOtp}>submit</button>
+      
       </div>
     )
   }
-}
-export default App
