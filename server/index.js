@@ -54,6 +54,24 @@ app.post('/api/register', async (req, res) => {
 app.get('/', (req, res) => {
   res.send('Hello world!');
 });
+app.post('/number',(req,res)=>{
+  const {phoneNumber}=req.body;
+  console.log(phoneNumber);
+})
+app.post('/name',(req,res)=>{
+  const {name}=req.body;
+  console.log(name);
+})
+
+
+
+const result = async () => {
+  // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
+  await UserDetails.find({ userMobileNumber: 9047420795 });
+  // .then(data=> console.log(data));
+};
+
+result();
 
 const result = async () => {
   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
