@@ -41,9 +41,9 @@ window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
           window.confirmationResult = confirmationResult;
           console.log('otp send');
           fetch('http://localhost:3001/number', 
-          { method: 'post', body: JSON.stringify({ phoneNumber }), headers: { 'content-type': 'application/json' } })
-          fetch('http://localhost:3001/name', 
-          { method: 'post', body: JSON.stringify({ name }), headers: { 'content-type': 'application/json' } })
+          { method: 'post', body: JSON.stringify({ phoneNumber,name }), headers: { 'content-type': 'application/json' } })
+          // fetch('http://localhost:3001/name', 
+          // { method: 'post', body: JSON.stringify({ name }), headers: { 'content-type': 'application/json' } })
           // ...
         }).catch((error) => {
           // Error; SMS not sent
