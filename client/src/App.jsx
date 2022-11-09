@@ -24,6 +24,8 @@ function App() {
           <Route path="/registerNumber" element={<RegisterNumber />} />
           <Route path="/viewNumber" element={<ViewNumber />} />
           <Route path="/location" element={<Location />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/registerContact" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </div>

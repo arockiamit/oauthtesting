@@ -1,7 +1,6 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
         "es2021": true,
         "node": true
     },
@@ -12,12 +11,13 @@
     "overrides": [
     ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "plugins": [
         "react"
     ],
     "rules": {
-        "linebreak-style":["error","windows"]
+        "linebreak-style": 0
     }
 }
