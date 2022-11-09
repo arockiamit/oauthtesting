@@ -6,12 +6,12 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   userMobileNumber: {
-    type: Number,
+    type: String,
     unique: true,
     required: true,
     trim: true,
-    min: [10, 'Phone number should contain at least 10 digits..'],
-    max: [10, 'Phone number should contain at most 10 digits..'],
+    min: [13, 'Phone number should contain at least 10 digits..'],
+    max: [13, 'Phone number should contain at most 10 digits..'],
   },
   contactNumber1: {
     type: Number,

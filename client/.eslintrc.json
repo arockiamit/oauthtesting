@@ -5,8 +5,8 @@
         "node": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+        "plugin:react/recommended"
+        //"airbnb"
     ],
     "overrides": [
     ],
@@ -18,6 +18,6 @@
         "react"
     ],
     "rules": {
-        "linebreak-style": 0
+        "linebreak-style":0
     }
 }

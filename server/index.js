@@ -54,14 +54,36 @@ app.post('/api/register', async (req, res) => {
 app.get('/', (req, res) => {
   res.send('Hello world!');
 });
+app.post('/number', (req) => {
+  const { phoneNumber, name } = req.body;
+  console.log(phoneNumber);
+  UserDetails.create([
+    {
+      userName: name,
+      userMobileNumber: phoneNumber,
+    },
+  ]);
+});
+// app.post('/name',(req,res)=>{
+//   const {name}=req.body;
+//   console.log(name);
+// })
 
-const result = async () => {
-  // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
-  await UserDetails.find({ userMobileNumber: 9047420795 });
-  // .then(data=> console.log(data));
-};
+// const result = async () => {
+//   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
+//   await UserDetails.find({ userMobileNumber: 9047420795 });
+//   // .then(data=> console.log(data));
+// };
 
-result();
+// result();
+
+// const result = async () => {
+//   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
+//   await UserDetails.find({ userMobileNumber: 9047420795 });
+//   // .then(data=> console.log(data));
+// };
+
+// result();
 
 app.listen(3001, () => {
   console.log('server Running');
