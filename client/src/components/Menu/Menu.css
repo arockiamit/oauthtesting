@@ -1,0 +1,93 @@
+@media only screen and (max-width: 500px) {
+.mobileMenu{
+    height: 50rem;
+    width: 25rem;
+}
+.mobileMenu .first{
+    margin-left: 1em;
+    height: 20%;
+    width: 102%;
+}
+.mobileMenu .second{
+    margin-left: 3em;
+    height: 20%;
+    width: 102%;
+}
+.mobileMenu .third{
+    margin-left: 3em;
+    height: 20%;
+    width: 102%;
+}
+
+.mobileMenu .first .reg-add{
+    border-radius: 40%;
+    text-align: center;
+    font-size: 3em;
+    height: 6rem;
+    width: 6rem;
+    padding-bottom: 0%;
+    padding-top: 3%;
+    margin-right: 2em;
+    margin-top: 2em;
+    border: none;
+    background-color:#e6f9d5;
+}
+.mobileMenu .first .reg-view{
+    border-radius: 40%;
+    font-size: 3em;
+    height: 6rem;
+    width: 6rem;
+    margin-right: 2rem;
+    padding-top: 2%;
+    margin-bottom: -2rem;
+    border: none;
+    background-color: #EDEDED;
+}
+.mobileMenu .second .reg-del{
+    border-radius: 40%;
+    font-size: 3em;
+    height: 6rem;
+    width: 6rem;
+    margin-right:2em;
+    margin-bottom: 2em;
+    border: none;
+    background-color: #fbe2db;
+}
+.mobileMenu .second .reg-call{
+    border-radius: 40%;
+    font-size: 3em;
+    height: 6rem;
+    width: 6rem;
+    padding-bottom: 1%;
+    padding-top: 2%;
+    margin-right:2em;
+    margin-top: 2em;
+    border: none;
+    background-color: #cddaf8;
+}
+.mobileMenu .third .reg-cdel{
+    border-radius: 40%;
+    font-size: 3em;
+    height: 6rem;
+    width: 6rem;
+    padding-bottom: 0%;
+    margin-right:2em;
+    margin-top: 2em;
+    border: none;
+    background-color: #fdb5b5;
+}
+.mobileMenu .third .reg-map{
+    border-radius: 40%;
+    font-size: 3em;
+    height: 6rem;
+    width: 6rem;
+    padding-top: 0%;
+    margin-right:2em;
+    margin-bottom: 2em;
+    border: none;
+    background-color: #FAF4B7;
+}
+.mobileMenu .textReg{
+    text-align: left;
+}
+}
