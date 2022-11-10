@@ -40,3 +40,17 @@
 .addNumber{
   margin-top: 20%;
 }
+
+.registerUserButton{
+  margin-top: 3%;
+  width: 7rem;
+  height: 3rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: #716f6f;
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+.RegisterContactHeading{
+  font-size: 25px;
+}

@@ -21,20 +21,23 @@ function AddNumber() {
 
   const addContactNumber = (e) => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/registerContact`, { method: 'POST', body: JSON.stringify({ token, mobileNumber }), headers: { 'content-type': 'application/json' } })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 'success') {
-          setNumber('');
-          setUsername('');
-        }
-        setMessage(data.status);
-      });
+    if (userName === '' && mobileNumber === '') {
+      setMessage('Please Enter Fields..');
+    } else {
+      fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/registerContact`, { method: 'POST', body: JSON.stringify({ token, mobileNumber }), headers: { 'content-type': 'application/json' } })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === 'success') {
+            setNumber('');
+            setUsername('');
+          }
+          setMessage(data.status);
+        });
+    }
   };
 
   return (
     <div className="addNumber">
-      <h1>Add Number</h1>
       <div className="RegisterContactHeading">REGISTER CONTACT</div>
       <form className="registerForm">
         <input
