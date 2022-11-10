@@ -1,11 +1,21 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
-
+import { HiHome } from 'react-icons/hi';
+import { RiArrowGoBackFill } from 'react-icons/ri';
+import { FaBars } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import './ViewNumber.css';
 
 export default function ViewNumber() {
   const [Data, setData] = useState('');
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+  function HomePage() {
+    return navigate('/');
+  }
+  function Back() {
+    return navigate('/Menu');
+  }
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/ViewContact`, { method: 'POST', body: JSON.stringify({ token }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
@@ -16,7 +26,7 @@ export default function ViewNumber() {
   }, []);
 
   return (
-    <div>
+    <div className="viewRegisteredNumber">
       <h2>Registerd Numbers</h2>
       { Data.contactNumber1 ? (
         <p>
@@ -36,6 +46,23 @@ export default function ViewNumber() {
           {Data.contactNumber3}
         </p>
       ) : ''}
+      <div className="footer">
+        <div className="home">
+          <button className="clear" type="submit">
+            <FaBars />
+          </button>
+        </div>
+        <div className="home">
+          <button className="bhome" onClick={HomePage} type="submit">
+            <HiHome />
+          </button>
+        </div>
+        <div className="home">
+          <button className="back" onClick={Back} type="submit">
+            <RiArrowGoBackFill />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

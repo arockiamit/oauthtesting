@@ -1,25 +1,42 @@
-@media only screen and (max-width: 600px) {}
-
-.content {
-  text-align: center;
+.footer{
+  position: fixed;
+  left: 0%;
+  bottom: 0;
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: row;
+  background-color:#716f6f;
 }
 
-#viewbtn {
-  width: 6rem;
+
+.footer .clear{
+  font-size: 1.5em;
   height: 3rem;
-  font-size: 20px;
-  background: bisque;
-  color: black;
-  border-radius: 20px;
-  cursor: pointer;
+  width: 3rem;
+  margin-left: 4rem; 
+  border: none;
+  background-color:#716f6f; 
 }
 
-.tab1 {
-  margin-left: 20%;
-  margin-top: 3%;
-  border: 2px solid;
+.footer .bhome{
+  font-size: 1.5em;
+  height: 3rem;
+  width: 3rem;
+  margin-left: 3rem;
+  border: none;
+  background-color:#716f6f; 
 }
 
-#tab1head {
-  color: lightseagreen;
+.footer .back{
+  font-size: 1.5em;
+  height: 3rem;
+  width: 3rem;
+  margin-left: 3rem; 
+  border: none;
+  background-color: #716f6f; 
+}
+
+.viewRegisteredNumber{
+  margin-top: 20%;
 }
