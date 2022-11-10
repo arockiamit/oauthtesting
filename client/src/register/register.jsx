@@ -11,6 +11,7 @@ export default function Register() {
   const [otp, setOtp] = useState('')
   // handleChange = (e) =>{
   //   const {name,value}=e.target
+
   //   this.setState({
   //       [name]:value
   //     })
