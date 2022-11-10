@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default-member */
+/* eslint-disable import/no-named-as-default */
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -10,6 +12,7 @@ import EditNumber from './pages/EditNumber/EditNumber';
 import DeleteRegNumber from './pages/DeleteRegNum/DeleteRegNum';
 import AddNumber from './pages/AddNumber/AddNumber';
 import ViewNumber from './pages/ViewNumber/ViewNumber';
+import Login from './Google/google';
 
 function App() {
   // const registerdUser = localStorage.getItem('token');
@@ -22,6 +25,7 @@ function App() {
       <Header />
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Register />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Menu" element={<Menu />} />

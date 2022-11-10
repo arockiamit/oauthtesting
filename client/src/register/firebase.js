@@ -1,6 +1,5 @@
-/* eslint eol-last: 0 */
-import { initializeApp } from 'firebase/app';
-// import firebase from 'firebase/app'
+/* eslint-disable no-unused-vars */
+import firebase, { initializeApp } from 'firebase/app';
 import 'firebase/auth';
 
 const firebaseConfig = {

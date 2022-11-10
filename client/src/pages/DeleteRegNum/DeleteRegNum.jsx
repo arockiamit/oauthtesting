@@ -71,21 +71,24 @@ function DeleteRegNumber() {
     <div className="deleteRegisterUser">
       <h1>Delete Number</h1>
       { Data.contactNumber1 ? (
-        <li>
+        <li className="contactList">
           {Data.contactNumber1}
-          <button type="button" onClick={deleteContactNumber1}>Delete</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" className="deleteBtn" onClick={deleteContactNumber1}>Delete</button>
         </li>
       ) : ''}
       { Data.contactNumber2 ? (
-        <li>
+        <li className="contactList">
           {Data.contactNumber2}
-          <button type="button" onClick={deleteContactNumber2}>Delete</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" className="deleteBtn" onClick={deleteContactNumber2}>Delete</button>
         </li>
       ) : ''}
       { Data.contactNumber3 ? (
-        <li>
+        <li className="contactList">
           {Data.contactNumber3}
-          <button type="button" onClick={deleteContactNumber3}>Delete</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" className="deleteBtn" onClick={deleteContactNumber3}>Delete</button>
         </li>
       ) : ''}
       <div className="footer">
