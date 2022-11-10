@@ -15,14 +15,14 @@ import ViewNumber from './pages/ViewNumber/ViewNumber';
 
 function App() {
   const registerdUser = localStorage.getItem('token');
-  if (!registerdUser) {
-    return <Navigate to="/" />;
-  }
+  // if (!registerdUser) {
+  //   return <Navigate to="/" />;
+  // }
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={!registerdUser ? <Register /> : <Navigate to="/registerNumber" />} />
+          <Route path="/" element={!registerdUser ? <Register /> : <Navigate to="/Menu" />} />
           <Route path="/Menu" element={registerdUser ? <Menu /> : <Navigate to="/" />} />
           <Route path="/callNumber" element={<CallNumber />} />
           <Route path="/deleteCallNumber" element={<DeleteCallNumber />} />

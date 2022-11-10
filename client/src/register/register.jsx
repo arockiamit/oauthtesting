@@ -51,7 +51,7 @@ export default function Register() {
       }).catch(() => {
         // Error; SMS not sent
         // ...
-        console.log('SMS SENT');
+        console.log('SMS NOT SENT');
       });
   }
   function onSubmitOtp() {

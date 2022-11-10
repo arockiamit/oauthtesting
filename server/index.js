@@ -39,11 +39,11 @@ app.use('/images', express.static(path.join(__dirname, '/../client/build/images'
 //   return (phoneNumber);
 // };
 
-app.post('/userRegister', (req, res) => {
+app.post('/userRegister', async (req, res) => {
   const { phoneNumber, name } = req.body;
   try {
-    UserDetails.create({ userName: name, userMobileNumber: phoneNumber });
-    const { user } = UserDetails.findOne({ userMobileNumber: phoneNumber });
+    await UserDetails.create({ userName: name, userMobileNumber: phoneNumber });
+    const { user } = await UserDetails.findOne({ userMobileNumber: phoneNumber });
     const mobileNumber = user.userMobileNumber;
     console.log(mobileNumber);
     const token = jwt.sign({ mobileNumber }, JWT_SECRET_KEY);
@@ -55,7 +55,7 @@ app.post('/userRegister', (req, res) => {
 
 app.post('/api/registerContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
-
+  // const userPhoneNUmber = tokenDecode(token);
   await UserDetails.findOne({ userMobileNumber: token }).then(async (data) => {
     if (data.contactNumber1 === undefined) {
       await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber1: mobileNumber } });
