@@ -3,8 +3,9 @@
 /* eslint-disable no-console */
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const bodyParser = require('body-parser');
+const url = require('url');
+const path = require('path');
 const mongoose = require('mongoose');
 const { UserDetails } = require('./schema');
 
@@ -65,6 +66,12 @@ app.post('/addnum', async(req,res) => {
       alert='please fill the fields'
       res.json(alert);
     }
+});
+
+app.post('/picture', async (req) => {
+  const { img } = req.body;
+  const pic = url.parse(img);
+  console.log(pic);
 });
 
 app.post('/number', (req) => {
