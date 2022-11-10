@@ -32,34 +32,46 @@ function Menu() {
     <center>
       <div className="mobileMenu">
         <div className="first">
-          <button className="reg-add" onClick={Register} type="submit">
-            <BiCommentAdd />
-          </button>
-          {/* <h5 className="textReg">Register Number</h5> */}
-          <button className="reg-view" onClick={ViewRegister} type="submit">
-            <GrView />
-            {/* View Register Number */}
-          </button>
+          <div className="child">
+            <button className="reg-add" onClick={Register} type="submit">
+              <BiCommentAdd />
+            </button>
+            <p className="childtext">Register</p>
+          </div>
+          <div className="child">
+            <button className="reg-view" onClick={ViewRegister} type="submit">
+              <GrView />
+            </button>
+            <p>View Register</p>
+          </div>
         </div>
-        <div className="second">
-          <button className="reg-del" onClick={DeleteRegNum} type="submit">
-            <MdDelete />
-            {/* Delete Number */}
-          </button>
-          <button className="reg-call" onClick={CallNumber} type="submit">
-            <IoCall />
-            {/* Call Number */}
-          </button>
+        <div className="first">
+          <div className="child">
+            <button className="reg-del" onClick={DeleteRegNum} type="submit">
+              <MdDelete />
+            </button>
+            <p className="childtext">Delete</p>
+          </div>
+          <div className="child">
+            <button className="reg-call" onClick={CallNumber} type="submit">
+              <IoCall />
+            </button>
+            <p>Call</p>
+          </div>
         </div>
-        <div className="third">
-          <button className="reg-cdel" onClick={DeleteCallNum} type="submit">
-            <HiPhoneMissedCall />
-            {/* Delete Call Number */}
-          </button>
-          <button className="reg-map" onClick={MapNearby} type="submit">
-            <GrMap />
-            {/* NearBy Police Station 🗺️ */}
-          </button>
+        <div className="first">
+          <div className="child">
+            <button className="reg-cdel" onClick={DeleteCallNum} type="submit">
+              <HiPhoneMissedCall />
+            </button>
+            <p className="childtext">Delete Call</p>
+          </div>
+          <div className="child">
+            <button className="reg-map" onClick={MapNearby} type="submit">
+              <GrMap />
+            </button>
+            <p>Location</p>
+          </div>
         </div>
       </div>
     </center>
