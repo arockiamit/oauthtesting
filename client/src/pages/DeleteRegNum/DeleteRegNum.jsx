@@ -26,7 +26,7 @@ function DeleteRegNumber() {
           setContactNumber3(data.contactNumber3);
         }
       });
-  }, [Data, contactNumber1, contactNumber2, contactNumber3, token]);
+  }, []);
 
   function deleteContactNumber1(e) {
     e.preventDefault();

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable no-else-return */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
@@ -74,18 +75,39 @@ app.post('/api/registerContact', async (req, res) => {
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
   const { token } = req.body;
-  await UserDetails.findOne({ userMobileNumber: token }, { userMobileNumber: 0 }).then((data) => {
+  console.log(token);
+  await UserDetails.findOne({ userMobileNumber: token }, { userMobileNumber: 0, _id: 0, __v: 0 }).then((data) => {
+    res.json(data);
+    console.log(data);
+  });
+});
+
+// API to delete Registered Contact1
+app.post('/api/deleteContactNumber1', async (req, res) => {
+  const { token } = req.body;
+  await UserDetails.updateOne({ userMobileNumber: token }, { $unset: { contactNumber1: '' } });
+  await UserDetails.find({}).then((data) => {
     res.json(data);
   });
 });
 
-//  API to delete Registered Contact
-// app.delete('/remove', async (req, res) => {
-//   await UserDetails.UpdateOne({ $unset: '' });
-//   await UserDetails.find({}).then((data) => {
-//     res.json({ data });
-//   });
-// });
+// API to delete Registered Contact2
+app.post('/api/deleteContactNumber2', async (req, res) => {
+  const { token } = req.body;
+  await UserDetails.updateOne({ userMobileNumber: token }, { $unset: { contactNumber2: '' } });
+  await UserDetails.find({}).then((data) => {
+    res.json(data);
+  });
+});
+
+// API to delete Registered Contact3
+app.post('/api/deleteContactNumber3', async (req, res) => {
+  const { token } = req.body;
+  await UserDetails.updateOne({ userMobileNumber: token }, { $unset: { contactNumber3: '' } });
+  await UserDetails.find({}).then((data) => {
+    res.json(data);
+  });
+});
 
 // API to edit Registered Contact
 // app.put('/modify', async (req, res) => {
@@ -96,6 +118,32 @@ app.post('/api/ViewContact', async (req, res) => {
 //   );
 // });
 
+// API for alert message
+app.post('/api/alertMessage', async (req) => {
+  const { location } = req.body;
+  const axios = require('axios');
+  const a = +917339437623;
+  const b = location;
+  const data = `{"messaging_product": "whatsapp", "to":${a}, "type": "template", "template": { "name": "code_wizards_alert", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${b}"},{"type":"text","text":"www.google.com"}]}] }}`;
+
+  const config = {
+    method: 'POST',
+    url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer EAAP6obW3ZB1oBAJUyluPDnDkg8GzuyQwKOFXFBkyZCMBCF9ydsoG0tZB0jmqkdqrdi7uUc2DL3KafZCoxKVo6ZBsajfXPydlLRnmQNppFyVyZBbY0ie3ZCLPq9qQK0JzQmAGhSiLJ0DDOUBYQrAQUqMN0n4SAGZCdh1dZCzO8dmBZCOQF1smPH22oGXDyEO4JY2HQmaXj5JNqionEuFAuf3j5G',
+    },
+    data,
+  };
+
+  axios(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 // const result = async () => {
 //   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
 //   await UserDetails.find({ userMobileNumber: 9047420795 });

@@ -13,7 +13,7 @@ export default function ViewNumber() {
         setData(data);
         console.log(data);
       });
-  }, [token]);
+  }, []);
 
   return (
     <div>
