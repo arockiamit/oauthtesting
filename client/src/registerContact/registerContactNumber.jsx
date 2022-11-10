@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 function RegisterContact() {
   const [userName, setUsername] = useState('');
   const [mobileNumber, setNumber] = useState();
+  const token = localStorage.getItem('token');
 
   const addContactNumber = () => {
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/register`, { method: 'POST', body: JSON.stringify({ mobileNumber }), headers: { 'content-type': 'application/json' } })
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/registerContact`, { method: 'POST', body: JSON.stringify({ token, mobileNumber }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
