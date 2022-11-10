@@ -51,9 +51,22 @@ app.post('/api/register', async (req, res) => {
   });
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello world!');
+app.get('/search', async(req, res) => {
+  await UserDetails.find({}).then((data)=>{
+    res.json(data)})
+
 });
+
+app.post('/addnum', async(req,res) => {
+  const {num1, } = req.body;
+    if(num1!==''){
+    await UserDetails.create({ contactNumber1:num1 });
+    }else{
+      alert='please fill the fields'
+      res.json(alert);
+    }
+});
+
 app.post('/number', (req) => {
   const { phoneNumber, name } = req.body;
   console.log(phoneNumber);

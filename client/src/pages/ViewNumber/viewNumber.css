@@ -1,0 +1,26 @@
+@media only screen and (max-width: 500px) {
+
+  .viewPage{
+  text-align: center;
+  }
+
+  #viewbtn{
+    width: 6rem;
+    height: 3rem;
+    font-size: 20px;
+    background: bisque;
+    color:black;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .viewTable{
+    padding: 5px;
+    margin-left: 15%;
+    margin-top: 3%;
+
+  }
+  .viewTable .tableRows {
+    border-bottom: 2px solid black;
+    color:white;
+  }
+}
