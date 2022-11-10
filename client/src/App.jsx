@@ -25,7 +25,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Register />} />
-          <Route path="/Home" element = {<Home />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/callNumber" element={<EditNumber />} />
           <Route path="/deleteCallNumber" element={<DeleteCallNumber />} />

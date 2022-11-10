@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './home.css';
 import volume from './volume.png';
-import { useState } from 'react';
 import song from './audio/siren.mp3';
 
 const siren = new Audio(song);
@@ -21,16 +20,16 @@ export default function Home() {
   return (
     <div className="homePage">
       <nav className="navBar">
-        <button type="button" onClick={sirenaudio} >
+        <button type="button" onClick={sirenaudio}>
           <img src={volume} alt="Alert" />
         </button>
       </nav>
       <div className="alertButton">
         <button className="button" type="button">SOS</button>
       </div>
-      <hr/>
-      <div className='footer'>
-        <a href='/menu'>MENU</a>
+      <hr />
+      <div className="footer">
+        <a href="/menu">MENU</a>
       </div>
     </div>
   );
