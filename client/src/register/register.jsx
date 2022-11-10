@@ -4,6 +4,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './register.css';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
@@ -13,6 +14,7 @@ export default function Register() {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
   const [otp, setOtp] = useState('');
+  const navigate = useNavigate();
   // handleChange = (e) =>{
   //   const {name,value}=e.target
   //   this.setState({
@@ -68,6 +70,8 @@ export default function Register() {
         { method: 'post', body: JSON.stringify({ number, name }), headers: { 'content-type': 'application/json' } },
       );
       alert('user verified');
+      localStorage.setItem('token', number);
+      return navigate('/Home');
       // ...
     }).catch((error) => {
       // User couldn't sign in (bad verification code?)
