@@ -16,26 +16,26 @@ const userSchema = new mongoose.Schema({
   contactNumber1: {
     type: Number,
     trim: true,
-    min: [10, 'Phone number should contain at least 10 digits..'],
-    max: [10, 'Phone number should contain at most 10 digits..'],
+    min: [13, 'Phone number should contain at least 10 digits..'],
+    max: [13, 'Phone number should contain at most 10 digits..'],
   },
   contactNumber2: {
     type: Number,
     trim: true,
-    min: [10, 'Phone number should contain at least 10 digits..'],
-    max: [10, 'Phone number should contain at most 10 digits..'],
+    min: [13, 'Phone number should contain at least 10 digits..'],
+    max: [13, 'Phone number should contain at most 10 digits..'],
   },
   contactNumber3: {
     type: Number,
     trim: true,
-    min: [10, 'Phone number should contain at least 10 digits..'],
-    max: [10, 'Phone number should contain at most 10 digits..'],
+    min: [13, 'Phone number should contain at least 10 digits..'],
+    max: [13, 'Phone number should contain at most 10 digits..'],
   },
   callingNumber: {
     type: Number,
     trim: true,
-    min: [10, 'Phone number should contain at least 10 digits..'],
-    max: [10, 'Phone number should contain at most 10 digits..'],
+    min: [13, 'Phone number should contain at least 10 digits..'],
+    max: [13, 'Phone number should contain at most 10 digits..'],
   },
 }, { collection: 'userDetails' });
 
