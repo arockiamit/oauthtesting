@@ -71,6 +71,31 @@ app.post('/api/registerContact', async (req, res) => {
   });
 });
 
+// API to View Registered Contact
+app.post('/api/ViewContact', async (req, res) => {
+  const { token } = req.body;
+  await UserDetails.findOne({ userMobileNumber: token }, { userMobileNumber: 0 }).then((data) => {
+    res.json(data);
+  });
+});
+
+//  API to delete Registered Contact
+// app.delete('/remove', async (req, res) => {
+//   await UserDetails.UpdateOne({ $unset: '' });
+//   await UserDetails.find({}).then((data) => {
+//     res.json({ data });
+//   });
+// });
+
+// API to edit Registered Contact
+// app.put('/modify', async (req, res) => {
+//   const { number } = req.body;
+//   await UserDetails.updateOne(
+//     { userMobileNumber: number },
+//     { $set: { contactNumber1: number } },
+//   );
+// });
+
 // const result = async () => {
 //   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
 //   await UserDetails.find({ userMobileNumber: 9047420795 });

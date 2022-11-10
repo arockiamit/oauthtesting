@@ -1,0 +1,115 @@
+@media only screen and (min-width:500px) {
+  body {
+    width: 100%;
+    background-color: #868e8a;
+  }
+
+  .registerForm input {
+    margin: 5%;
+    width: 75%;
+    height: 50px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid;
+  }
+
+  .registerForm input ::placeholder {
+    color: antiquewhite;
+  }
+
+  .registerForm {
+    margin-top: 5%;
+  }
+
+  .whiteBg {
+    background-color: white;
+    height: 30rem;
+    width: 30%;
+    padding: 1rem;
+    margin-left: 33%;
+    margin-bottom: 10%;
+    border-radius: 15px;
+  }
+
+  .whiteBg p {
+    margin-top: 2rem;
+  }
+
+  .continueBtn {
+
+    width: 7rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #868e8a;
+  }
+
+  .verifyBtn {
+    margin-top: 3%;
+    width: 7rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #868e8a;
+
+  }
+}
+
+
+@media only screen and (max-width : 500px) {
+  body {
+    width: 100%;
+    background-color: #868e8a;
+  }
+
+  .registerForm input {
+    margin: 5%;
+    width: 75%;
+    height: 50px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid;
+  }
+
+  .registerForm input ::placeholder {
+    color: antiquewhite;
+  }
+
+  .registerForm {
+    margin-top: 1%;
+  }
+
+  .whiteBg {
+    background-color: white;
+    height: 30rem;
+    padding: 1rem;
+    margin: 0 10%;
+    margin-top: 14%;
+    border-radius: 15px;
+  }
+
+  .whiteBg p {
+    margin-top: 2rem;
+  }
+
+  .continueBtn {
+    margin-top: 3%;
+    width: 7rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #868e8a;
+  }
+
+  .verifyBtn {
+    margin-top: 3%;
+    width: 7rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #868e8a;
+
+  }
+}

@@ -7,14 +7,15 @@ import Menu from './components/Menu/Menu';
 
 import Register from './register/register';
 import Location from './pages/Loaction/location';
-import CallNumber from './pages/CallNumber/CallNumber';
 import DeleteCallNumber from './pages/DeleteCallNum/DeleteCallNum';
 import DeleteRegNumber from './pages/DeleteRegNum/DeleteRegNum';
 import RegisterNumber from './pages/RegisterNumber/RegisterNumber';
 import ViewNumber from './pages/ViewNumber/ViewNumber';
+import EditNumber from './pages/EditNumber/EditNumber';
 
 function App() {
-  const registerdUser = localStorage.getItem('token');
+  // const registerdUser = localStorage.getItem('token');
+  // console.log(registerUser);
   // if (!registerdUser) {
   //   return <Navigate to="/" />;
   // }
@@ -22,9 +23,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={!registerdUser ? <Register /> : <Navigate to="/Menu" />} />
-          <Route path="/Menu" element={registerdUser ? <Menu /> : <Navigate to="/" />} />
-          <Route path="/callNumber" element={<CallNumber />} />
+          <Route path="/" element={<Register />} />
+          <Route path="/Menu" element={<Menu />} />
+          <Route path="/callNumber" element={<EditNumber />} />
           <Route path="/deleteCallNumber" element={<DeleteCallNumber />} />
           <Route path="/deleteRegNumber" element={<DeleteRegNumber />} />
           <Route path="/registerNumber" element={<RegisterNumber />} />
