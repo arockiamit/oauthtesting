@@ -1,11 +1,23 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
+import { HiHome } from 'react-icons/hi';
+import { RiArrowGoBackFill } from 'react-icons/ri';
+import { FaBars } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import './AddNumber.css';
 
-function RegisterNumber() {
+function AddNumber() {
   const [userName, setUsername] = useState('');
   const [mobileNumber, setNumber] = useState();
   const [message, setMessage] = useState('');
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+  function HomePage() {
+    return navigate('/');
+  }
+  function Back() {
+    return navigate('/Menu');
+  }
 
   const addContactNumber = (e) => {
     e.preventDefault();
@@ -21,7 +33,8 @@ function RegisterNumber() {
   };
 
   return (
-    <div className="App">
+    <div className="addNumber">
+      <h1>Add Number</h1>
       <div className="RegisterContactHeading">REGISTER CONTACT</div>
       <form className="registerForm">
         <input
@@ -47,8 +60,25 @@ function RegisterNumber() {
         <h3>{message}</h3>
         <button type="submit" className="registerUserButton" onClick={addContactNumber}>REGISTER</button>
       </form>
+      <div className="footer">
+        <div className="home">
+          <button className="clear" type="submit">
+            <FaBars />
+          </button>
+        </div>
+        <div className="home">
+          <button className="bhome" onClick={HomePage} type="submit">
+            <HiHome />
+          </button>
+        </div>
+        <div className="home">
+          <button className="back" onClick={Back} type="submit">
+            <RiArrowGoBackFill />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default RegisterNumber;
+export default AddNumber;

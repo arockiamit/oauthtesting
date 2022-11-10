@@ -1,0 +1,61 @@
+.footer{
+  position: fixed;
+  left: 0%;
+  bottom: 0;
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: row;
+  background-color:#716f6f;
+}
+
+
+.footer .clear{
+  font-size: 1.5em;
+  height: 3rem;
+  width: 3rem;
+  margin-left: 4rem;
+  border: none;
+  background-color:#716f6f;
+}
+
+.footer .bhome{
+  font-size: 1.5em;
+  height: 3rem;
+  width: 3rem;
+  margin-left: 3rem;
+  border: none;
+  background-color:#716f6f;
+}
+
+.footer .back{
+  font-size: 1.5em;
+  height: 3rem;
+  width: 3rem;
+  margin-left: 3rem;
+  border: none;
+  background-color: #716f6f;
+}
+
+.deleteRegisterUser{
+  margin-top: 20%;
+}
+@media only screen and (max-width:500px){
+  .deleteRegisterUser li {
+    list-style: none;
+    padding: 1rem;
+    font-size: x-large;
+    margin: 5%;
+  }
+  .deleteRegisterUser .deleteBtn {
+     width: 4rem;
+     height: 2rem;
+     color: white;
+     border-radius: 5px;
+     background-color: #716f6f;
+     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  }
+  .deleteRegisterUser .contactList{
+    border-bottom: 1px solid;
+  }
+}
