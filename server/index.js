@@ -6,7 +6,6 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-const url = require('url');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const { UserDetails } = require('./schema');
