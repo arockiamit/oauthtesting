@@ -12,6 +12,7 @@ export default function Home() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [location, setLocation] = useState();
+  const token = localStorage.getItem('token');
   const sirenaudio = () => {
     if (audio === false) {
       siren.play();
@@ -31,7 +32,7 @@ export default function Home() {
   });
 
   const alertMessage = () => {
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/alertMessage`, { method: 'POST', body: JSON.stringify({ location }), headers: { 'content-type': 'application/json' } })
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/alertMessage`, { method: 'POST', body: JSON.stringify({ token, location }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

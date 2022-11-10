@@ -36,19 +36,17 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 // Function to decode the token
-// const tokenDecode = (token) => {
-//   const phoneNumber = jwt.verify(token, JWT_SECRET_KEY);
-//   return (phoneNumber);
-// };
+const tokenDecode = (token) => {
+  const phoneNumber = jwt.verify(token, JWT_SECRET_KEY);
+  return (phoneNumber);
+};
 
 app.post('/userRegister', async (req, res) => {
   const { phoneNumber, name } = req.body;
   try {
     await UserDetails.create({ userName: name, userMobileNumber: phoneNumber });
-    const { user } = await UserDetails.findOne({ userMobileNumber: phoneNumber });
-    const mobileNumber = user.userMobileNumber;
-    console.log(mobileNumber);
-    const token = jwt.sign({ mobileNumber }, JWT_SECRET_KEY);
+    const token = jwt.sign({ phoneNumber }, JWT_SECRET_KEY);
+    console.log(token);
     return res.json({ status: 'success', token });
   } catch (error) {
     return res.json({ error });
@@ -57,17 +55,17 @@ app.post('/userRegister', async (req, res) => {
 
 app.post('/api/registerContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
-  // const userPhoneNUmber = tokenDecode(token);
+  const userPhoneNUmber = tokenDecode(token);
   if (mobileNumber !== null) {
-    await UserDetails.findOne({ userMobileNumber: token }).then(async (data) => {
+    await UserDetails.findOne({ userMobileNumber: userPhoneNUmber }).then(async (data) => {
       if (data.contactNumber1 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber1: mobileNumber } });
+        await UserDetails.updateOne({ userMobileNumber: userPhoneNUmber }, { $set: { contactNumber1: mobileNumber } });
         return res.json({ status: 'Successfully added..' });
       } else if (data.contactNumber2 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber2: mobileNumber } });
+        await UserDetails.updateOne({ userMobileNumber: userPhoneNUmber }, { $set: { contactNumber2: mobileNumber } });
         return res.json({ status: 'Successfully added..' });
       } else if (data.contactNumber3 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber3: mobileNumber } });
+        await UserDetails.updateOne({ userMobileNumber: userPhoneNUmber }, { $set: { contactNumber3: mobileNumber } });
         return res.json({ status: 'Successfully added..' });
       }
       return res.json({ status: 'Already 3 users have been added' });
@@ -80,8 +78,8 @@ app.post('/api/registerContact', async (req, res) => {
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
   const { token } = req.body;
-  console.log(token);
-  await UserDetails.findOne({ userMobileNumber: token }, { userMobileNumber: 0, _id: 0, __v: 0 }).then((data) => {
+  const userPhoneNUmber = tokenDecode(token);
+  await UserDetails.findOne({ userMobileNumber: userPhoneNUmber }, { userMobileNumber: 0, _id: 0, __v: 0 }).then((data) => {
     res.json(data);
     console.log(data);
   });
@@ -115,17 +113,24 @@ app.post('/api/deleteContactNumber3', async (req, res) => {
 });
 
 // API to edit Registered Contact
-// app.put('/modify', async (req, res) => {
-//   const { number } = req.body;
-//   await UserDetails.updateOne(
-//     { userMobileNumber: number },
-//     { $set: { contactNumber1: number } },
-//   );
-// });
+app.put('/modify', async (req, res) => {
+  const { num1, num2, num3 } = req.body;
+  if (num1 !== '' && num2 !== '' && num3 !== '') {
+    await UserDetails.updateOne(
+      {},
+      {
+        $set: { contactNumber1: num1, contactNumber2: num2, contactNumber3: num3 },
+      },
+    );
+  } else {
+    const data = 'Please fill all numbers';
+    res.json(data);
+  }
+});
 
 // API for alert message
 app.post('/api/alertMessage', async (req) => {
-  const { location } = req.body;
+  const { token, location } = req.body;
   const axios = require('axios');
   const a = +917339437623;
   const b = location;

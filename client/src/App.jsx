@@ -1,8 +1,11 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter, Navigate, Route, Routes,
+} from 'react-router-dom';
 import Menu from './Components/Menu';
 import Header from './Components/Header/Header';
 import Register from './register/register';
@@ -15,8 +18,11 @@ import ViewNumber from './pages/ViewNumber/ViewNumber';
 import Login from './Google/google';
 
 function App() {
-  // const registerdUser = localStorage.getItem('token');
-  // console.log(registerUser);
+  const accessedUser = localStorage.getItem('accessToken');
+  const registerdUser = localStorage.getItem('token');
+  console.log(registerdUser);
+  console.log(accessedUser);
+
   // if (!registerdUser) {
   //   return <Navigate to="/" />;
   // }
@@ -25,8 +31,8 @@ function App() {
       <Header />
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Register />} />
+          <Route path="/" element={!accessedUser ? <Login /> : <Navigate to="/register" />} />
+          <Route path="/register" element={!registerdUser ? <Register /> : <Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/editNumber" element={<EditNumber />} />
@@ -34,6 +40,7 @@ function App() {
           <Route path="/addNumber" element={<AddNumber />} />
           <Route path="/viewNumber" element={<ViewNumber />} />
           <Route path="/location" element={<Location />} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
     </div>
