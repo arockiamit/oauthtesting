@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import './ViewNumber.css';
 
-function ViewNumber() {
+export default function ViewNumber() {
   const [Data, setData] = useState('');
   const token = localStorage.getItem('token');
   function viewnum(e) {
@@ -46,5 +46,3 @@ function ViewNumber() {
     </div>
   );
 }
-
-export default ViewNumber;

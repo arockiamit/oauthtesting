@@ -1,15 +1,6 @@
-@media only screen and (max-width: 600px) {
-  
-}
-.content{
-  text-align: center;
-}
+@media only screen and (max-width: 500px) {
 
-  .tab2{
-    margin-left: 40%;
-    margin-top: 3%;
-    border: 2px solid;
+  .viewPage{
+  text-align: center;
   }
-  #tab2head{
-    color: lightseagreen;  
-  }
+}

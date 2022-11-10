@@ -6,6 +6,7 @@ import {
 import Menu from './components/Menu/Menu';
 
 import Register from './register/register';
+import Home from './pages/home/home';
 import Location from './pages/Loaction/location';
 import DeleteCallNumber from './pages/DeleteCallNum/DeleteCallNum';
 import DeleteRegNumber from './pages/DeleteRegNum/DeleteRegNum';
@@ -24,6 +25,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Register />} />
+          <Route path="/Home" element = {<Home />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/callNumber" element={<EditNumber />} />
           <Route path="/deleteCallNumber" element={<DeleteCallNumber />} />
