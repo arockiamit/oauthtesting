@@ -71,10 +71,6 @@ app.post('/api/registerContact', async (req, res) => {
   });
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
-
 // const result = async () => {
 //   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
 //   await UserDetails.find({ userMobileNumber: 9047420795 });

@@ -2,7 +2,7 @@ FROM node:16-alpine
 
 # Set the working directory
 ENV NODE_ENV=${NODE_ENV:-DEV}
-ENV REACT_APP_SERVER_PREFIX=${REACT_APP_SERVER_PREFIX:-https://library-management-system-3iegf.ondigitalocean.app}
+ENV REACT_APP_SERVER_PREFIX=${REACT_APP_SERVER_PREFIX:-https://safety-app-sctoc.ondigitalocean.app/}
 
 WORKDIR /app
 
