@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {  BrowserRouter, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Menu from './Components/Menu';
 
 import Register from './register/register';
