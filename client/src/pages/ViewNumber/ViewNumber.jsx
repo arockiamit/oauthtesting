@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 
-import './ViewNumber.css';
+import './viewNumber.css';
 
 export default function ViewNumber() {
   const [Data, setData] = useState('');
