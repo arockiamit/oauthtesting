@@ -55,6 +55,29 @@ app.post('/userRegister', async (req, res) => {
   }
 });
 
+app.post('/search', async (req, res) => {
+  const { TOKEN } = req.body;
+  console.log(TOKEN, 22);
+  await UserDetails.findOne({ userMobileNumber: TOKEN }, { userMobileNumber: 0 }).then((data) => {
+    console.log(data);
+    return res.json(data);
+  });
+});
+
+app.put('/modify', async (req, res) => {
+  const { num1, num2, num3 } = req.body;
+  if (num1 !== '' && num2 !== '' && num3 !== '') {
+    await UserDetails.updateOne(
+      {},
+      {
+        $set: { contactNumber1: num1, contactNumber2: num2, contactNumber3: num3 },
+      },
+    );
+  } else {
+    const data = 'Please fill all numbers';
+    res.json(data);
+  }
+});
 app.post('/api/registerContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
   // const userPhoneNUmber = tokenDecode(token);

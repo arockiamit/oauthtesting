@@ -1,4 +1,4 @@
-.footer{
+.footer {
   position: fixed;
   left: 0%;
   bottom: 0;
@@ -6,37 +6,141 @@
   margin-top: 3rem;
   display: flex;
   flex-direction: row;
-  background-color:#716f6f;
+  background-color: #716f6f;
 }
 
-
-.footer .clear{
+.footer .clear {
   font-size: 1.5em;
   height: 3rem;
   width: 3rem;
-  margin-left: 4rem; 
+  margin-left: 4rem;
   border: none;
-  background-color:#716f6f; 
+  background-color: #716f6f;
 }
 
-.footer .bhome{
+.footer .bhome {
   font-size: 1.5em;
   height: 3rem;
   width: 3rem;
   margin-left: 3rem;
   border: none;
-  background-color:#716f6f; 
+  background-color: #716f6f;
 }
 
-.footer .back{
+.footer .back {
   font-size: 1.5em;
   height: 3rem;
   width: 3rem;
-  margin-left: 3rem; 
+  margin-left: 3rem;
   border: none;
-  background-color: #716f6f; 
+  background-color: #716f6f;
 }
 
-.editRegisteredNumber{
+.editRegisteredNumber {
   margin-top: 20%;
+}
+
+@media only screen and (max-width: 500px) {
+  .content {
+    margin-top: 40%;
+  }
+
+  .tab1 {
+    border: none;
+    height: 12rem;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .tab1 tr,
+  td,
+  th {
+    border-style: none;
+    padding: 10px;
+    width: 2rem;
+    font-size: large;
+
+  }
+
+  .tab1 button {
+    border: none;
+  }
+
+  .tab1 td input {
+    width: 6rem;
+    padding: 3px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid;
+    background: none
+  }
+  .tab1 input[type="text"]{
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .tab .update-container{
+    width: 5rem;
+  }
+  .atmsg {
+    margin-left: 10px;
+    margin-top: 30px;
+    font-size: 20px;
+    color: red;
+  }
+
+  .updatePopup {
+    position: fixed;
+    margin-top: 2%;
+    margin-left: 30%;
+    height: 100%;
+    top: 50%;
+  }
+
+  .modal-content10 {
+    height: 20%;
+    margin-left: 5rem;
+    transform: translate(-50%, -50%);
+    color: #828485;
+    line-height: 1.4;
+    background: rgb(245, 246, 248);
+    box-shadow: 7px 4px 9px -1px rgba(0, 0, 0, 0.75);
+    border-radius: 35px;
+    border-left: 1px solid rgba(104, 104, 104, 0.79);
+    border-top: 1px solid rgba(69, 69, 69, 0.5);
+    padding: 14px 28px;
+    min-width: 200px;
+    transition: .4s;
+  }
+
+  .close-modal1 {
+
+    color: black;
+    font-size: larger;
+    height: 40px;
+    width: 60px;
+    margin-top: 0;
+    border-width: 2px;
+    border-color: #fafbfc;
+    border-radius: 10px;
+    background-color: #d8e9f0;
+    background-image: linear-gradient(to top, rgb(208, 220, 218), #717272);
+    box-shadow: 3px 3px 5px rgba(31, 38, 135, .40);
+    border-left: 2px solid rgba(0, 0, 0, 0.3);
+    border-top: 2px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .updateMessage {
+    font-size: 20px;
+    color: #272728;
+    margin-top: 1%;
+  }
+  .tab1 .editBtn{
+    width: 4rem;
+     height: 2rem;
+     color: white;
+     border-radius: 5px;
+     background-color: #716f6f;
+     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  }
 }
