@@ -9,12 +9,9 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const { UserDetails } = require('./schema');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
-
-const JWT_SECRET_KEY = 'asdfghjnbvsdfgh';
 
 const app = express();
 // mogoose connection
@@ -35,19 +32,11 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use('/static', express.static(path.join(__dirname, '/../client/build/static')));
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
-// Function to decode the token
-const tokenDecode = (token) => {
-  const phoneNumber = jwt.verify(token, JWT_SECRET_KEY);
-  return (phoneNumber);
-};
-
 app.post('/userRegister', async (req, res) => {
   const { phoneNumber, name } = req.body;
   try {
     await UserDetails.create({ userName: name, userMobileNumber: phoneNumber });
-    const token = jwt.sign({ phoneNumber }, JWT_SECRET_KEY);
-    console.log(token);
-    return res.json({ status: 'success', token });
+    return res.json({ status: 'success', phoneNumber });
   } catch (error) {
     return res.json({ error });
   }
@@ -55,17 +44,18 @@ app.post('/userRegister', async (req, res) => {
 
 app.post('/api/registerContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
-  const userPhoneNUmber = tokenDecode(token);
+  // const userPhoneNUmber = tokenDecode(token);
+  const number = `91${mobileNumber}`;
   if (mobileNumber !== null) {
-    await UserDetails.findOne({ userMobileNumber: userPhoneNUmber }).then(async (data) => {
+    await UserDetails.findOne({ userMobileNumber: token }).then(async (data) => {
       if (data.contactNumber1 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: userPhoneNUmber }, { $set: { contactNumber1: mobileNumber } });
+        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber1: number } });
         return res.json({ status: 'Successfully added..' });
       } else if (data.contactNumber2 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: userPhoneNUmber }, { $set: { contactNumber2: mobileNumber } });
+        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber2: number } });
         return res.json({ status: 'Successfully added..' });
       } else if (data.contactNumber3 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: userPhoneNUmber }, { $set: { contactNumber3: mobileNumber } });
+        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber3: number } });
         return res.json({ status: 'Successfully added..' });
       }
       return res.json({ status: 'Already 3 users have been added' });
@@ -78,8 +68,7 @@ app.post('/api/registerContact', async (req, res) => {
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
   const { token } = req.body;
-  const userPhoneNUmber = tokenDecode(token);
-  await UserDetails.findOne({ userMobileNumber: userPhoneNUmber }, { userMobileNumber: 0, _id: 0, __v: 0 }).then((data) => {
+  await UserDetails.findOne({ userMobileNumber: token }, { userMobileNumber: 0, _id: 0, __v: 0 }).then((data) => {
     res.json(data);
     console.log(data);
   });
@@ -131,28 +120,59 @@ app.put('/modify', async (req, res) => {
 // API for alert message
 app.post('/api/alertMessage', async (req) => {
   const { token, location } = req.body;
-  const axios = require('axios');
-  const a = +917339437623;
+  // const userPhoneNUmber = tokenDecode(token);
+  const details = await UserDetails.find({ userMobileNumber: token });
+  console.log(details);
+  const [user] = details;
   const b = location;
-  const data = `{"messaging_product": "whatsapp", "to":${a}, "type": "template", "template": { "name": "code_wizards_alert", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${b}"},{"type":"text","text":"www.google.com"}]}] }}`;
+  const axios = require('axios');
 
-  const config = {
-    method: 'POST',
-    url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer EAAP6obW3ZB1oBAJUyluPDnDkg8GzuyQwKOFXFBkyZCMBCF9ydsoG0tZB0jmqkdqrdi7uUc2DL3KafZCoxKVo6ZBsajfXPydlLRnmQNppFyVyZBbY0ie3ZCLPq9qQK0JzQmAGhSiLJ0DDOUBYQrAQUqMN0n4SAGZCdh1dZCzO8dmBZCOQF1smPH22oGXDyEO4JY2HQmaXj5JNqionEuFAuf3j5G',
-    },
-    data,
-  };
+  if (user.contactNumber1) {
+    const a = user.contactNumber1;
+    console.log(a, '123');
+    console.log(location);
+    // const a = +917339437623;
+    console.log(b);
+    const data = `{"messaging_product": "whatsapp", "to":${user.contactNumber1}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${user.userName}"},{"type":"text","text":"${b}"}]}] }}`;
+    const config = {
+      method: 'POST',
+      url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer EAAP6obW3ZB1oBAMQMdnrHWSjztlDfMvJBhsFirWhAK7AdIA33WJZAUpCZAKsun3pksmxDjgq9SAOgvcU00GlE32bz1ZBDxf8u04QK8O28bcZBZAsuK9DhLAE2VQ2j8PRSO1P8WwT4vrMSmHTuexAdR0j5F1vfvEJT193fVoWJZBrbZCd1BVDodNlxnpL0UR2DTGD8PrWKAnu1dF6nP5R7YTd',
+      },
+      data,
+    };
+    axios(config);
+  }
 
-  axios(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  if (user.contactNumber2) {
+    const data1 = `{"messaging_product": "whatsapp", "to":${user.contactNumber2}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${user.userName}"},{"type":"text","text":"${b}"}]}] }}`;
+    const config = {
+      method: 'POST',
+      url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer EAAP6obW3ZB1oBAA1trZChcOXxyNE4c6tdKY99vnDJGzKrooM45TjFDJRjELDmiFPoV2UIa6yPJmsBYM2NxjwJzFWBiaR6X6AiCqsZBQDiahScq8i7SQxYhcgWMZBdaJagdzZB29xEPZC2534b8Bc0eNk40HuSJ3wtsl9LVjRCVtPw9mEWftVWT',
+      },
+      data: data1,
+    };
+    axios(config);
+  }
+
+  if (user.contactNumber3) {
+    const data1 = `{"messaging_product": "whatsapp", "to":${user.contactNumber3}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${user.userName}"},{"type":"text","text":"${b}"}]}] }}`;
+    const config = {
+      method: 'POST',
+      url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer EAAP6obW3ZB1oBAA1trZChcOXxyNE4c6tdKY99vnDJGzKrooM45TjFDJRjELDmiFPoV2UIa6yPJmsBYM2NxjwJzFWBiaR6X6AiCqsZBQDiahScq8i7SQxYhcgWMZBdaJagdzZB29xEPZC2534b8Bc0eNk40HuSJ3wtsl9LVjRCVtPw9mEWftVWT',
+      },
+      data: data1,
+    };
+    axios(config);
+  }
 });
 // const result = async () => {
 //   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });

@@ -18,8 +18,9 @@ export default function Register() {
       { method: 'post', body: JSON.stringify({ phoneNumber, name }), headers: { 'content-type': 'application/json' } },
     ).then((res) => (res.json())
       .then((data) => {
-        console.log(data);
-        localStorage.setItem('token', data.token);
+        setName('');
+        setNumber('');
+        localStorage.setItem('token', phoneNumber);
         return navigate('/Home');
       }));
   }

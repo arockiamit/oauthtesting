@@ -20,9 +20,6 @@ import Login from './Google/google';
 function App() {
   const accessedUser = localStorage.getItem('accessToken');
   const registerdUser = localStorage.getItem('token');
-  console.log(registerdUser);
-  console.log(accessedUser);
-
   // if (!registerdUser) {
   //   return <Navigate to="/" />;
   // }
