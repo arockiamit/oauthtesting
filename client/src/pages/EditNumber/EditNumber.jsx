@@ -62,26 +62,25 @@ export default function Modify() {
 
   return (
     <div className="content">
-      <h1 id="title1">Safety App</h1>
-      <h3 id="title2">click to edit numbers </h3>
-      <table className="tab1" border={2}>
+      <h2> Edit Number</h2>
+      <table className="tab1">
 
         <tr>
-          <th>contactNumber1</th>
-          <td><input type="text" required value={num1} onChange={(e) => setNum1(e.target.value)} /></td>
-          <td className="update-container"><button type="button" onClick={updatenum}>✏️</button></td>
+          <th>contact 1</th>
+          <td className="phnNum"><input type="text" required value={num1} onChange={(e) => setNum1(e.target.value)} /></td>
+          <td><button type="button" className="editBtn" onClick={updatenum}>Edit</button></td>
         </tr>
         <tr>
-          <th>contactNumber2</th>
-          <td><input type="text" required value={num2} onChange={(e) => setNum2(e.target.value)} /></td>
+          <th>contact 2</th>
+          <td className="phnNum"><input type="text" required value={num2} onChange={(e) => setNum2(e.target.value)} /></td>
 
-          <td className="update-container"><button type="button" onClick={updatenum}>✏️</button></td>
+          <td><button type="button" className="editBtn" onClick={updatenum}>Edit</button></td>
         </tr>
         <tr>
-          <th>contactNumber3</th>
-          <td><input type="text" required value={num3} onChange={(e) => setNum3(e.target.value)} /></td>
+          <th>contact 3</th>
+          <td className="phnNum"><input type="text" required value={num3} onChange={(e) => setNum3(e.target.value)} /></td>
 
-          <td className="update-container"><button type="button" onClick={updatenum}>✏️</button></td>
+          <td><button type="button" className="editBtn" onClick={updatenum}>Edit</button></td>
         </tr>
       </table>
       {updatePopup && (

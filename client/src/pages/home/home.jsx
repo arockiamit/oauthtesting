@@ -40,16 +40,16 @@ export default function Home() {
   };
   return (
     <div className="homePage">
-      <nav className="navBar">
-        <button type="button" onClick={sirenaudio}>
+      <div className="alertButton">
+        <button type="button" className="alarmBtn" onClick={sirenaudio}>
           <img src={volume} alt="Alert" />
         </button>
-      </nav>
-      <div className="alertButton">
+      </div>
+      <div>
         <button className="button" type="button" onClick={alertMessage}>SOS</button>
       </div>
       <hr />
-      <div className="footer">
+      <div className="menu">
         <a href="/menu">MENU</a>
       </div>
     </div>
