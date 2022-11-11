@@ -16,8 +16,8 @@ COPY ./client /app/client
 
 RUN npm config set strict-ssl false
 
-RUN cd /app/client && npm ci --without-ssl --insecure
-RUN cd /app/server && npm ci --without-ssl --insecure
+RUN cd /app/client && npm ci --without-ssl --insecure --force
+RUN cd /app/server && npm ci --without-ssl --insecure --force
 RUN cd /app/client && npm rebuild node-sass && npm run build
 
 EXPOSE 3001
