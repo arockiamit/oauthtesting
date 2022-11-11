@@ -141,22 +141,20 @@ app.put('/modify', async (req, res) => {
 });
 
 // API for alert message
-app.post('/api/alertMessage', async (req) => {
+app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
   // const userPhoneNUmber = tokenDecode(token);
-  const details = await UserDetails.find({ userMobileNumber: token });
-  console.log(details);
-  const [user] = details;
-  const b = location;
+  const details = await UserDetails.findOne({ userMobileNumber: token });
+  const locat = location;
+
   const axios = require('axios');
 
-  if (user.contactNumber1) {
-    const a = user.contactNumber1;
+  if (details.contactNumber1 !== undefined) {
+    const a = details.contactNumber1;
     console.log(a, '123');
     console.log(location);
     // const a = +917339437623;
-    console.log(b);
-    const data = `{"messaging_product": "whatsapp", "to":${user.contactNumber1}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${user.userName}"},{"type":"text","text":"${b}"}]}] }}`;
+    const data = `{"messaging_product": "whatsapp", "to":${details.contactNumber1}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${details.userName}"},{"type":"text","text":"${locat}"}]}] }}`;
     const config = {
       method: 'POST',
       url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
@@ -169,8 +167,8 @@ app.post('/api/alertMessage', async (req) => {
     axios(config);
   }
 
-  if (user.contactNumber2) {
-    const data1 = `{"messaging_product": "whatsapp", "to":${user.contactNumber2}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${user.userName}"},{"type":"text","text":"${b}"}]}] }}`;
+  if (details.contactNumber2 !== undefined) {
+    const data1 = `{"messaging_product": "whatsapp", "to":${details.contactNumber2}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${details.userName}"},{"type":"text","text":"${locat}"}]}] }}`;
     const config = {
       method: 'POST',
       url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
@@ -183,8 +181,8 @@ app.post('/api/alertMessage', async (req) => {
     axios(config);
   }
 
-  if (user.contactNumber3) {
-    const data1 = `{"messaging_product": "whatsapp", "to":${user.contactNumber3}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${user.userName}"},{"type":"text","text":"${b}"}]}] }}`;
+  if (details.contactNumber3 !== undefined) {
+    const data1 = `{"messaging_product": "whatsapp", "to":${details.contactNumber3}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${details.userName}"},{"type":"text","text":"${locat}"}]}] }}`;
     const config = {
       method: 'POST',
       url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
@@ -196,6 +194,7 @@ app.post('/api/alertMessage', async (req) => {
     };
     axios(config);
   }
+  return res.json('');
 });
 // const result = async () => {
 //   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });

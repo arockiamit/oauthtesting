@@ -11,7 +11,7 @@ export default function ViewNumber() {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   function HomePage() {
-    return navigate('/');
+    return navigate('/Home');
   }
   function Back() {
     return navigate('/Menu');
@@ -21,7 +21,6 @@ export default function ViewNumber() {
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        console.log(data);
       });
   }, []);
 

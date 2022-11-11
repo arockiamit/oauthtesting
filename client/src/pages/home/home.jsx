@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './home.css';
 import volume from './volume.png';
-import song from './audio/siren.mp3';
+import song from './audio/static/siren.mp3';
 
 const siren = new Audio(song);
 siren.load();
@@ -12,7 +12,6 @@ export default function Home() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [location, setLocation] = useState();
-  const token = localStorage.getItem('token');
   const sirenaudio = () => {
     if (audio === false) {
       siren.play();
@@ -32,12 +31,13 @@ export default function Home() {
   });
 
   const alertMessage = () => {
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/alertMessage`, { method: 'POST', body: JSON.stringify({ token, location }), headers: { 'content-type': 'application/json' } })
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/alertMessage`, { method: 'POST', body: JSON.stringify({ location }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
       });
   };
+
   return (
     <div className="homePage">
       <div className="alertButton">
@@ -46,7 +46,7 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <button className="button" type="button" onClick={alertMessage}>SOS</button>
+        <button className="button" type="button" onClick={() => { alertMessage(); }}>SOS</button>
       </div>
       <hr />
       <div className="menu">

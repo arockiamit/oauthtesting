@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
@@ -37,7 +38,6 @@ function App() {
           <Route path="/addNumber" element={<AddNumber />} />
           <Route path="/viewNumber" element={<ViewNumber />} />
           <Route path="/location" element={<Location />} />
-          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
     </div>

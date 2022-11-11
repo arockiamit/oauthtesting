@@ -18,11 +18,11 @@ export default function Register() {
       { method: 'post', body: JSON.stringify({ phoneNumber, name }), headers: { 'content-type': 'application/json' } },
     ).then((res) => (res.json())
       .then((data) => {
-        setName('');
-        setNumber('');
         localStorage.setItem('token', phoneNumber);
         return navigate('/Home');
       }));
+    setName('');
+    setNumber('');
   }
 
   return (
