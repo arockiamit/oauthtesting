@@ -91,7 +91,7 @@ export default function Modify() {
               <p className="updateMessage">{' ph.number updated successfully '}</p>
               <br />
               <button type="button" className="close-modal1" onClick={toggleModal}>
-                OK
+                OK ✔
               </button>
             </center>
           </div>

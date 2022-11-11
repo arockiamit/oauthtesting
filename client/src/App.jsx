@@ -1,8 +1,12 @@
+/* eslint-disable max-len */
+/* eslint-disable no-console */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter, Navigate, Route, Routes,
+} from 'react-router-dom';
 import Menu from './Components/Menu';
 import Header from './Components/Header/Header';
 import Register from './register/register';
@@ -15,8 +19,8 @@ import ViewNumber from './pages/ViewNumber/ViewNumber';
 import Login from './Google/google';
 
 function App() {
-  // const registerdUser = localStorage.getItem('token');
-  // console.log(registerUser);
+  const accessedUser = localStorage.getItem('accessToken');
+  const registerdUser = localStorage.getItem('token');
   // if (!registerdUser) {
   //   return <Navigate to="/" />;
   // }
@@ -25,8 +29,8 @@ function App() {
       <Header />
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Register />} />
+          <Route path="/" element={!accessedUser ? <Login /> : <Navigate to="/register" />} />
+          <Route path="/register" element={!registerdUser ? <Register /> : <Navigate to="/Home" />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/editNumber" element={<EditNumber />} />

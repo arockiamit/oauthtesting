@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './home.css';
 import volume from './volume.png';
-import song from './audio/siren.mp3';
+import song from './audio/static/siren.mp3';
 
 const siren = new Audio(song);
 siren.load();
@@ -37,6 +37,7 @@ export default function Home() {
         console.log(data);
       });
   };
+
   return (
     <div className="homePage">
       <div className="alertButton">
@@ -45,7 +46,7 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <button className="button" type="button" onClick={alertMessage}>SOS</button>
+        <button className="button" type="button" onClick={() => { alertMessage(); }}>SOS</button>
       </div>
       <hr />
       <div className="menu">
