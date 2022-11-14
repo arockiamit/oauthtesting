@@ -46,7 +46,7 @@ export default function Home() {
           <img src={volume} alt="Alert" />
         </button>
       </div>
-      <div>
+      <div className="messageButton">
         <button className="button" type="button" onClick={() => { alertMessage(); }}>SOS</button>
       </div>
       <hr />

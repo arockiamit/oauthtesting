@@ -86,6 +86,13 @@
     margin-left: 17rem;
   }
 
+  .messageButton{
+    width: 10rem;
+    height: 20rem;
+    margin-top: 5%;
+    margin-left: 7%;
+  }
+
   .button {
     margin-top: 30%;
     width: 20rem;

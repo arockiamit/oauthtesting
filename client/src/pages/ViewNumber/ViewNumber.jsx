@@ -35,13 +35,13 @@ export default function ViewNumber() {
       ) : ''}
       { Data.contactNumber2 ? (
         <p>
-          <h3>Contact Number 1</h3>
+          <h3>Contact Number 2</h3>
           {Data.contactNumber2}
         </p>
       ) : ''}
       { Data.contactNumber3 ? (
         <p>
-          <h3>Contact Number 1</h3>
+          <h3>Contact Number 3</h3>
           {Data.contactNumber3}
         </p>
       ) : ''}

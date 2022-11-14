@@ -16,10 +16,10 @@ import EditNumber from './pages/EditNumber/EditNumber';
 import DeleteRegNumber from './pages/DeleteRegNum/DeleteRegNum';
 import AddNumber from './pages/AddNumber/AddNumber';
 import ViewNumber from './pages/ViewNumber/ViewNumber';
-import Login from './Google/google';
+// import Login from './Google/google';
 
 function App() {
-  const accessedUser = localStorage.getItem('accessToken');
+  // const accessedUser = localStorage.getItem('accessToken');
   const registerdUser = localStorage.getItem('token');
   // if (!registerdUser) {
   //   return <Navigate to="/" />;
@@ -29,9 +29,9 @@ function App() {
       <Header />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={!accessedUser ? <Login /> : <Navigate to="/register" />} />
+          <Route path="/" element={<Register />} />
           <Route path="/register" element={!registerdUser ? <Register /> : <Navigate to="/Home" />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/Home" element={!registerdUser ? <Home /> : <Navigate to="/" />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/editNumber" element={<EditNumber />} />
           <Route path="/deleteRegNumber" element={<DeleteRegNumber />} />
