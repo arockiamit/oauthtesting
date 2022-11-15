@@ -24,9 +24,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((postion) => {
-      setLatitude(postion.coords.latitude);
-      setLongitude(postion.coords.longitude);
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
       setLocation(`http://maps.google.com/?q=${latitude},${longitude}`);
     });
   });

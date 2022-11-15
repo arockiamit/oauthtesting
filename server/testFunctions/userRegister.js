@@ -1,13 +1,14 @@
+/* eslint-disable no-new */
+/* eslint-disable no-console */
 const { UserDetails } = require('../schema');
 
-async function userRegister(req, res) {
-  const { phoneNumber, name } = req.body;
-  try {
-    await UserDetails.create({ userName: name, userMobileNumber: phoneNumber });
-    return res.json({ status: 'success', phoneNumber });
-  } catch (error) {
-    return res.json({ error });
-  }
-}
+const userRegister = (name, phoneNumber) => new Promise((resolve) => {
+  UserDetails.create({ userName: name, userEmail: 'poomathi.k@kaaviansys.com', userMobileNumber: phoneNumber })
+    .then(() => resolve({ status: 'success', phoneNumber }))
+    .catch((error) => {
+      console.log(error);
+      resolve({ status: 'error' });
+    });
+});
 
 module.exports = { userRegister };

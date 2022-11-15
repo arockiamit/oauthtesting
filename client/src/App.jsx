@@ -31,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/register" element={!registerdUser ? <Register /> : <Navigate to="/Home" />} />
-          <Route path="/Home" element={!registerdUser ? <Home /> : <Navigate to="/" />} />
+          <Route path="/Home" element={registerdUser ? <Home /> : <Navigate to="/" />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/editNumber" element={<EditNumber />} />
           <Route path="/deleteRegNumber" element={<DeleteRegNumber />} />

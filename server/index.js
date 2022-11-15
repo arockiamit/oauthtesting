@@ -15,6 +15,7 @@ const { addContactNumber } = require('./testFunctions/addContactNumber');
 const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
 const { updateContactNumber } = require('./testFunctions/updateContactNumber');
 const { getRegisteredNumber } = require('./testFunctions/getRegisteredNumber');
+const { viewContactNumber } = require('./testFunctions/viewContactNumber');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -38,7 +39,12 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 app.post('/userRegister', async (req, res) => {
-  userRegister(req, res);
+  const { phoneNumber, name } = req.body;
+
+  userRegister(name, phoneNumber).then((data) => {
+    console.log(data);
+    res.json(data);
+  });
 });
 
 app.post('/search', async (req, res) => {
@@ -51,7 +57,7 @@ app.post('/api/addContact', async (req, res) => {
 
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
-  visualViewport(req, res);
+  viewContactNumber(req, res);
 });
 
 // API to delete Registered Contact1
