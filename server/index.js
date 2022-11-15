@@ -9,6 +9,7 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 const { UserDetails } = require('./schema');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
@@ -196,6 +197,55 @@ app.post('/api/alertMessage', async (req, res) => {
   }
   return res.json('');
 });
+
+app.post('/otp', (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  let otp = '';
+
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < 6; i++) {
+    otp += Math.floor(Math.random() * 10);
+  }
+  res.json(otp);
+
+  const mailOptions = {
+    from: 'santhosh.r@kaaviansys.com',
+    to: `${email}`,
+    subject: 'Safety App',
+    text: `${otp} is your verification code for SOS`,
+  };
+
+  // Mail transport configuration
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'santhosh.r@kaaviansys.com',
+      pass: '@santhosh1',
+    }
+  });
+
+  // Delivering mail with sendMail method
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) console.log(error);
+    else console.log(`Email sent: ${info.response}`);
+  });
+
+  // console.log("generateotp = ",generate());
+});
+
+app.post('/insertdata', (req) => {
+  const { name, email } = req.body;
+  UserDetails.create({ userName: name, userEmail: email });
+});
+
+app.post('/googledata', (req) => {
+  // eslint-disable-next-line camelcase
+  const { email, name } = req.body;
+  // eslint-disable-next-line camelcase
+  UserDetails.create({ userName:name, userEmail: email });
+});
+
 // const result = async () => {
 //   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
 //   await UserDetails.find({ userMobileNumber: 9047420795 });
