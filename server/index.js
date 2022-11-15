@@ -15,7 +15,6 @@ const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
 const { updateContactNumber } = require('./testFunctions/updateContactNumber');
-const { getRegisteredNumber } = require('./testFunctions/getRegisteredNumber');
 const { viewContactNumber } = require('./testFunctions/viewContactNumber');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
@@ -48,37 +47,51 @@ app.post('/userRegister', async (req, res) => {
   });
 });
 
-app.post('/search', async (req, res) => {
-  getRegisteredNumber(req, res);
-});
-
 app.post('/api/addContact', async (req, res) => {
-  addContactNumber(req, res);
+  const { token, mobileNumber } = req.body;
+  const number = `91${mobileNumber}`;
+  addContactNumber(token, number).then((data) => {
+    console.log(data);
+    res.json(data);
+  });
 });
 
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
-  viewContactNumber(req, res);
+  const { token } = req.body;
+  const data = await viewContactNumber(token);
+  res.json(data);
 });
 
 // API to delete Registered Contact1
 app.post('/api/deleteContactNumber1', async (req, res) => {
-  deleteContactNumber1(req, res);
+  const { token } = req.body;
+  const data = await deleteContactNumber1(token);
+  res.json(data);
 });
 
 // API to delete Registered Contact2
 app.post('/api/deleteContactNumber2', async (req, res) => {
-  deleteContactNumber2(req, res);
+  const { token } = req.body;
+  const data = await deleteContactNumber2(token);
+  res.json(data);
 });
 
 // API to delete Registered Contact3
 app.post('/api/deleteContactNumber3', async (req, res) => {
-  deleteContactNumber3(req, res);
+  const { token } = req.body;
+  const data = await deleteContactNumber3(token);
+  res.json(data);
 });
 
 // API to edit Registered Contact
 app.put('/modify', async (req, res) => {
-  updateContactNumber(req, res);
+  const {
+    token, num1, num2, num3,
+  } = req.body;
+  const data = await updateContactNumber(token, num1, num2, num3);
+  console.log(data);
+  res.json(data);
 });
 
 // API for alert message

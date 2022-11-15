@@ -12,7 +12,7 @@ export default function Home() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [location, setLocation] = useState();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accesstoken');
   const sirenaudio = () => {
     if (audio === false) {
       siren.play();

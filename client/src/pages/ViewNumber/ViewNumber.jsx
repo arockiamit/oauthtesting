@@ -8,7 +8,7 @@ import './ViewNumber.css';
 
 export default function ViewNumber() {
   const [Data, setData] = useState('');
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accesstoken');
   const navigate = useNavigate();
   function HomePage() {
     return navigate('/Home');

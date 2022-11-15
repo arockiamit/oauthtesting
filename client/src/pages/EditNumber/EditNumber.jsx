@@ -14,7 +14,7 @@ export default function Modify() {
   const [num1, setNum1] = useState('');
   const [num2, setNum2] = useState('');
   const [num3, setNum3] = useState('');
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accesstoken');
   const navigate = useNavigate();
   function HomePage() {
     return navigate('/');
