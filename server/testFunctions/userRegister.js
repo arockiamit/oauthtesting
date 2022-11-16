@@ -6,8 +6,7 @@ const userRegister = (name, email) => new Promise((resolve) => {
   UserDetails.create({ userName: name, userEmail: email })
     .then(() => resolve({ status: 'success', email }))
     .catch((error) => {
-      console.log(error);
-      resolve({ status: 'error' });
+      resolve({ status: 'failure..', error });
     });
 });
 

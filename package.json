@@ -1,5 +1,10 @@
 {
+  "scripts": {
+    "test": "jasmine --config=spec/support/jasmine.json"
+  },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "jasmine": "^4.5.0",
+    "sinon": "^14.0.2"
   }
 }

@@ -2,7 +2,7 @@
 const { UserDetails } = require('../schema');
 
 async function deleteContactNumber1(token) {
-  await UserDetails.updateOne({ userEmail: token }, { $unset: { contactNumber1: '' } });
+  await UserDetails.updateOne({ userEmail: token }, { $unset: { contactNumber1: '' } }).then((data) => data);
   return await UserDetails.find({}).then((data) => data);
 }
 

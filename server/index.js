@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /* eslint-disable consistent-return */
 /* eslint-disable global-require */
 /* eslint-disable no-else-return */
@@ -16,6 +17,8 @@ const { addContactNumber } = require('./testFunctions/addContactNumber');
 const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
 const { updateContactNumber } = require('./testFunctions/updateContactNumber');
 const { viewContactNumber } = require('./testFunctions/viewContactNumber');
+const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
+const { alertMessage } = require('./testFunctions/alertMessage');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -41,19 +44,16 @@ app.use('/images', express.static(path.join(__dirname, '/../client/build/images'
 app.post('/userRegister', async (req, res) => {
   const { email, name } = req.body;
 
-  userRegister(name, email).then((data) => {
-    console.log(data);
-    res.json(data);
-  });
+  const data = await userRegister(name, email);
+  res.json(data);
 });
 
 app.post('/api/addContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
   const number = `91${mobileNumber}`;
-  addContactNumber(token, number).then((data) => {
-    console.log(data);
-    res.json(data);
-  });
+  const data = await addContactNumber(token, number);
+  console.log(data);
+  res.json(data);
 });
 
 // API to View Registered Contact
@@ -98,56 +98,15 @@ app.put('/modify', async (req, res) => {
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
   // const userPhoneNUmber = tokenDecode(token);
-  const details = await UserDetails.findOne({ userMobileNumber: token });
+  const details = await getUserDetails(token);
   const locat = location;
 
-  const axios = require('axios');
+  const data1 = await alertMessage(details.contactNumber1, details.userName, locat);
+  const data2 = await alertMessage(details.contactNumber2, details.userName, locat);
+  const data3 = await alertMessage(details.contactNumber3, details.userName, locat);
 
-  if (details.contactNumber1 !== undefined) {
-    const a = details.contactNumber1;
-    console.log(a, '123');
-    console.log(location);
-    // const a = +917339437623;
-    const data = `{"messaging_product": "whatsapp", "to":${details.contactNumber1}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${details.userName}"},{"type":"text","text":"${locat}"}]}] }}`;
-    const config = {
-      method: 'POST',
-      url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer EAAP6obW3ZB1oBAA1trZChcOXxyNE4c6tdKY99vnDJGzKrooM45TjFDJRjELDmiFPoV2UIa6yPJmsBYM2NxjwJzFWBiaR6X6AiCqsZBQDiahScq8i7SQxYhcgWMZBdaJagdzZB29xEPZC2534b8Bc0eNk40HuSJ3wtsl9LVjRCVtPw9mEWftVWT',
-      },
-      data,
-    };
-    axios(config);
-  }
+  console.log(data1, data2, data3);
 
-  if (details.contactNumber2 !== undefined) {
-    const data1 = `{"messaging_product": "whatsapp", "to":${details.contactNumber2}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${details.userName}"},{"type":"text","text":"${locat}"}]}] }}`;
-    const config = {
-      method: 'POST',
-      url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer EAAP6obW3ZB1oBAA1trZChcOXxyNE4c6tdKY99vnDJGzKrooM45TjFDJRjELDmiFPoV2UIa6yPJmsBYM2NxjwJzFWBiaR6X6AiCqsZBQDiahScq8i7SQxYhcgWMZBdaJagdzZB29xEPZC2534b8Bc0eNk40HuSJ3wtsl9LVjRCVtPw9mEWftVWT',
-      },
-      data: data1,
-    };
-    axios(config);
-  }
-
-  if (details.contactNumber3 !== undefined) {
-    const data1 = `{"messaging_product": "whatsapp", "to":${details.contactNumber3}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${details.userName}"},{"type":"text","text":"${locat}"}]}] }}`;
-    const config = {
-      method: 'POST',
-      url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer EAAP6obW3ZB1oBAA1trZChcOXxyNE4c6tdKY99vnDJGzKrooM45TjFDJRjELDmiFPoV2UIa6yPJmsBYM2NxjwJzFWBiaR6X6AiCqsZBQDiahScq8i7SQxYhcgWMZBdaJagdzZB29xEPZC2534b8Bc0eNk40HuSJ3wtsl9LVjRCVtPw9mEWftVWT',
-      },
-      data: data1,
-    };
-    axios(config);
-  }
   return res.json('');
 });
 
@@ -191,16 +150,8 @@ app.post('/googledata', (req) => {
   // eslint-disable-next-line camelcase
   const { userName, userEmail } = req.body;
   // eslint-disable-next-line camelcase
-  UserDetails.create({ userName, userEmail });
+  UserDetails.create({ userName: userName, userEmail: userEmail });
 });
-
-// const result = async () => {
-//   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
-//   await UserDetails.find({ userMobileNumber: 9047420795 });
-//   // .then(data=> console.log(data));
-// };
-
-// result();
 
 // for any other request, serve HTML in DIT environment (cloud env)
 if (NODE_ENV === 'DIT') {
