@@ -52,7 +52,6 @@ app.post('/api/addContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
   const number = `91${mobileNumber}`;
   const data = await addContactNumber(token, number);
-  console.log(data);
   res.json(data);
 });
 
