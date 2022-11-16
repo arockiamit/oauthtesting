@@ -141,14 +141,6 @@ app.post('/otp', (req, res) => {
     else console.log(`Email sent: ${info.response}`);
   });
 
-  // console.log("generateotp = ",generate());
-});
-
-app.post('/googledata', (req) => {
-  // eslint-disable-next-line camelcase
-  const { name, email } = req.body;
-  // eslint-disable-next-line camelcase
-  UserDetails.create({ userName: name, userEmail: email });
 });
 
 // for any other request, serve HTML in DIT environment (cloud env)
