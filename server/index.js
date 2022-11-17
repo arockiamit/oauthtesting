@@ -42,9 +42,8 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 app.post('/userRegister', async (req, res) => {
-  const { email, name } = req.body;
-
-  const data = await userRegister(name, email);
+  const { email, name , userName, userEmail} = req.body;
+  const data = await userRegister(name, email, userName, userEmail);
   res.json(data);
 });
 
@@ -111,7 +110,6 @@ app.post('/api/alertMessage', async (req, res) => {
 
 app.post('/otp', (req, res) => {
   const { email } = req.body;
-  console.log(email);
   let otp = '';
 
   // eslint-disable-next-line no-plusplus
@@ -121,7 +119,7 @@ app.post('/otp', (req, res) => {
   res.json(otp);
 
   const mailOptions = {
-    from: 'santhosh.r@kaaviansys.com',
+    from: 'kaavianlibraryvnr@gmail.com',
     to: `${email}`,
     subject: 'Safety App',
     text: `${otp} is your verification code for SOS`,
@@ -131,8 +129,8 @@ app.post('/otp', (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'santhosh.r@kaaviansys.com',
-      pass: '@santhosh1',
+      user: 'kaavianlibraryvnr@gmail.com',
+      pass: 'nhadtxippjbkcube',
     },
   });
 
@@ -142,14 +140,6 @@ app.post('/otp', (req, res) => {
     else console.log(`Email sent: ${info.response}`);
   });
 
-  // console.log("generateotp = ",generate());
-});
-
-app.post('/googledata', (req) => {
-  // eslint-disable-next-line camelcase
-  const { userName, userEmail } = req.body;
-  // eslint-disable-next-line camelcase
-  UserDetails.create({ userName: userName, userEmail: userEmail });
 });
 
 // for any other request, serve HTML in DIT environment (cloud env)
