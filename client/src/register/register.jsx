@@ -29,9 +29,9 @@ export default function Register() {
       navigate('/Home');
       localStorage.setItem('accesstoken', email);
       fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email }), headers: { 'content-type': 'application/json' } });
-      alert('inserted');
+      alert('Inserted');
     } else {
-      alert('your mail verification failed...try again');
+      alert('Your mail verification failed... Try again');
     }
   }
 

@@ -38,7 +38,7 @@ function AddNumber() {
 
   return (
     <div className="addNumber">
-      <div className="RegisterContactHeading">REGISTER CONTACT</div>
+      <div className="RegisterContactHeading">ADD CONTACT NUMBER</div>
       <form className="registerForm">
         <input
           className="registerUserName"

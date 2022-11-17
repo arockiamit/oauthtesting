@@ -62,7 +62,7 @@ export default function Modify() {
 
   return (
     <div className="content">
-      <h2> Edit Number</h2>
+      <h2> EDIT CONTACT NUMBERS</h2>
       <table className="tab1">
 
         <tr>

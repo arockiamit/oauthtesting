@@ -69,7 +69,7 @@ function DeleteRegNumber() {
 
   return (
     <div className="deleteRegisterUser">
-      <h1>Delete Number</h1>
+      <h1>DELETE CONTACT NUMBER</h1>
       { Data.contactNumber1 ? (
         <li className="contactList">
           {Data.contactNumber1}
