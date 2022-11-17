@@ -15,13 +15,29 @@ const deleteContactNumber1 = (token) => new Promise((resolve) => {
 });
 // module.exports = { userRegister };
 
-async function deleteContactNumber2(token) {
-  return await UserDetails.updateOne({ userEmail: token }, { $unset: { contactNumber2: '' } });
-}
+const deleteContactNumber2 = (token) => new Promise((resolve) =>{
+  if(token){
+    UserDetails.updateOne({ userEmail: token }, { $unset: { contactNumber2: '' } })
+    .then(()=>resolve({status:'success'}))
+    .catch((error) =>{
+      resolve({status:'error',error})
+    });
+  }else{
+    resolve({status:'error'})
+  }
+ 
+});
 
-async function deleteContactNumber3(token) {
-  await UserDetails.updateOne({ userEmail: token }, { $unset: { contactNumber3: '' } });
-  return await UserDetails.find({}).then((data) => data);
+const deleteContactNumber3=(token)=>new Promise((resolve)=> {
+  if(token){
+   UserDetails.updateOne({ userEmail: token }, { $unset: { contactNumber3: '' } })
+  .then(()=>resolve({status:'success'}))
+  .catch((error)=>{
+    resolve({status:'error',error})
+  });
+}else{
+  resolve({status:'error'})
 }
+});
 
 module.exports = { deleteContactNumber1, deleteContactNumber2, deleteContactNumber3 };

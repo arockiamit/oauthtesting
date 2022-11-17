@@ -39,7 +39,8 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 app.post('/userRegister', async (req, res) => {
-  const { email, name } = req.body;
+  const { email, name,picture } = req.body;
+  console.log(picture,'sannnnn')
 
   userRegister(name, email).then((data) => {
     console.log(data);
@@ -185,7 +186,7 @@ app.post('/otp', (req, res) => {
   });
 
   // console.log("generateotp = ",generate());
-});
+}); 
 
 app.post('/googledata', (req) => {
   // eslint-disable-next-line camelcase

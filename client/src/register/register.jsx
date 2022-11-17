@@ -50,9 +50,10 @@ export default function Register() {
             console.log(provider, data);
             navigate('/Home');
             localStorage.setItem('accesstoken', data.email);
-            const { userName } = data;
-            const { userEmail } = data;
-            fetch(`${process.env.REACT_APP_SERVER_PREFIX}/googledata`, { method: 'post', body: JSON.stringify({ userName, userEmail }), headers: { 'content-type': 'application/json' } });
+            const { name } = data;
+            const { email } = data;
+            const {picture}=data;
+            fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email,picture }), headers: { 'content-type': 'application/json' } });
           }}
           onReject={(err) => {
             console.log(err);
