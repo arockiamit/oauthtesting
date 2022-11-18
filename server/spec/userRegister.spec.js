@@ -1,14 +1,13 @@
 /* eslint-disable no-console */
 /* eslint-disable global-require */
 /* eslint-disable no-undef */
-// const sinon = require('sinon');
-// const Request = require('request');
+const sinon = require('sinon');
 const {
   userRegister, createUserProfile, mailId,
 } = require('../testFunctions/userRegister');
 const { UserDetails } = require('../schema');
 
-// const sandbox = sinon.createSandbox();
+const sandbox = sinon.createSandbox();
 
 describe('createUserProfile', () => {
   afterEach(async () => {
@@ -39,9 +38,6 @@ describe('createUserProfile', () => {
 });
 
 describe('userRgister Validation', () => {
-  beforeAll((done) => {
-    done();
-  });
   afterEach(async () => {
     sandbox.restore();
   });
@@ -66,9 +62,6 @@ describe('userRgister Validation', () => {
 });
 
 describe('userRgister Validation', () => {
-  beforeAll((done) => {
-    done();
-  });
   afterEach(async () => {
     sandbox.restore();
   });
@@ -78,7 +71,6 @@ describe('userRgister Validation', () => {
   });
   it('Email Validation..', async () => {
     const value = await mailId('Poomathi.K');
-    console.log(value);
     expect(value).toEqual('Enter Valid Mail..');
   });
 });

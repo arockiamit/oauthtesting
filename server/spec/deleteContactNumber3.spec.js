@@ -18,6 +18,6 @@ describe('DELETECONTACTNUMBER', () => {
     sandbox.stub(UserDetails, 'updateOne');
     sandbox.stub(UserDetails, 'findOne').returns('error');
     const value = await deletecontactnumber.deleteContactNumber3(undefined);
-    expect(value.userData).toEqual('error');
+    expect(value.status).toEqual('error');
   });
 });

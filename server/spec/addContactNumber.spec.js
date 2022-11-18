@@ -7,56 +7,30 @@ const {
 } = require('../testFunctions/addContactNumber');
 
 const sandbox = sinon.createSandbox();
-const { UserDetails } = require('../schema');
 
-describe('AddContactNumber - ', () => {
-  afterEach(() => {
-    sandbox.restore();
-  });
-  describe('Three Contact Numbers are saved already - ', () => {
-    afterEach(() => {
-      sandbox.restore();
-    });
-    it('find the same user', async () => {
-      sandbox.stub(UserDetails, 'findOne').returns(Promise.resolve(true));
-      sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(true));
-      const value = await addContactNumbers('sudha@gmail.com', 918946537264, '{userName: sudha.s, userEmail: sudha@gmail.com}');
-      expect(value.token).toEqual('sudha@gmail.com', 918946537264, '{userName: s.sudha, userEmail: sudha@gmail.com}');
-    });
-  });
-});
+const { UserDetails } = require('../schema');
 
 describe('adding numbers - ', () => {
   afterEach(() => {
     sandbox.restore();
   });
-  it('Success..', async () => {
+  it('Update-Success..', async () => {
     sandbox.stub(UserDetails, 'findOne').returns({ userName: 'sudha.s', userEmail: 'sudha@gmail.com' });
     sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(true));
     const value = await updateFunction1('sudha@gmail.com', '919876543212', `{userName: sudha.s, userEmail: sudha@gmail.com, contactNumber1: ${undefined}, contactNumber2: ${undefined}}, contactNumber3: ${undefined}`);
     // console.log(value);
     expect(value.status).toEqual('success');
   });
-});
 
-describe('adding numbers - ', () => {
-  afterEach(() => {
-    sandbox.restore();
-  });
-  it('Success..', async () => {
+  it('Update-Success..', async () => {
     sandbox.stub(UserDetails, 'findOne').returns({ userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918754526731 });
     sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(true));
     const value = await updateFunction2('sudha@gmail.com', '919876543212', `{userName: sudha.s, userEmail: sudha@gmail.com, contactNumber1: ${918754526731}, contactNumber2: ${undefined}}, contactNumber3: ${undefined}`);
     // console.log(value);
     expect(value.status).toEqual('success');
   });
-});
 
-describe('adding numbers - ', () => {
-  afterEach(() => {
-    sandbox.restore();
-  });
-  it('Success..', async () => {
+  it('Update-Success..', async () => {
     sandbox.stub(UserDetails, 'findOne').returns({
       userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918754526731, contactNumber2: 918765423451,
     });
@@ -71,7 +45,7 @@ describe('Validation of adding numbers - ', () => {
   afterEach(() => {
     sandbox.restore();
   });
-  it('Success..', async () => {
+  it('Validaton-Success..', async () => {
     sandbox.stub(UserDetails, 'findOne').returns({ userName: 'sudha.s', userEmail: 'sudha@gmail.com' });
     sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(true));
     const value = await addContactNumbers('sudha@gmail.com', '919876543212', { userName: 'sudha.s', userEmail: 'sudha@gmail.com' });
@@ -79,7 +53,7 @@ describe('Validation of adding numbers - ', () => {
     expect(value.status).toEqual('success');
   });
 
-  it('Success..', async () => {
+  it('Validaton-Success..', async () => {
     sandbox.stub(UserDetails, 'findOne').returns({ userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123 });
     sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(true));
     const value = await addContactNumbers('sudha@gmail.com', '919876543212', { userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123 });
@@ -87,7 +61,7 @@ describe('Validation of adding numbers - ', () => {
     expect(value.status).toEqual('success');
   });
 
-  it('Success..', async () => {
+  it('Validaton-Success..', async () => {
     sandbox.stub(UserDetails, 'findOne').returns({
       userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123, contactNumber2: undefined,
     });
@@ -108,25 +82,27 @@ describe('Validation of adding numbers - ', () => {
       userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: undefined,
     });
     // console.log(value);
-    expect(value.status).toEqual('success');
-  });
-
-  it('Success..', async () => {
-    sandbox.stub(UserDetails, 'findOne').returns({
-      userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: 912345678912,
-    });
-    sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(true));
-    const value = await addContactNumbers('sudha@gmail.com', '919876543212', {
-      userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: 912345678912,
-    });
     expect(value.status).toEqual('success');
   });
   it('Failure..', async () => {
-    sandbox.stub(UserDetails, 'findOne').returns('{userName: sudha.s, userEmail: sudha@gmail.com, contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: 912345678912}');
+    sandbox.stub(UserDetails, 'findOne').returns({
+      userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: 912345678912,
+    });
     sandbox.stub(UserDetails, 'updateOne');
-    const value = await addContactNumbers('sudha@gmail.com', '919876543212', '{userName: sudha.s, userEmail: sudha@gmail.com, contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: 912345678912}');
-    console.log(value);
-    expect(value.status).toEqual('success');
+    const value = await addContactNumbers('sudha@gmail.com', '919876543212', {
+      userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: 912345678912,
+    });
+    expect(value.status).toEqual('Already 3 users have been added');
+  });
+  it('Failure..', async () => {
+    sandbox.stub(UserDetails, 'findOne').returns({
+      userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: 912345678912,
+    });
+    sandbox.stub(UserDetails, 'updateOne');
+    const value = await addContactNumbers('sudha@gmail.com', '91undefined', {
+      userName: 'sudha.s', userEmail: 'sudha@gmail.com', contactNumber1: 918765423123, contactNumber2: 918765432134, contactNumber3: 912345678912,
+    });
+    expect(value.status).toEqual('Please Enter all fields..');
   });
 });
 
@@ -144,11 +120,11 @@ describe('Get User Details - ', () => {
     sandbox.stub(UserDetails, 'findOne').returns(Promise.reject(new Error('error')));
     // sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(new Error('Test')));
     const value = await addContactNumber('sudha@gmail.com', undefined);
-    expect(value.status).toEqual('Please enter the details');
+    expect(value.status).toEqual('Please enter the details..');
   });
   it('Validation Checking', async () => {
     sandbox.stub(UserDetails, 'findOne').returns(Promise.resolve(new Error('Test')));
     const value = await addContactNumber('sudha@gmail.com', null);
-    expect(value.status).toEqual('Please enter the details');
+    expect(value.status).toEqual('Please enter the details..');
   });
 });

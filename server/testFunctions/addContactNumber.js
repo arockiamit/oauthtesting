@@ -55,17 +55,16 @@ const addContactNumbers = async (token, number, data) => {
   if (data.contactNumber1 === undefined) {
     const status = await updateFunction1(token, number);
     return status;
-  }
-  if (data.contactNumber1 !== undefined && data.contactNumber2 === undefined) {
+  } else if (data.contactNumber1 !== undefined && data.contactNumber2 === undefined) {
     const status = await updateFunction2(token, number);
     return status;
-  }
-  if (data.contactNumber1 !== undefined && data.contactNumber2 !== undefined && data.contactNumber3 === undefined) {
+  } else if (data.contactNumber1 !== undefined && data.contactNumber2 !== undefined && data.contactNumber3 === undefined) {
     const status = await updateFunction3(token, number);
     return status;
-  }
-  if (number !== '91undefined' && data.contactNumber1 !== undefined && data.contactNumber2 !== undefined && data.contactNumber3 !== undefined) {
+  } else if (number !== '91undefined' && data.contactNumber1 !== undefined && data.contactNumber2 !== undefined && data.contactNumber3 !== undefined) {
     return ({ status: 'Already 3 users have been added' });
+  } else {
+    return ({ status: 'Please Enter all fields..' });
   }
 };
 
