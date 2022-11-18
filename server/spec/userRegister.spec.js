@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 /* eslint-disable global-require */
 /* eslint-disable no-undef */
-const sinon = require('sinon');
+// const sinon = require('sinon');
 // const Request = require('request');
 const {
   userRegister, createUserProfile, mailId,
 } = require('../testFunctions/userRegister');
 const { UserDetails } = require('../schema');
 
-const sandbox = sinon.createSandbox();
+// const sandbox = sinon.createSandbox();
 
 describe('createUserProfile', () => {
   afterEach(async () => {

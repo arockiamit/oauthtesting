@@ -36,6 +36,18 @@ const userSchema = new mongoose.Schema({
     min: [13, 'Phone number should contain at least 10 digits..'],
     max: [13, 'Phone number should contain at most 10 digits..'],
   },
+  contactName1: {
+    type: String,
+    required: true,
+  },
+  contactName2: {
+    type: String,
+    required: true,
+  },
+  contactName3: {
+    type: String,
+    required: true,
+  },
 }, { collection: 'userDetails' });
 
 const UserDetails = mongoose.model('userDetails', userSchema);
