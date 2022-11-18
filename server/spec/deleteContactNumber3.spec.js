@@ -12,7 +12,7 @@ describe('DELETECONTACTNUMBER',()=>{
         const value = await deletecontactnumber.deleteContactNumber3('rsanthosh17c@gmail.com');
         expect(value.userData).toEqual('testing success')
     })
-    it('DELETENUMBER',async()=>{
+    it('ERROR',async()=>{
         sandbox.stub(UserDetails,'updateOne')
         sandbox.stub(UserDetails,'findOne').returns("error")
         const value = await deletecontactnumber.deleteContactNumber3(undefined);
