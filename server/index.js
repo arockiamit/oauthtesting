@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable object-shorthand */
 /* eslint-disable consistent-return */
 /* eslint-disable global-require */
@@ -42,7 +43,9 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 app.post('/userRegister', async (req, res) => {
-  const { email, name , userName, userEmail} = req.body;
+  const {
+    email, name, userName, userEmail,
+  } = req.body;
   const data = await userRegister(name, email, userName, userEmail);
   res.json(data);
 });
@@ -51,7 +54,7 @@ app.post('/api/addContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
   const number = `91${mobileNumber}`;
   const data = await addContactNumber(token, number);
-  console.log(data);
+  // console.log(data);
   res.json(data);
 });
 
@@ -140,7 +143,6 @@ app.post('/otp', (req, res) => {
     if (error) console.log(error);
     else console.log(`Email sent: ${info.response}`);
   });
-
 });
 
 // for any other request, serve HTML in DIT environment (cloud env)

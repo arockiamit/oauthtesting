@@ -4,7 +4,7 @@ import { HiHome } from 'react-icons/hi';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import './ViewNumber.css';
+import './viewNumber.css';
 
 export default function ViewNumber() {
   const [Data, setData] = useState('');
