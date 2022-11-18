@@ -65,6 +65,7 @@ app.post('/api/ViewContact', async (req, res) => {
 app.post('/api/deleteContactNumber1', async (req, res) => {
   const { token } = req.body;
   const data = await deleteContactNumber1(token);
+  console.log(data,'san');
   res.json(data);
 });
 

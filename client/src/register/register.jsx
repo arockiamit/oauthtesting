@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLoginButton } from 'react-social-login-buttons';
 import { LoginSocialGoogle } from 'reactjs-social-login';
+import toast from 'toast-me';
 
 import './register.css';
 
@@ -31,9 +32,9 @@ export default function Register() {
       window.location.reload();
       localStorage.setItem('accesstoken', email);
       fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email }), headers: { 'content-type': 'application/json' } });
-      alert('Inserted');
+      toast('Inserted');
     } else {
-      alert('Your mail verification failed... Try again');
+      toast('Your mail verification failed... Try again');
     }
   }
 

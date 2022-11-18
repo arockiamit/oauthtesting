@@ -2,21 +2,34 @@
 const { UserDetails } = require('../schema');
 
 async function deleteContactNumber1(email) {
-  await UserDetails.updateOne({ userEmail: email }, { $unset: { contactNumber1: '' } });
-  const userData = UserDetails.findOne({ userEmail: email }, { userEmail: 0, _id: 0, __v: 0 });
-  return userData;
+  if (email) {
+    await UserDetails.updateOne({ userEmail: email }, { $unset: { contactNumber1: '' } });
+    const userData = await UserDetails.findOne({ userEmail: email }, { userEmail: 0, _id: 0, __v: 0 });
+    return userData;
+  } else {
+    return ({ status: 'error' });
+  }
 }
-
 async function deleteContactNumber2(email) {
-  await UserDetails.updateOne({ userEmail: email }, { $unset: { contactNumber2: '' } });
-  const userData = UserDetails.findOne({ userEmail: email }, { userEmail: 0, _id: 0, __v: 0 });
-  return userData;
-}
+  if (email) {
+    await UserDetails.updateOne({ userEmail: email }, { $unset: { contactNumber2: '' } });
+    const userData = UserDetails.findOne({ userEmail: email }, { userEmail: 0, _id: 0, __v: 0 });
+    return userData;
+  } else {
+    return ({ status: 'error' });
+  }
 
+}
 async function deleteContactNumber3(email) {
-  await UserDetails.updateOne({ userEmail: email }, { $unset: { contactNumber3: '' } });
-  const userData = UserDetails.findOne({ userEmail: email }, { userEmail: 0, _id: 0, __v: 0 });
-  return userData;
+  if (email) {
+    await UserDetails.updateOne({ userEmail: email }, { $unset: { contactNumber3: '' } });
+    const userData = UserDetails.findOne({ userEmail: email }, { userEmail: 0, _id: 0, __v: 0 });
+    return userData;
+  } 
+  else {
+    return ({ status: 'error' });
+  }
+
 }
 
 module.exports = { deleteContactNumber1, deleteContactNumber2, deleteContactNumber3 };
