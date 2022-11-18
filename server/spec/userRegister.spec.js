@@ -1,13 +1,39 @@
 /* eslint-disable no-console */
 /* eslint-disable global-require */
 /* eslint-disable no-undef */
+<<<<<<< HEAD
+// const sinon = require('sinon');
+// // const Request = require('request');
+// const { userRegister } = require('../testFunctions/userRegister');
+// const { UserDetails } = require('../schema');
+=======
 const sinon = require('sinon');
 // const Request = require('request');
 const { userRegister, createUserProfile, isEmail } = require('../testFunctions/userRegister');
 const { UserDetails } = require('../schema');
+>>>>>>> e027b7f6afc822d768cd7c809700bdfece1e34e6
 
-const sandbox = sinon.createSandbox();
+// const sandbox = sinon.createSandbox();
 
+<<<<<<< HEAD
+// describe('userRegister', () => {
+//   afterEach(async () => {
+//     sandbox.restore();
+//   });
+//   it('Getting and Storing values in DB..', async () => {
+//     sandbox.stub(UserDetails, 'create').returns(Promise.resolve(true));
+//     // sandbox.stub(UserDetails, 'create').resolves(true);
+//     const value = await userRegister('Poomathi.K', 'poomathi.k@kaaviansys.com');
+//     expect(value.status).toEqual('success');
+//     expect(value.email).toEqual('poomathi.k@kaaviansys.com');
+//   });
+//   it('Error Testing..', async () => {
+//     sandbox.stub(UserDetails, 'create').returns(Promise.reject(new Error('User Registration Failed..')));
+//     const value = await userRegister('Poomathi.K', 'poomathi.k@kaaviansys.com');
+//     expect(value.status).toEqual('error');
+//   });
+// });
+=======
 describe('createUserProfile', () => {
   afterEach(async () => {
     sandbox.restore();
@@ -35,6 +61,7 @@ describe('createUserProfile', () => {
     expect(value.status).toEqual('error');
   });
 });
+>>>>>>> e027b7f6afc822d768cd7c809700bdfece1e34e6
 
 describe('userRgister Validation', () => {
   beforeAll((done) => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable object-shorthand */
 /* eslint-disable consistent-return */
 /* eslint-disable global-require */
