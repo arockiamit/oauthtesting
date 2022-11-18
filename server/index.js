@@ -42,10 +42,8 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 app.post('/userRegister', async (req, res) => {
-  const {
-    email, name, userName, userEmail,
-  } = req.body;
-  const data = await userRegister(name, email, userName, userEmail);
+  const { name, email } = req.body;
+  const data = await userRegister(name, email);
   res.json(data);
 });
 
@@ -90,6 +88,7 @@ app.put('/modify', async (req, res) => {
     token, num1, num2, num3,
   } = req.body;
   const data = await updateContactNumber(token, num1, num2, num3);
+  console.log(data);
   res.json(data);
 });
 
