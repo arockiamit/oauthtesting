@@ -3,7 +3,9 @@
 /* eslint-disable no-undef */
 const sinon = require('sinon');
 // const Request = require('request');
-const { userRegister, createUserProfile, isEmail } = require('../testFunctions/userRegister');
+const {
+  userRegister, createUserProfile, mailId,
+} = require('../testFunctions/userRegister');
 const { UserDetails } = require('../schema');
 
 const sandbox = sinon.createSandbox();
@@ -21,7 +23,7 @@ describe('createUserProfile', () => {
   });
   it('Error Testing..', async () => {
     sandbox.stub(UserDetails, 'create').returns(Promise.reject(new Error('User Registration Failed..')));
-    const value = await createUserProfile('Poomathi.K', 'poomathikaaviansys.com');
+    const value = await createUserProfile('Poomathi.K', 'poomathi.k@kaaviansys.com');
     expect(value.status).toEqual('error');
   });
   it('Error Testing..', async () => {
@@ -71,36 +73,12 @@ describe('userRgister Validation', () => {
     sandbox.restore();
   });
   it('Email Validation..', async () => {
-    // sandbox.stub(UserDetails, 'create').returns(Promise.resolve(true));
-    const value = await isEmail('poomathi.k@kaaviansys.com');
-    console.log(value);
+    const value = await mailId('poomathi.k@kaaviansys.com');
     expect(value).toEqual('poomathi.k@kaaviansys.com');
   });
   it('Email Validation..', async () => {
-    // sandbox.stub(UserDetails, 'create').returns(Promise.resolve(true));
-    const value = await isEmail('kaaviansys.com');
+    const value = await mailId('Poomathi.K');
     console.log(value);
-    expect(value).toEqual('poomathi.k@kaaviansys.com');
+    expect(value).toEqual('Enter Valid Mail..');
   });
 });
-// describe('Server', () => {
-//   let server;
-//   beforeAll(() => {
-//     server = require('../index');
-//   });
-//   afterAll(async () => {
-//     await server.close;
-//   });
-//   describe('POST /userRegister', () => {
-//     const data = {};
-//     beforeAll((done) => {
-//       Request.post('http://localhost:3001/userRegister', (err, res, body) => {
-//         data.body = body;
-//         done();
-//       });
-//     });
-//     it('Body', () => {
-//       expect(data.body).toEqual('{"status":"error"}');
-//     });
-//   });
-// });
