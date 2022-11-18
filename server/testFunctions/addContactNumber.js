@@ -29,10 +29,9 @@ const addContactNumber = (token, number) => new Promise((resolve) => {
   if (number !== null) {
     UserDetails.findOne({ userEmail: token }).then(async (data) => {
       const status = await addContactNumbers(token, number, data);
-      console.log(status);
       resolve(status);
     }).catch((error) => {
-      resolve({ status: 'Error..', error });
+      resolve({ status: 'Error', error });
     });
   } else {
     return resolve({ status: 'Please enter the details..' });

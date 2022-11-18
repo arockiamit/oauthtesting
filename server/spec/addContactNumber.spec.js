@@ -29,7 +29,7 @@ describe('addContactNumber', () => {
     sandbox.stub(UserDetails, 'findOne').returns(Promise.reject(new Error('Failed..')));
     const value = await addContactNumber.addContactNumber('poomathi.k@kaaviansys.com', undefined);
     // console.log(value);
-    expect(value.status).toEqual('Error..');
+    expect(value.status).toEqual('Error');
   });
   it('Validation check', async () => {
     sandbox.stub(UserDetails, 'findOne').returns(Promise.reject(new Error('Failed..')));

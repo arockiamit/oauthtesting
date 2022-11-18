@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
@@ -27,6 +28,7 @@ export default function Register() {
   function submit() {
     if (otp === subotp) {
       navigate('/Home');
+      window.location.reload();
       localStorage.setItem('accesstoken', email);
       fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email }), headers: { 'content-type': 'application/json' } });
       alert('Inserted');
@@ -45,13 +47,14 @@ export default function Register() {
         <input type="text" name="otp" placeholder="ENTER OTP" onChange={(e) => setOtp(e.target.value)} />
         <button className="continueBtn" type="submit" onClick={submit}>REGISTER</button>
         <LoginSocialGoogle
-          client_id={'530955858644-71apt0ig4qtbthpn284i54plflp5s0qs.apps.googleusercontent.com'}
+          client_id="530955858644-71apt0ig4qtbthpn284i54plflp5s0qs.apps.googleusercontent.com"
           scope="openid profile email"
           discoveryDocs="claims_supported"
           access_type="offline"
           onResolve={({ provider, data }) => {
             console.log(provider, data);
             navigate('/Home');
+            window.location.reload();
             localStorage.setItem('accesstoken', data.email);
             const { name } = data;
             const { email } = data;

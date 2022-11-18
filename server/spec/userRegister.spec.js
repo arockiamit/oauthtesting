@@ -3,7 +3,7 @@
 /* eslint-disable no-undef */
 const sinon = require('sinon');
 // const Request = require('request');
-const { userRegister, createUserProfile } = require('../testFunctions/userRegister');
+const { userRegister, createUserProfile, isEmail } = require('../testFunctions/userRegister');
 const { UserDetails } = require('../schema');
 
 const sandbox = sinon.createSandbox();
@@ -63,6 +63,26 @@ describe('userRgister Validation', () => {
   });
 });
 
+describe('userRgister Validation', () => {
+  beforeAll((done) => {
+    done();
+  });
+  afterEach(async () => {
+    sandbox.restore();
+  });
+  it('Email Validation..', async () => {
+    // sandbox.stub(UserDetails, 'create').returns(Promise.resolve(true));
+    const value = await isEmail('poomathi.k@kaaviansys.com');
+    console.log(value);
+    expect(value).toEqual('poomathi.k@kaaviansys.com');
+  });
+  it('Email Validation..', async () => {
+    // sandbox.stub(UserDetails, 'create').returns(Promise.resolve(true));
+    const value = await isEmail('kaaviansys.com');
+    console.log(value);
+    expect(value).toEqual('poomathi.k@kaaviansys.com');
+  });
+});
 // describe('Server', () => {
 //   let server;
 //   beforeAll(() => {

@@ -11,7 +11,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
-const { UserDetails } = require('./schema');
+// const { UserDetails } = require('./schema');
 const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
@@ -42,7 +42,9 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 app.post('/userRegister', async (req, res) => {
-  const { email, name , userName, userEmail} = req.body;
+  const {
+    email, name, userName, userEmail,
+  } = req.body;
   const data = await userRegister(name, email, userName, userEmail);
   res.json(data);
 });
@@ -88,7 +90,6 @@ app.put('/modify', async (req, res) => {
     token, num1, num2, num3,
   } = req.body;
   const data = await updateContactNumber(token, num1, num2, num3);
-  console.log(data);
   res.json(data);
 });
 
@@ -139,7 +140,6 @@ app.post('/otp', (req, res) => {
     if (error) console.log(error);
     else console.log(`Email sent: ${info.response}`);
   });
-
 });
 
 // for any other request, serve HTML in DIT environment (cloud env)

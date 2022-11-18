@@ -27,7 +27,6 @@ function DeleteRegNumber() {
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        console.log(data);
         if (data.contactNumber1) {
           setContactNumber1(data.contactNumber1);
         }
@@ -38,7 +37,7 @@ function DeleteRegNumber() {
           setContactNumber3(data.contactNumber3);
         }
       });
-  }, []);
+  }, [token]);
 
   function deleteContactNumber1(e) {
     e.preventDefault();
@@ -69,7 +68,7 @@ function DeleteRegNumber() {
 
   return (
     <div className="deleteRegisterUser">
-      <h1>DELETE CONTACT NUMBER</h1>
+      <h2 className="deleteContactNumber">DELETE CONTACT NUMBER</h2>
       { Data.contactNumber1 ? (
         <li className="contactList">
           {Data.contactNumber1}
