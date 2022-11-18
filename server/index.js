@@ -12,7 +12,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
-const { UserDetails } = require('./schema');
+// const { UserDetails } = require('./schema');
 const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
@@ -43,10 +43,8 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 app.post('/userRegister', async (req, res) => {
-  const {
-    email, name, userName, userEmail,
-  } = req.body;
-  const data = await userRegister(name, email, userName, userEmail);
+  const { name, email } = req.body;
+  const data = await userRegister(name, email);
   res.json(data);
 });
 
@@ -54,7 +52,6 @@ app.post('/api/addContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
   const number = `91${mobileNumber}`;
   const data = await addContactNumber(token, number);
-  // console.log(data);
   res.json(data);
 });
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-else-return */
 /* eslint-disable no-promise-executor-return */
 /* eslint-disable consistent-return */
 /* eslint-disable max-len */
@@ -73,7 +75,7 @@ const addContactNumber = async (token, number) => {
     const status = await addContactNumbers(token, number, data);
     return status;
   } else {
-    return ({ status: 'Please enter the details' });
+    return ({ status: 'Please enter the details..' });
   }
 };
 

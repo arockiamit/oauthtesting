@@ -28,11 +28,12 @@ export default function Register() {
   function submit() {
     if (otp === subotp) {
       navigate('/Home');
+      window.location.reload();
       localStorage.setItem('accesstoken', email);
       fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email }), headers: { 'content-type': 'application/json' } });
-      alert('inserted');
+      alert('Inserted');
     } else {
-      alert('your mail verification failed...try again');
+      alert('Your mail verification failed... Try again');
     }
   }
 
@@ -53,6 +54,7 @@ export default function Register() {
           onResolve={({ provider, data }) => {
             console.log(provider, data);
             navigate('/Home');
+            window.location.reload();
             localStorage.setItem('accesstoken', data.email);
             const { name } = data;
             const { email } = data;
