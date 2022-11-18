@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
   contactNumber1: {
     type: Number,
     trim: true,
+    // match: /^(\()?\d{3}(\))?(\s)?\d{3}(\s)\d{4}$/,
     min: [13, 'Phone number should contain at least 10 digits..'],
     max: [13, 'Phone number should contain at most 10 digits..'],
   },

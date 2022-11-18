@@ -25,7 +25,6 @@ export default function Home() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
       setLocation(`http://maps.google.com/?q=${latitude},${longitude}`);

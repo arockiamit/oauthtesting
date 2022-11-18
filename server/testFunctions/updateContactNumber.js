@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable no-return-await */
 const { UserDetails } = require('../schema');
 
@@ -11,9 +12,10 @@ async function updateContactNumber(token, num1, num2, num3) {
     );
     const data = '';
     return data;
+  } else {
+    const data = 'Please fill all numbers';
+    return data;
   }
-  const data = 'Please fill all numbers';
-  return data;
 }
 
 module.exports = { updateContactNumber };

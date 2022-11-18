@@ -26,7 +26,7 @@ export default function ViewNumber() {
 
   return (
     <div className="viewRegisteredNumber">
-      <h2>Registerd Numbers</h2>
+      <h2>VIEW CONTACT NUMBERS</h2>
       { Data.contactNumber1 ? (
         <p>
           <h3>Contact Number 1</h3>
