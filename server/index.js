@@ -153,6 +153,7 @@ if (NODE_ENV === 'DIT') {
   });
 }
 
-app.listen(3001, () => {
+const server = app.listen(3001, () => {
   console.log('server Running');
 });
+module.exports = { server };
