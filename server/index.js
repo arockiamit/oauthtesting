@@ -17,7 +17,7 @@ const nodemailer = require('nodemailer');
 const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
-const { updateContactNumber } = require('./testFunctions/updateContactNumber');
+const { updateContactNumber1, updateContactNumber2, updateContactNumber3 } = require('./testFunctions/updateContactNumber');
 const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { alertMessage } = require('./testFunctions/alertMessage');
@@ -101,15 +101,34 @@ app.post('/api/deleteContactNumber3', async (req, res) => {
 });
 
 // API to edit Registered Contact
-app.put('/modify', async (req, res) => {
+app.put('/modify1', async (req, res) => {
   const {
-    token, num1, num2, num3,
+    token, contactNumber1,
   } = req.body;
-  const data = await updateContactNumber(token, num1, num2, num3);
-  console.log(data);
+  const data = await updateContactNumber1(token, contactNumber1);
+  console.log(data, 452);
   res.json(data);
 });
 
+// API to edit Registered Contact
+app.put('/modify2', async (req, res) => {
+  const {
+    token, contactNumber2,
+  } = req.body;
+  const data = await updateContactNumber2(token, contactNumber2);
+  console.log(data, 452);
+  res.json(data);
+});
+
+// API to edit Registered Contact
+app.put('/modify3', async (req, res) => {
+  const {
+    token, contactNumber3,
+  } = req.body;
+  const data = await updateContactNumber3(token, contactNumber3);
+  console.log(data, 452);
+  res.json(data);
+});
 // API for alert message
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
