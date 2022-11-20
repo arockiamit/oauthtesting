@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable object-shorthand */
 /* eslint-disable consistent-return */
 /* eslint-disable global-require */
@@ -11,15 +11,18 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+// eslint-disable-next-line import/no-unresolved
 const nodemailer = require('nodemailer');
 // const { UserDetails } = require('./schema');
 const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
 const { updateContactNumber } = require('./testFunctions/updateContactNumber');
-const { viewContactNumber } = require('./testFunctions/viewContactNumber');
+const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { alertMessage } = require('./testFunctions/alertMessage');
+const { callContactNumber } = require('./testFunctions/callContactNumber');
+const { getCallDetails } = require('./testFunctions/getCallDetails');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -49,16 +52,30 @@ app.post('/userRegister', async (req, res) => {
 });
 
 app.post('/api/addContact', async (req, res) => {
-  const { token, userName, mobileNumber } = req.body;
+  const { token, mobileNumber } = req.body;
   const number = `91${mobileNumber}`;
-  const data = await addContactNumber(token, userName, number);
+  const data = await addContactNumber(token, number);
+  res.json(data);
+});
+
+// API for call number
+app.post('/api/callNumbers', async (req, res) => {
+  const { token, mobileNum } = req.body;
+  const mobNumber = `91${mobileNum}`;
+  const data = await callContactNumber(token, mobNumber);
+  res.json(data);
+});
+
+app.post('/api/getCallNumber', async (req, res) => {
+  const { token } = req.body;
+  const data = await getCallDetails(token);
   res.json(data);
 });
 
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
   const { token } = req.body;
-  const data = await viewContactNumber(token);
+  const data = await viewNumber(token);
   res.json(data);
 });
 
@@ -153,7 +170,6 @@ if (NODE_ENV === 'DIT') {
   });
 }
 
-const server = app.listen(3001, () => {
+app.listen(3001, () => {
   console.log('server Running');
 });
-module.exports = { server };
