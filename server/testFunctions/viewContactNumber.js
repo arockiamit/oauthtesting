@@ -1,12 +1,5 @@
 /* eslint-disable no-else-return */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-lone-blocks */
-/* eslint-disable no-return-await */
-/* eslint-disable no-console */
-/* eslint-disable max-len */
 const { UserDetails } = require('../schema');
-const { isEmail } = require('./userRegister');
-// all test conditions must be in the file..
 
 // function phonenumber(num1, num2, num3) {
 //   return String(num1, num2, num3)
