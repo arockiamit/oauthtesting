@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "jasmine --config=spec/support/jasmine.json"
+    "test": "nyc jasmine --config=spec/support/jasmine.json"
   },
   "dependencies": {
     "axios": "^1.1.3",

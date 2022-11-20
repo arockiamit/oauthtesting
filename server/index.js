@@ -52,9 +52,9 @@ app.post('/userRegister', async (req, res) => {
 });
 
 app.post('/api/addContact', async (req, res) => {
-  const { token, mobileNumber } = req.body;
+  const { token, userName, mobileNumber } = req.body;
   const number = `91${mobileNumber}`;
-  const data = await addContactNumber(token, number);
+  const data = await addContactNumber(token, userName, number);
   res.json(data);
 });
 
