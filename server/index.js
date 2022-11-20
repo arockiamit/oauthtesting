@@ -18,7 +18,7 @@ const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
 const { updateContactNumber } = require('./testFunctions/updateContactNumber');
-const { viewContactNumber } = require('./testFunctions/viewContactNumber');
+const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { alertMessage } = require('./testFunctions/alertMessage');
 const { callContactNumber } = require('./testFunctions/callContactNumber');
@@ -75,7 +75,7 @@ app.post('/api/getCallNumber', async (req, res) => {
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
   const { token } = req.body;
-  const data = await viewContactNumber(token);
+  const data = await viewNumber(token);
   res.json(data);
 });
 
