@@ -71,21 +71,21 @@ function DeleteRegNumber() {
       <h2 className="deleteContactNumber">DELETE CONTACT NUMBER</h2>
       { Data.contactNumber1 ? (
         <li className="contactList">
-          {Data.contactNumber1}
+          {`${Data.contactName1} - ${Data.contactNumber1}`}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button type="button" className="deleteBtn" onClick={deleteContactNumber1}>Delete</button>
         </li>
       ) : ''}
       { Data.contactNumber2 ? (
         <li className="contactList">
-          {Data.contactNumber2}
+          {`${Data.contactName2} - ${Data.contactNumber2}`}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button type="button" className="deleteBtn" onClick={deleteContactNumber2}>Delete</button>
         </li>
       ) : ''}
       { Data.contactNumber3 ? (
         <li className="contactList">
-          {Data.contactNumber3}
+          {`${Data.contactName3} - ${Data.contactNumber3}`}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button type="button" className="deleteBtn" onClick={deleteContactNumber3}>Delete</button>
         </li>

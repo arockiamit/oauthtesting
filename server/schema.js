@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
     trim: true,
+    match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
   },
   contactNumber1: {
     type: Number,

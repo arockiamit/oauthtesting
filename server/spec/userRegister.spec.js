@@ -14,23 +14,33 @@ describe('createUserProfile', () => {
     sandbox.restore();
   });
   it('Getting and Storing values in DB..', async () => {
+    sandbox.stub(UserDetails, 'findOne').returns(null);
     sandbox.stub(UserDetails, 'create').returns(Promise.resolve(true));
     // sandbox.stub(UserDetails, 'create').resolves(true);
     const value = await createUserProfile('Poomathi.K', 'poomathi.k@kaaviansys.com');
     expect(value.status).toEqual('success');
     expect(value.email).toEqual('poomathi.k@kaaviansys.com');
   });
+  it('Getting and Storing values in DB..', async () => {
+    sandbox.stub(UserDetails, 'findOne').returns('{ data }');
+    const value = await createUserProfile('Poomathi.K', 'poomathi.k@kaaviansys.com');
+    expect(value.status).toEqual('success');
+    expect(value.email).toEqual('poomathi.k@kaaviansys.com');
+  });
   it('Error Testing..', async () => {
+    sandbox.stub(UserDetails, 'findOne').returns(null);
     sandbox.stub(UserDetails, 'create').returns(Promise.reject(new Error('User Registration Failed..')));
     const value = await createUserProfile('Poomathi.K', 'poomathi.k@kaaviansys.com');
     expect(value.status).toEqual('error');
   });
   it('Error Testing..', async () => {
+    sandbox.stub(UserDetails, 'findOne').returns(null);
     sandbox.stub(UserDetails, 'create').returns(Promise.reject(new Error('User Registration Failed..')));
     const value = await createUserProfile(1234, 'poomathi.k@kaaviansys.com');
     expect(value.status).toEqual('error');
   });
   it('Error Testing..', async () => {
+    sandbox.stub(UserDetails, 'findOne').returns(null);
     sandbox.stub(UserDetails, 'create').returns(Promise.reject(new Error('User Registration Failed..')));
     const value = await createUserProfile('Poomathi.K', 76543);
     expect(value.status).toEqual('error');

@@ -19,7 +19,6 @@ export default function Register() {
   const [otp, setOtp] = useState('');
   const navigate = useNavigate();
   function verify() {
-    console.log(email);
     fetch(`${process.env.REACT_APP_SERVER_PREFIX}/otp`, { method: 'post', body: JSON.stringify({ email }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {

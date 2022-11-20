@@ -28,22 +28,25 @@ export default function ViewNumber() {
     <div className="viewRegisteredNumber">
       <h2>VIEW CONTACT NUMBERS</h2>
       { Data.contactNumber1 ? (
-        <p>
-          <h3>Contact Number 1</h3>
-          {Data.contactNumber1}
-        </p>
+        <li className="contactList">
+          <p>
+            {`${Data.contactName1} - ${Data.contactNumber1}`}
+          </p>
+        </li>
       ) : ''}
       { Data.contactNumber2 ? (
-        <p>
-          <h3>Contact Number 2</h3>
-          {Data.contactNumber2}
-        </p>
+        <li className="contactList">
+          <p>
+            {`${Data.contactName2} - ${Data.contactNumber2}`}
+          </p>
+        </li>
       ) : ''}
       { Data.contactNumber3 ? (
-        <p>
-          <h3>Contact Number 3</h3>
-          {Data.contactNumber3}
-        </p>
+        <li className="contactList">
+          <p>
+            {`${Data.contactName3} - ${Data.contactNumber3}`}
+          </p>
+        </li>
       ) : ''}
       <div className="footer">
         <div className="home">

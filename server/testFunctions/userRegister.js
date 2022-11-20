@@ -3,11 +3,16 @@
 const { UserDetails } = require('../schema');
 
 const createUserProfile = (name, email) => new Promise((resolve) => {
-  UserDetails.create({ userName: name, userEmail: email })
-    .then(() => resolve({ status: 'success', email }))
-    .catch((error) => {
-      resolve({ status: 'error', error });
-    });
+  const data = UserDetails.findOne({ userEmail: email });
+  if (!data) {
+    UserDetails.create({ userName: name, userEmail: email })
+      .then(() => resolve({ status: 'success', email }))
+      .catch((error) => {
+        resolve({ status: 'error', error });
+      });
+  } else {
+    resolve({ status: 'success', email });
+  }
 });
 
 function isEmail(email) {
