@@ -4,7 +4,7 @@ import { HiHome } from 'react-icons/hi';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import './ViewNumber.css';
+import './viewnum.css';
 
 export default function ViewNumber() {
   const [Data, setData] = useState('');
@@ -26,24 +26,27 @@ export default function ViewNumber() {
 
   return (
     <div className="viewRegisteredNumber">
-      <h2>Registerd Numbers</h2>
+      <h2>VIEW CONTACT NUMBERS</h2>
       { Data.contactNumber1 ? (
-        <p>
-          <h3>Contact Number 1</h3>
-          {Data.contactNumber1}
-        </p>
+        <li className="contactList">
+          <p>
+            {`${Data.contactName1} - ${Data.contactNumber1}`}
+          </p>
+        </li>
       ) : ''}
       { Data.contactNumber2 ? (
-        <p>
-          <h3>Contact Number 2</h3>
-          {Data.contactNumber2}
-        </p>
+        <li className="contactList">
+          <p>
+            {`${Data.contactName2} - ${Data.contactNumber2}`}
+          </p>
+        </li>
       ) : ''}
       { Data.contactNumber3 ? (
-        <p>
-          <h3>Contact Number 3</h3>
-          {Data.contactNumber3}
-        </p>
+        <li className="contactList">
+          <p>
+            {`${Data.contactName3} - ${Data.contactNumber3}`}
+          </p>
+        </li>
       ) : ''}
       <div className="footer">
         <div className="home">

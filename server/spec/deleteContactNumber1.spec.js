@@ -1,29 +1,21 @@
+/* eslint-disable no-undef */
 const sinon = require('sinon');
-// const Request = require('request');
-const deletecontactnumber = require('../testFunctions/deleteContactNumber');
+const { deleteContactNumber1 } = require('../testFunctions/deleteContactNumber');
 const { UserDetails } = require('../schema');
 
 const sandbox = sinon.createSandbox();
-
-// eslint-disable-next-line no-undef
-describe('DeleteContactNumber', () => {
-  // eslint-disable-next-line no-undef
-  afterEach(async () => {
+describe('DELETE-CONTACT-NUMBER', () => {
+  afterEach(() => {
     sandbox.restore();
   });
-  // eslint-disable-next-line no-undef
-  it('Getting and Storing values in DB..', async () => {
-    sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(true));
-    // sandbox.stub(UserDetails, 'create').resolves(true);
-    const value = await deletecontactnumber.deleteContactNumber1('poomathi.k@kaaviansys.com');
-    // eslint-disable-next-line no-undef
-    expect(value.status).toEqual('success');
+  it('DELETE-NUMBER', async () => {
+    sandbox.stub(UserDetails, 'updateOne');
+    sandbox.stub(UserDetails, 'findOne').returns({ userData: 'testing success' });
+    const value = await deleteContactNumber1('rsanthosh17c@gmail.com');
+    expect(value.userData).toEqual('testing success');
   });
-  // eslint-disable-next-line no-undef
-  it('Error Testing..', async () => {
-    sandbox.stub(UserDetails, 'updateOne').returns(Promise.reject(new Error('Test')));
-    const value = await deletecontactnumber.deleteContactNumber1('poomathi.k@kaaviansys.com');
-    // eslint-disable-next-line no-undef
+  it('ERROR', async () => {
+    const value = await deleteContactNumber1(undefined);
     expect(value.status).toEqual('error');
   });
 });

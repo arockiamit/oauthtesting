@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
@@ -7,6 +8,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLoginButton } from 'react-social-login-buttons';
 import { LoginSocialGoogle } from 'reactjs-social-login';
+import toast from 'toast-me';
 
 import './register.css';
 
@@ -17,7 +19,6 @@ export default function Register() {
   const [otp, setOtp] = useState('');
   const navigate = useNavigate();
   function verify() {
-    console.log(email);
     fetch(`${process.env.REACT_APP_SERVER_PREFIX}/otp`, { method: 'post', body: JSON.stringify({ email }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
@@ -27,11 +28,12 @@ export default function Register() {
   function submit() {
     if (otp === subotp) {
       navigate('/Home');
+      window.location.reload();
       localStorage.setItem('accesstoken', email);
       fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email }), headers: { 'content-type': 'application/json' } });
-      alert('inserted');
+      toast('Inserted');
     } else {
-      alert('your mail verification failed...try again');
+      toast('Your mail verification failed... Try again');
     }
   }
 
@@ -46,14 +48,17 @@ export default function Register() {
         <button className="continueBtn" type="submit" onClick={submit}>REGISTER</button>
         <LoginSocialGoogle
           client_id="530955858644-71apt0ig4qtbthpn284i54plflp5s0qs.apps.googleusercontent.com"
+          scope="openid profile email"
+          discoveryDocs="claims_supported"
+          access_type="offline"
           onResolve={({ provider, data }) => {
             console.log(provider, data);
             navigate('/Home');
+            window.location.reload();
             localStorage.setItem('accesstoken', data.email);
             const { name } = data;
             const { email } = data;
-            const {picture}=data;
-            fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email,picture }), headers: { 'content-type': 'application/json' } });
+            fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email }), headers: { 'content-type': 'application/json' } });
           }}
           onReject={(err) => {
             console.log(err);

@@ -24,7 +24,7 @@ function AddNumber() {
     if (userName === '' && mobileNumber === '') {
       setMessage('Please Enter Fields..');
     } else {
-      fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/addContact`, { method: 'POST', body: JSON.stringify({ token, mobileNumber }), headers: { 'content-type': 'application/json' } })
+      fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/addContact`, { method: 'POST', body: JSON.stringify({ token, userName, mobileNumber }), headers: { 'content-type': 'application/json' } })
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 'success') {
@@ -38,7 +38,7 @@ function AddNumber() {
 
   return (
     <div className="addNumber">
-      <div className="RegisterContactHeading">REGISTER CONTACT</div>
+      <h2 className="RegisterContactHeading">ADD CONTACT NUMBER</h2>
       <form className="registerForm">
         <input
           className="registerUserName"

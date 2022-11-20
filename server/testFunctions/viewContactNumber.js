@@ -3,8 +3,9 @@
 /* eslint-disable max-len */
 const { UserDetails } = require('../schema');
 
-async function viewContactNumber(token) {
-  return await UserDetails.findOne({ userEmail: token }, { userEmail: 0, _id: 0, __v: 0 }).then((data) => data);
+async function viewContactNumber(email) {
+  const data = await UserDetails.findOne({ userEmail: email }, { userEmail: 0, _id: 0, __v: 0 });
+  return data;
 }
 
 module.exports = { viewContactNumber };

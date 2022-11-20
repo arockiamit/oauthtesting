@@ -10,10 +10,12 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
     trim: true,
+    match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
   },
   contactNumber1: {
     type: Number,
     trim: true,
+    // match: /^(\()?\d{3}(\))?(\s)?\d{3}(\s)\d{4}$/,
     min: [13, 'Phone number should contain at least 10 digits..'],
     max: [13, 'Phone number should contain at most 10 digits..'],
   },
@@ -34,6 +36,18 @@ const userSchema = new mongoose.Schema({
     trim: true,
     min: [13, 'Phone number should contain at least 10 digits..'],
     max: [13, 'Phone number should contain at most 10 digits..'],
+  },
+  contactName1: {
+    type: String,
+    required: true,
+  },
+  contactName2: {
+    type: String,
+    required: true,
+  },
+  contactName3: {
+    type: String,
+    required: true,
   },
 }, { collection: 'userDetails' });
 

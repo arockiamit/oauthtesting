@@ -32,8 +32,6 @@ export default function Modify() {
     fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/ViewContact`, { method: 'post', body: JSON.stringify({ token }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        console.log(data.contactNumber1);
         setNum1(data.contactNumber1);
         setNum2(data.contactNumber2);
         setNum3(data.contactNumber3);
@@ -62,9 +60,8 @@ export default function Modify() {
 
   return (
     <div className="content">
-      <h2> Edit Number</h2>
+      <h2 className="editContactHeading"> EDIT CONTACT NUMBERS</h2>
       <table className="tab1">
-
         <tr>
           <th>contact 1</th>
           <td className="phnNum"><input type="text" required value={num1} onChange={(e) => setNum1(e.target.value)} /></td>
@@ -73,13 +70,11 @@ export default function Modify() {
         <tr>
           <th>contact 2</th>
           <td className="phnNum"><input type="text" required value={num2} onChange={(e) => setNum2(e.target.value)} /></td>
-
           <td><button type="button" className="editBtn" onClick={updatenum}>Edit</button></td>
         </tr>
         <tr>
           <th>contact 3</th>
           <td className="phnNum"><input type="text" required value={num3} onChange={(e) => setNum3(e.target.value)} /></td>
-
           <td><button type="button" className="editBtn" onClick={updatenum}>Edit</button></td>
         </tr>
       </table>
