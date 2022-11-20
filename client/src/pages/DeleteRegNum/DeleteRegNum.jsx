@@ -14,7 +14,7 @@ function DeleteRegNumber() {
   const [contactNumber2, setContactNumber2] = useState();
   const [contactNumber3, setContactNumber3] = useState();
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accesstoken');
   const navigate = useNavigate();
   function HomePage() {
     return navigate('/');

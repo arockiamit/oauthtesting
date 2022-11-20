@@ -9,7 +9,13 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 const { UserDetails } = require('./schema');
+const { userRegister } = require('./testFunctions/userRegister');
+const { addContactNumber } = require('./testFunctions/addContactNumber');
+const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
+const { updateContactNumber } = require('./testFunctions/updateContactNumber');
+const { viewContactNumber } = require('./testFunctions/viewContactNumber');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -33,111 +39,60 @@ app.use('/static', express.static(path.join(__dirname, '/../client/build/static'
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
 app.post('/userRegister', async (req, res) => {
-  const { phoneNumber, name } = req.body;
-  try {
-    await UserDetails.create({ userName: name, userMobileNumber: phoneNumber });
-    return res.json({ status: 'success', phoneNumber });
-  } catch (error) {
-    return res.json({ error });
-  }
-});
+  const { email, name,picture } = req.body;
+  console.log(picture,'sannnnn')
 
-app.post('/search', async (req, res) => {
-  const { TOKEN } = req.body;
-  console.log(TOKEN, 22);
-  await UserDetails.findOne({ userMobileNumber: TOKEN }, { userMobileNumber: 0 }).then((data) => {
+  userRegister(name, email).then((data) => {
     console.log(data);
-    return res.json(data);
+    res.json(data);
   });
 });
 
-app.put('/modify', async (req, res) => {
-  const { num1, num2, num3 } = req.body;
-  if (num1 !== '' && num2 !== '' && num3 !== '') {
-    await UserDetails.updateOne(
-      {},
-      {
-        $set: { contactNumber1: num1, contactNumber2: num2, contactNumber3: num3 },
-      },
-    );
-  } else {
-    const data = 'Please fill all numbers';
-    res.json(data);
-  }
-});
-app.post('/api/registerContact', async (req, res) => {
+app.post('/api/addContact', async (req, res) => {
   const { token, mobileNumber } = req.body;
-  // const userPhoneNUmber = tokenDecode(token);
   const number = `91${mobileNumber}`;
-  if (mobileNumber !== null) {
-    await UserDetails.findOne({ userMobileNumber: token }).then(async (data) => {
-      if (data.contactNumber1 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber1: number } });
-        return res.json({ status: 'Successfully added..' });
-      } else if (data.contactNumber2 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber2: number } });
-        return res.json({ status: 'Successfully added..' });
-      } else if (data.contactNumber3 === undefined) {
-        await UserDetails.updateOne({ userMobileNumber: token }, { $set: { contactNumber3: number } });
-        return res.json({ status: 'Successfully added..' });
-      }
-      return res.json({ status: 'Already 3 users have been added' });
-    });
-  } else {
-    return res.json({ status: 'Please enter the details' });
-  }
+  addContactNumber(token, number).then((data) => {
+    console.log(data);
+    res.json(data);
+  });
 });
 
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
   const { token } = req.body;
-  await UserDetails.findOne({ userMobileNumber: token }, { userMobileNumber: 0, _id: 0, __v: 0 }).then((data) => {
-    res.json(data);
-    console.log(data);
-  });
+  const data = await viewContactNumber(token);
+  res.json(data);
 });
 
 // API to delete Registered Contact1
 app.post('/api/deleteContactNumber1', async (req, res) => {
   const { token } = req.body;
-  await UserDetails.updateOne({ userMobileNumber: token }, { $unset: { contactNumber1: '' } });
-  await UserDetails.find({}).then((data) => {
-    res.json(data);
-  });
+  const data = await deleteContactNumber1(token);
+  res.json(data);
 });
 
 // API to delete Registered Contact2
 app.post('/api/deleteContactNumber2', async (req, res) => {
   const { token } = req.body;
-  await UserDetails.updateOne({ userMobileNumber: token }, { $unset: { contactNumber2: '' } });
-  await UserDetails.find({}).then((data) => {
-    res.json(data);
-  });
+  const data = await deleteContactNumber2(token);
+  res.json(data);
 });
 
 // API to delete Registered Contact3
 app.post('/api/deleteContactNumber3', async (req, res) => {
   const { token } = req.body;
-  await UserDetails.updateOne({ userMobileNumber: token }, { $unset: { contactNumber3: '' } });
-  await UserDetails.find({}).then((data) => {
-    res.json(data);
-  });
+  const data = await deleteContactNumber3(token);
+  res.json(data);
 });
 
 // API to edit Registered Contact
 app.put('/modify', async (req, res) => {
-  const { num1, num2, num3 } = req.body;
-  if (num1 !== '' && num2 !== '' && num3 !== '') {
-    await UserDetails.updateOne(
-      {},
-      {
-        $set: { contactNumber1: num1, contactNumber2: num2, contactNumber3: num3 },
-      },
-    );
-  } else {
-    const data = 'Please fill all numbers';
-    res.json(data);
-  }
+  const {
+    token, num1, num2, num3,
+  } = req.body;
+  const data = await updateContactNumber(token, num1, num2, num3);
+  console.log(data);
+  res.json(data);
 });
 
 // API for alert message
@@ -160,7 +115,7 @@ app.post('/api/alertMessage', async (req, res) => {
       url: 'https://graph.facebook.com/v15.0/106768935582427/messages',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer EAAP6obW3ZB1oBAMQMdnrHWSjztlDfMvJBhsFirWhAK7AdIA33WJZAUpCZAKsun3pksmxDjgq9SAOgvcU00GlE32bz1ZBDxf8u04QK8O28bcZBZAsuK9DhLAE2VQ2j8PRSO1P8WwT4vrMSmHTuexAdR0j5F1vfvEJT193fVoWJZBrbZCd1BVDodNlxnpL0UR2DTGD8PrWKAnu1dF6nP5R7YTd',
+        Authorization: 'Bearer EAAP6obW3ZB1oBAA1trZChcOXxyNE4c6tdKY99vnDJGzKrooM45TjFDJRjELDmiFPoV2UIa6yPJmsBYM2NxjwJzFWBiaR6X6AiCqsZBQDiahScq8i7SQxYhcgWMZBdaJagdzZB29xEPZC2534b8Bc0eNk40HuSJ3wtsl9LVjRCVtPw9mEWftVWT',
       },
       data,
     };
@@ -196,6 +151,50 @@ app.post('/api/alertMessage', async (req, res) => {
   }
   return res.json('');
 });
+
+app.post('/otp', (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  let otp = '';
+
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < 6; i++) {
+    otp += Math.floor(Math.random() * 10);
+  }
+  res.json(otp);
+
+  const mailOptions = {
+    from: 'santhosh.r@kaaviansys.com',
+    to: `${email}`,
+    subject: 'Safety App',
+    text: `${otp} is your verification code for SOS`,
+  };
+
+  // Mail transport configuration
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'santhosh.r@kaaviansys.com',
+      pass: '@santhosh1',
+    },
+  });
+
+  // Delivering mail with sendMail method
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) console.log(error);
+    else console.log(`Email sent: ${info.response}`);
+  });
+
+  // console.log("generateotp = ",generate());
+}); 
+
+app.post('/googledata', (req) => {
+  // eslint-disable-next-line camelcase
+  const { userName, userEmail } = req.body;
+  // eslint-disable-next-line camelcase
+  UserDetails.create({ userName, userEmail });
+});
+
 // const result = async () => {
 //   // await UserDetails.create({ userName: 'Poomathi.K', userMobileNumber: 987654321012 });
 //   await UserDetails.find({ userMobileNumber: 9047420795 });
@@ -215,6 +214,7 @@ if (NODE_ENV === 'DIT') {
   });
 }
 
-app.listen(3001, () => {
+const server = app.listen(3001, () => {
   console.log('server Running');
 });
+module.exports = { server };

@@ -12,7 +12,7 @@ export default function Home() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [location, setLocation] = useState();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accesstoken');
   const sirenaudio = () => {
     if (audio === false) {
       siren.play();
@@ -24,9 +24,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((postion) => {
-      setLatitude(postion.coords.latitude);
-      setLongitude(postion.coords.longitude);
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
       setLocation(`http://maps.google.com/?q=${latitude},${longitude}`);
     });
   });
@@ -46,7 +47,7 @@ export default function Home() {
           <img src={volume} alt="Alert" />
         </button>
       </div>
-      <div>
+      <div className="messageButton">
         <button className="button" type="button" onClick={() => { alertMessage(); }}>SOS</button>
       </div>
       <hr />

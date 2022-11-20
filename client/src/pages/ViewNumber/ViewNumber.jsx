@@ -8,7 +8,7 @@ import './ViewNumber.css';
 
 export default function ViewNumber() {
   const [Data, setData] = useState('');
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accesstoken');
   const navigate = useNavigate();
   function HomePage() {
     return navigate('/Home');
@@ -35,13 +35,13 @@ export default function ViewNumber() {
       ) : ''}
       { Data.contactNumber2 ? (
         <p>
-          <h3>Contact Number 1</h3>
+          <h3>Contact Number 2</h3>
           {Data.contactNumber2}
         </p>
       ) : ''}
       { Data.contactNumber3 ? (
         <p>
-          <h3>Contact Number 1</h3>
+          <h3>Contact Number 3</h3>
           {Data.contactNumber3}
         </p>
       ) : ''}
