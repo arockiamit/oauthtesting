@@ -16,6 +16,7 @@ import EditNumber from './pages/EditNumber/EditNumber';
 import DeleteRegNumber from './pages/DeleteRegNum/DeleteRegNum';
 import AddNumber from './pages/AddNumber/AddNumber';
 import ViewNumber from './pages/ViewNumber/ViewNumber';
+import CallNumber from './pages/CallNumber/CallNumber';
 
 function App() {
   const accessedUser = localStorage.getItem('accesstoken');
@@ -30,13 +31,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={!accessedUser ? <Register /> : <Navigate to="/Home" />} />
-          <Route path="/Home" element={accessedUser ? <Home /> : <Navigate to="/" />} />
-          <Route path="/Menu" element={accessedUser ? <Menu /> : <Navigate to="/" />} />
-          <Route path="/editNumber" element={accessedUser ? <EditNumber /> : <Navigate to="/" />} />
-          <Route path="/deleteRegNumber" element={accessedUser ? <DeleteRegNumber /> : <Navigate to="/" />} />
-          <Route path="/addNumber" element={accessedUser ? <AddNumber /> : <Navigate to="/" />} />
-          <Route path="/viewNumber" element={accessedUser ? <ViewNumber /> : <Navigate to="/" />} />
-          <Route path="/location" element={accessedUser ? <Location /> : <Navigate to="/" />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/Menu" element={<Menu />} />
+          <Route path="/editNumber" element={<EditNumber />} />
+          <Route path="/deleteRegNumber" element={<DeleteRegNumber />} />
+          <Route path="/addNumber" element={<AddNumber />} />
+          <Route path="/viewNumber" element={<ViewNumber />} />
+          <Route path="/location" element={<Location />} />
+          <Route path="/callNumber" element={<CallNumber />} />
         </Routes>
       </BrowserRouter>
     </div>

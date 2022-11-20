@@ -1,0 +1,57 @@
+.footer{
+    position: fixed;
+    left: 0%;
+    bottom: 0;
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: row;
+    background-color:#716f6f;
+  }
+  
+  
+  .footer .clear{
+    font-size: 1.5em;
+    height: 3rem;
+    width: 3rem;
+    margin-left: 4rem; 
+    border: none;
+    background-color:#716f6f; 
+  }
+  
+  .footer .bhome{
+    font-size: 1.5em;
+    height: 3rem;
+    width: 3rem;
+    margin-left: 3rem;
+    border: none;
+    background-color:#716f6f; 
+  }
+  
+  .footer .back{
+    font-size: 1.5em;
+    height: 3rem;
+    width: 3rem;
+    margin-left: 3rem; 
+    border: none;
+    background-color: #716f6f; 
+  }
+  
+  .callNumber{
+    margin-top: 20%;
+    font-size: 14px;
+  }
+
+  .registerUserButton{
+    margin-top: 3%;
+    width: 7rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #716f6f;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  }
+  
+  .RegisterContactHeading{
+    font-size: 25px;
+  }
