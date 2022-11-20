@@ -223,9 +223,10 @@ body{
     font-size: 3em;
     height: 6rem;
     width: 6rem;
-    padding-top: 7%;
-    margin-left:4rem;
-    /* margin-bottom: 2em; */
+    padding-bottom: 1%;
+    padding-top: 10%;
+    margin-left: -1rem; 
+    /* margin-top: 2em; */
     border: none;
     box-shadow: 3px 3px 3px;
     background-color:#e4e1e1;
@@ -253,6 +254,19 @@ body{
     padding-top: 10%;
     margin-left: -1rem; 
     /* margin-top: 2em; */
+    border: none;
+    box-shadow: 3px 3px 3px;
+    background-color:#e4e1e1;
+}
+
+.mobileMenu .first .reg-call{
+    border-radius: 25%;
+    font-size: 3em;
+    height: 6rem;
+    width: 6rem;
+    padding-top: 7%;
+    margin-left:3rem;
+    /* margin-bottom: 2em; */
     border: none;
     box-shadow: 3px 3px 3px;
     background-color:#e4e1e1;

@@ -3,10 +3,11 @@ import React from 'react';
 import './Menu.css';
 import { BiCommentAdd } from 'react-icons/bi';
 import { GrView, GrMap } from 'react-icons/gr';
-import { MdDelete } from 'react-icons/md';
+import { MdDeleteOutline } from 'react-icons/md';
 import { HiHome } from 'react-icons/hi';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { FaBars, FaEdit } from 'react-icons/fa';
+import { IoCallOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
 function Menu() {
@@ -26,6 +27,9 @@ function Menu() {
   function MapNearby() {
     window.location.href = 'https://www.google.com/maps/search/nearby+police+station/';
     return navigate('/Menu');
+  }
+  function CallNumber() {
+    return navigate('/callNumber');
   }
   function HomePage() {
     return navigate('/');
@@ -68,9 +72,15 @@ function Menu() {
           <div className="first">
             <div className="child">
               <button className="reg-del" onClick={DeleteRegNum} type="submit">
-                <MdDelete />
+                <MdDeleteOutline />
               </button>
-              <p className="childtextdel">Delete</p>
+              <p className="childtext">Delete</p>
+            </div>
+            <div className="child">
+              <button className="reg-call" onClick={CallNumber} type="submit">
+                <IoCallOutline />
+              </button>
+              <p>Call</p>
             </div>
           </div>
           <div className="footer">
