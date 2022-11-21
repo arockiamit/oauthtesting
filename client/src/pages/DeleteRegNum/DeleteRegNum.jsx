@@ -13,6 +13,7 @@ function DeleteRegNumber() {
   const [contactNumber1, setContactNumber1] = useState();
   const [contactNumber2, setContactNumber2] = useState();
   const [contactNumber3, setContactNumber3] = useState();
+  const [callNumber, setCallNumber] = useState();
 
   const token = localStorage.getItem('accesstoken');
   const navigate = useNavigate();
@@ -35,6 +36,9 @@ function DeleteRegNumber() {
         }
         if (data.contactNumber3) {
           setContactNumber3(data.contactNumber3);
+        }
+        if (data.callingNumber) {
+          setCallNumber(data.callingNumber);
         }
       });
   }, [token]);
@@ -65,6 +69,14 @@ function DeleteRegNumber() {
         setData(data);
       });
   }
+  function deleteCallingNumber(e) {
+    e.preventDefault();
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/deleteCallNumber`, { method: 'POST', body: JSON.stringify({ token, callNumber }), headers: { 'content-type': 'application/json' } })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      });
+  }
 
   return (
     <div className="deleteRegisterUser">
@@ -88,6 +100,14 @@ function DeleteRegNumber() {
           {`${Data.contactName3} - ${Data.contactNumber3}`}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button type="button" className="deleteBtn" onClick={deleteContactNumber3}>Delete</button>
+        </li>
+      ) : ''}
+      { Data.callingNumber ? (
+        <li className="contactList">
+          <h3 className="deleteContactNumber">DELETE CALL NUMBER</h3>
+          {`${Data.callingPersonName} - ${Data.callingNumber}`}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" className="deleteBtn" onClick={deleteCallingNumber}>Delete</button>
         </li>
       ) : ''}
       <div className="footer">
