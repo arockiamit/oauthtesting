@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable object-shorthand */
 /* eslint-disable consistent-return */
@@ -11,8 +12,9 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-// eslint-disable-next-line import/no-unresolved
 const nodemailer = require('nodemailer');
+// const uploadPicture = require('./sample');
+// eslint-disable-next-line import/no-unresolved
 // const { UserDetails } = require('./schema');
 const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
@@ -44,6 +46,8 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 // for serving built static js/css files
 app.use('/static', express.static(path.join(__dirname, '/../client/build/static')));
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
+
+// app.post('/upload', uploadPicture);
 
 app.post('/userRegister', async (req, res) => {
   const { name, email } = req.body;
@@ -124,6 +128,23 @@ app.post('/api/alertMessage', async (req, res) => {
   console.log(data1, data2, data3);
 
   return res.json('');
+});
+
+app.post('/image1', async (req) => {
+  const { picture } = req.body;
+  console.log(picture);
+  console.log(typeof (picture));
+  const imagebuffer = picture.substring(23);
+  const finalImg = new Buffer.from(imagebuffer, 'base64');
+  fs.writeFileSync('myImg.png', finalImg);
+
+  // fs.writeFile('image.jpeg', picture, { encoding: 'base64' }, (err) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log('File Created');
+  //   }
+  // });
 });
 
 app.post('/otp', (req, res) => {
