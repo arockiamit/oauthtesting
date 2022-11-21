@@ -16,7 +16,9 @@ const nodemailer = require('nodemailer');
 // const { UserDetails } = require('./schema');
 const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
-const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
+const {
+  deleteContactNumber2, deleteContactNumber1, deleteContactNumber3, deleteCallNumber,
+} = require('./testFunctions/deleteContactNumber');
 const { updateContactNumber } = require('./testFunctions/updateContactNumber');
 const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
@@ -60,9 +62,9 @@ app.post('/api/addContact', async (req, res) => {
 
 // API for call number
 app.post('/api/callNumbers', async (req, res) => {
-  const { token, mobileNum } = req.body;
-  const mobNumber = `91${mobileNum}`;
-  const data = await callContactNumber(token, mobNumber);
+  const { token, userName, mobileNum } = req.body;
+  const mobileNumber = `91${mobileNum}`;
+  const data = await callContactNumber(token, userName, mobileNumber);
   res.json(data);
 });
 
@@ -100,13 +102,19 @@ app.post('/api/deleteContactNumber3', async (req, res) => {
   res.json(data);
 });
 
+// API to delete Registered call number
+app.post('/api/deleteCallNumber', async (req, res) => {
+  const { token } = req.body;
+  const data = await deleteCallNumber(token);
+  res.json(data);
+});
+
 // API to edit Registered Contact
 app.put('/modify', async (req, res) => {
   const {
     token, num1, num2, num3,
   } = req.body;
   const data = await updateContactNumber(token, num1, num2, num3);
-  console.log(data);
   res.json(data);
 });
 
