@@ -19,6 +19,7 @@ export default function Register() {
   const [otp, setOtp] = useState('');
   const navigate = useNavigate();
   function verify() {
+    console.log(email);
     fetch(`${process.env.REACT_APP_SERVER_PREFIX}/otp`, { method: 'post', body: JSON.stringify({ email }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
@@ -30,7 +31,8 @@ export default function Register() {
       navigate('/Home');
       window.location.reload();
       localStorage.setItem('accesstoken', email);
-      fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email }), headers: { 'content-type': 'application/json' } });
+      fetch(`${process.env.REACT_APP_SERVER_PREFIX}/userRegister`, { method: 'post', body: JSON.stringify({ name, email }), headers: { 'content-type': 'application/json' } })
+        .then((data) => console.log(data));
       toast('Inserted');
     } else {
       toast('Your mail verification failed... Try again');
@@ -47,7 +49,7 @@ export default function Register() {
         <input type="text" name="otp" placeholder="ENTER OTP" onChange={(e) => setOtp(e.target.value)} />
         <button className="continueBtn" type="submit" onClick={submit}>REGISTER</button>
         <LoginSocialGoogle
-          client_id="530955858644-71apt0ig4qtbthpn284i54plflp5s0qs.apps.googleusercontent.com"
+          client_id="530955858644-kdkehhqf98s21lprjcm6hj8alnd6ddrd.apps.googleusercontent.com"
           scope="openid profile email"
           discoveryDocs="claims_supported"
           access_type="offline"

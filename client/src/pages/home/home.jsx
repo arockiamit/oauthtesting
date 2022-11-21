@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import './home.css';
 import { IoCall } from 'react-icons/io5';
 import Webcam from 'react-webcam';
+import toast from 'toast-me';
 import volume from './volume.png';
 import song from './audio/static/siren.mp3';
 
@@ -30,7 +31,6 @@ export default function Home() {
   const [location, setLocation] = useState();
   const [mobileNum, setMobileNum] = useState();
   const [picture, setPicture] = useState('');
-  const [item, setItem] = useState({ title: '', image: '' });
   const webcamRef = React.useRef(null);
   const token = localStorage.getItem('accesstoken');
   const sirenaudio = () => {
@@ -59,11 +59,11 @@ export default function Home() {
   });
 
   const alertMessage = () => {
+    console.log(location, 232345);
     fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/alertMessage`, { method: 'POST', body: JSON.stringify({ token, location }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        // setMobileNum(data.mobileNum);
+        toast(data.status);
       });
   };
 

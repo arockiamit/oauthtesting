@@ -18,8 +18,12 @@ const nodemailer = require('nodemailer');
 // const { UserDetails } = require('./schema');
 const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
-const { deleteContactNumber2, deleteContactNumber1, deleteContactNumber3 } = require('./testFunctions/deleteContactNumber');
-const { updateContactNumber } = require('./testFunctions/updateContactNumber');
+const {
+  updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
+} = require('./testFunctions/updateContactNumber');
+const {
+  deleteContactNumber2, deleteContactNumber1, deleteContactNumber3, deleteCallNumber,
+} = require('./testFunctions/deleteContactNumber');
 const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { alertMessage } = require('./testFunctions/alertMessage');
@@ -64,9 +68,9 @@ app.post('/api/addContact', async (req, res) => {
 
 // API for call number
 app.post('/api/callNumbers', async (req, res) => {
-  const { token, mobileNum } = req.body;
-  const mobNumber = `91${mobileNum}`;
-  const data = await callContactNumber(token, mobNumber);
+  const { token, userName, mobileNum } = req.body;
+  const mobileNumber = `+91${mobileNum}`;
+  const data = await callContactNumber(token, userName, mobileNumber);
   res.json(data);
 });
 
@@ -104,30 +108,66 @@ app.post('/api/deleteContactNumber3', async (req, res) => {
   res.json(data);
 });
 
-// API to edit Registered Contact
-app.put('/modify', async (req, res) => {
-  const {
-    token, num1, num2, num3,
-  } = req.body;
-  const data = await updateContactNumber(token, num1, num2, num3);
-  console.log(data);
+// API to delete Registered call number
+app.post('/api/deleteCallNumber', async (req, res) => {
+  const { token } = req.body;
+  const data = await deleteCallNumber(token);
   res.json(data);
 });
 
+// API to edit Registered Contact
+app.put('/modify1', async (req, res) => {
+  const {
+    token, contactNumber1,
+  } = req.body;
+
+  const data = await updateContactNumber1(token, contactNumber1);
+  res.json(data);
+});
+
+// API to edit Registered Contact
+app.put('/modify2', async (req, res) => {
+  const {
+    token, contactNumber2,
+  } = req.body;
+  const data = await updateContactNumber2(token, contactNumber2);
+  console.log(data, 452);
+  res.json(data);
+});
+
+// API to edit Registered Contact
+app.put('/modify3', async (req, res) => {
+  const {
+    token, contactNumber3,
+  } = req.body;
+  const data = await updateContactNumber3(token, contactNumber3);
+  console.log(data, 452);
+  res.json(data);
+});
+
+// API to edit Registered Contact
+app.put('/updateCallNumber', async (req, res) => {
+  const {
+    token, contactNumber3,
+  } = req.body;
+  const data = await updateCallNumber(token, contactNumber3);
+  console.log(data, 452);
+  res.json(data);
+});
+
+// API for alert message
 // API for alert message
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
   // const userPhoneNUmber = tokenDecode(token);
   const details = await getUserDetails(token);
   const locat = location;
-
+  console.log(locat, 567890);
+  console.log(details, 123);
   const data1 = await alertMessage(details.contactNumber1, details.userName, locat);
-  const data2 = await alertMessage(details.contactNumber2, details.userName, locat);
-  const data3 = await alertMessage(details.contactNumber3, details.userName, locat);
-
-  console.log(data1, data2, data3);
-
-  return res.json('');
+  await alertMessage(details.contactNumber2, details.userName, locat);
+  await alertMessage(details.contactNumber3, details.userName, locat);
+  return res.json(data1);
 });
 
 app.post('/image1', async (req) => {
@@ -137,14 +177,6 @@ app.post('/image1', async (req) => {
   const imagebuffer = picture.substring(23);
   const finalImg = new Buffer.from(imagebuffer, 'base64');
   fs.writeFileSync('myImg.png', finalImg);
-
-  // fs.writeFile('image.jpeg', picture, { encoding: 'base64' }, (err) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log('File Created');
-  //   }
-  // });
 });
 
 app.post('/otp', (req, res) => {
