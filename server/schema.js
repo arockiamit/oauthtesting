@@ -39,15 +39,12 @@ const userSchema = new mongoose.Schema({
   },
   contactName1: {
     type: String,
-    required: true,
   },
   contactName2: {
     type: String,
-    required: true,
   },
   contactName3: {
     type: String,
-    required: true,
   },
 }, { collection: 'userDetails' });
 

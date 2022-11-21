@@ -111,21 +111,19 @@ app.put('/modify', async (req, res) => {
 });
 
 // API for alert message
+// API for alert message
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
   // const userPhoneNUmber = tokenDecode(token);
   const details = await getUserDetails(token);
   const locat = location;
-
+  console.log(locat, 567890);
+  console.log(details, 123);
   const data1 = await alertMessage(details.contactNumber1, details.userName, locat);
-  const data2 = await alertMessage(details.contactNumber2, details.userName, locat);
-  const data3 = await alertMessage(details.contactNumber3, details.userName, locat);
-
-  console.log(data1, data2, data3);
-
-  return res.json('');
+  await alertMessage(details.contactNumber2, details.userName, locat);
+  await alertMessage(details.contactNumber3, details.userName, locat);
+  return res.json(data1);
 });
-
 app.post('/otp', (req, res) => {
   const { email } = req.body;
   let otp = '';

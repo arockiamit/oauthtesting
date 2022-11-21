@@ -21,7 +21,6 @@ describe('callContactNumber', () => {
   it('Validation check', async () => {
     sandbox.stub(UserDetails, 'update').returns(Promise.resolve(true));
     const value = await callContactNumber('vijayaharini.j@kaaviansys.com', '91undefined');
-    console.log(value);
     expect(value).toEqual(value);
   });
   it('Validation check', async () => {
