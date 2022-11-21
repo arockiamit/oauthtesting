@@ -6,7 +6,7 @@ const sinon = require('sinon');
 // const Request = require('request');
 const axios = require('axios');
 // const { alertaxios } = require('../testFunctions/alertMessage');
-const obj = require('../testFunctions/alertmessage');
+const obj = require('../testFunctions/alertMessage');
 // eslint-disable-next-line import/order
 
 const sandbox = sinon.createSandbox();
@@ -39,7 +39,7 @@ describe('alertmessage axios', () => {
   it('Testing axios if..', async () => {
     // sandbox.stub(axios, 'post').returns(Promise.reject(new Error('error')));
     const value = await obj.alertMessage(undefined);
-    expect(value.status).toEqual('failed');
+    expect(value.status).toEqual('Message Not Sent..!');
   });
 });
 describe('alertmessage', () => {
@@ -47,10 +47,10 @@ describe('alertmessage', () => {
     sandbox.restore();
   });
   it('Getting and Storing values in DB..', async () => {
-    sandbox.stub(obj, 'alertaxios').returns('true');
+    sandbox.stub(obj, 'alertaxios').returns(true);
     // sandbox.stub(UserDetails, 'create').resolves(true);
     const value = await obj.alertMessage(917339437623, 'Meenakshi.M', 'http://maps.google.com/?q=9.597234582582793,77.949371');
-    expect(value).toEqual('true');
+    expect(value.status).toEqual('Message sent..!');
   });
   it('Error Testing..', async () => {
     sandbox.stub(obj, 'alertaxios').throws(new Error('failed'));
