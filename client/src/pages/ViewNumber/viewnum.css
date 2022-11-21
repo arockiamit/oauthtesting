@@ -37,7 +37,7 @@
 }
 
 .viewRegisteredNumber{
-  margin-top: 20%;
+  margin-top: 15%;
 }
 
 @media only screen and (max-width:500px){
@@ -49,6 +49,6 @@
   }
   .viewRegisteredNumber .contactList {
     border-bottom: .5px solid;
-    font-size: 20px;
+    font-size: 17px;
   }
 }

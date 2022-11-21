@@ -31,4 +31,16 @@ async function deleteContactNumber3(email) {
   }
 }
 
-module.exports = { deleteContactNumber1, deleteContactNumber2, deleteContactNumber3 };
+async function deleteCallNumber(email) {
+  if (email) {
+    await UserDetails.updateOne({ userEmail: email }, { $unset: { callingNumber: '' } });
+    const userData = await UserDetails.findOne({ userEmail: email }, { userEmail: 0, _id: 0, __v: 0 });
+    return userData;
+  } else {
+    return ({ status: 'error' });
+  }
+}
+
+module.exports = {
+  deleteContactNumber1, deleteContactNumber2, deleteContactNumber3, deleteCallNumber,
+};

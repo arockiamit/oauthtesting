@@ -14,7 +14,6 @@ describe('Server side testing', () => {
   it('Testing the wrong emailid', async () => {
     // sandbox.stub(UserDetails, 'findOne');
     const value = await viewNumber();
-    console.log(value);
     expect(value.status).toEqual('Email Not Found..');
   });
 

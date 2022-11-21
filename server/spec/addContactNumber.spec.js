@@ -119,11 +119,11 @@ describe('Get User Details - ', () => {
     sandbox.stub(UserDetails, 'findOne').returns(Promise.reject(new Error('error')));
     // sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(new Error('Test')));
     const value = await addContactNumber('sudha@gmail.com', undefined, undefined);
-    expect(value.status).toEqual('Please enter the details..');
+    expect(value.status).toEqual('Please enter valid details..');
   });
   it('Validation Checking', async () => {
     sandbox.stub(UserDetails, 'findOne').returns(Promise.resolve(new Error('Test')));
-    const value = await addContactNumber('sudha@gmail.com', 'Poomathi K', null);
-    expect(value.status).toEqual('Please enter the details..');
+    const value = await addContactNumber('sudha@gmail.com', undefined, 'Poomathi K');
+    expect(value.status).toEqual('Please enter valid details..');
   });
 });

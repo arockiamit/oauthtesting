@@ -12,27 +12,35 @@ describe('callContactNumber', () => {
     sandbox.restore();
   });
   it('Getting User Call Details', async () => {
+    sandbox.stub(UserDetails, 'findOne').returns(true);
+    sandbox.stub(UserDetails, 'updateOne').returns(true);
+    const value = await callContactNumber('vijayaharini.j@kaaviansys.com', 'Poomathi.K', 918765439821);
+    // console.log(value);
+    expect(value).toEqual(value);
+  });
+  it('Getting User Call Details', async () => {
     sandbox.stub(UserDetails, 'findOne').returns(Promise.resolve(true));
-    sandbox.stub(UserDetails, 'updateOne').returns(Promise.resolve(true));
-    const value = await callContactNumber('vijayaharini.j@kaaviansys.com', 918765439821, '{ userName : Vijayahrini.J, userEmail: vijayaharini.j@kaaviansys.com, callingNumber: 9187654234231 }');
-    // console.log(value);
-    expect(value).toEqual(value);
+    sandbox.stub(UserDetails, 'updateOne');
+    const value = await callContactNumber('vijayaharini.j@kaaviansys.com', 'Poomathi.K', 918765439821);
+    expect(value.status).toEqual('success');
   });
-  it('Validation check', async () => {
-    sandbox.stub(UserDetails, 'update').returns(Promise.resolve(true));
-    const value = await callContactNumber('vijayaharini.j@kaaviansys.com', '91undefined');
+  it('Getting User Call Details', async () => {
+    sandbox.stub(UserDetails, 'findOne').returns({
+      userName: 'Poomathi.K', userEmail: 'poomathi.k@kaaviansys.com', callingNumber: 916382856207,
+    });
+    const value = await callContactNumber('poomathi.k@kaaviansys.com', 'Meena.M', 918765439821);
     expect(value).toEqual(value);
   });
   it('Validation check', async () => {
     sandbox.stub(UserDetails, 'update').returns(Promise.reject(new Error('Failed..')));
-    const value = await callContactNumber('vijayaharini.j@kaaviansys.com', undefined);
+    const value = await callContactNumber('vijayaharini.j@kaaviansys.com', undefined, undefined);
     // console.log(value);
-    expect(value.status).toEqual('Please enter the details');
+    expect(value.status).toEqual('Please enter valid details');
   });
   it('Validation check', async () => {
-    sandbox.stub(UserDetails, 'update').returns(Promise.reject(new Error('Failed..')));
-    const value = await callContactNumber('vijayaharini.j@kaaviansys.com', null);
+    sandbox.stub(UserDetails, 'update');
+    const value = await callContactNumber('vijayaharini.j@kaaviansys.com', 'Anu', null);
     // console.log(value);
-    expect(value.status).toEqual('Please enter the details');
+    expect(value.status).toEqual('Please enter valid details');
   });
 });
