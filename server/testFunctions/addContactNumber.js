@@ -68,13 +68,18 @@ const addContactNumbers = async (token, name, number, data) => {
   }
 };
 
+// const isNumber = (number) => String(number)
+//   .match(
+//     /^(\91[ \-\s]?)?[0]?(91)?[789]\d{9}$/,
+//   );
+
 const addContactNumber = async (token, name, number) => {
-  if (number !== null && number !== '91undefined' && number !== undefined && name !== undefined && name !== null && name !== '') {
+  if (number !== null && number !== '91undefined' && name !== undefined && name !== null && name !== '') {
     const data = await UserDetails.findOne({ userEmail: token }, { _id: 0 });
     const status = await addContactNumbers(token, name, number, data);
     return status;
   } else {
-    return ({ status: 'Please enter the details..' });
+    return ({ status: 'Please enter valid details..' });
   }
 };
 

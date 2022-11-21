@@ -23,7 +23,7 @@ function AddCallNumber() {
     if (userName === '' && mobileNum === '') {
       setMessage('Please Enter Fields..');
     } else {
-      fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/callNumbers`, { method: 'POST', body: JSON.stringify({ token, mobileNum }), headers: { 'content-type': 'application/json' } })
+      fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/callNumbers`, { method: 'POST', body: JSON.stringify({ token, userName, mobileNum }), headers: { 'content-type': 'application/json' } })
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 'success') {

@@ -48,6 +48,14 @@ export default function ViewNumber() {
           </p>
         </li>
       ) : ''}
+      { Data.callingNumber ? (
+        <li className="contactList">
+          <h3>CALL NUMBER</h3>
+          <p>
+            {`${Data.callingPersonName} - ${Data.callingNumber}`}
+          </p>
+        </li>
+      ) : ''}
       <div className="footer">
         <div className="home">
           <button className="clear" type="submit">
