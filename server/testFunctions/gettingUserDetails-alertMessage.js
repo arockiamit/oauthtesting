@@ -3,7 +3,7 @@
 const { UserDetails } = require('../schema');
 
 const getUserDetails = (token) => new Promise((resolve) => {
-  UserDetails.findOne({ userMobileNumber: token }, { _id: 0 })
+  UserDetails.findOne({ userEmail: token }, { _id: 0 })
     .then((data) => resolve(data))
     .catch((error) => {
       resolve({ status: 'failure..', error });

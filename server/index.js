@@ -170,13 +170,14 @@ app.post('/api/alertMessage', async (req, res) => {
   return res.json(data1);
 });
 
-app.post('/image1', async (req) => {
+app.post('/image', async (req, res) => {
   const { picture } = req.body;
   console.log(picture);
   console.log(typeof (picture));
   const imagebuffer = picture.substring(23);
   const finalImg = new Buffer.from(imagebuffer, 'base64');
   fs.writeFileSync('myImg.png', finalImg);
+  res.json(picture);
 });
 
 app.post('/otp', (req, res) => {

@@ -77,9 +77,9 @@ export default function Home() {
     // sendimage();
   };
 
-  console.log(picture);
-  fetch('http://localhost:3001/image1', { method: 'POST', body: JSON.stringify({ picture }), headers: { 'content-type': 'application/json' } })
-    .then((res) => res.json());
+  fetch(`${process.env.REACT_APP_SERVER_PREFIX}/image`, { method: 'POST', body: JSON.stringify({ picture }), headers: { 'content-type': 'application/json' } })
+    .then((res) => res.json())
+    .then((data) => setPicture(data));
 
   return (
     <div className="homePage">
@@ -96,6 +96,13 @@ export default function Home() {
         </div>
       </div>
       <div className="messageButton">
+        <button className="button" type="button" onClick={() => { alertMessage(); capture(); }}>SOS</button>
+      </div>
+      <hr />
+      <div className="menu">
+        <a href="/menu">MENU</a>
+      </div>
+      <div className="web-image">
         {picture === '' ? (
           <Webcam
             audio={false}
@@ -105,12 +112,7 @@ export default function Home() {
             width={220}
             videoConstraints={videoConstraints}
           />
-        ) : <img src={picture} alt="MY img" />}
-        <button className="button" type="button" onClick={() => { alertMessage(); capture(); }}>SOS</button>
-      </div>
-      <hr />
-      <div className="menu">
-        <a href="/menu">MENU</a>
+        ) : <img hidden="hidden" src={picture} alt="MY img" />}
       </div>
     </div>
   );
