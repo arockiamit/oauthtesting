@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     max: [13, 'Phone number should contain at most 10 digits..'],
   },
   callingNumber: {
-    type: Number,
+    type: String,
     trim: true,
     min: [13, 'Phone number should contain at least 10 digits..'],
     max: [13, 'Phone number should contain at most 10 digits..'],
