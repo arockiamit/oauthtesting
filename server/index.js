@@ -59,12 +59,14 @@ app.post('/api/addContact', async (req, res) => {
 });
 
 // API for call number
-app.post('/api/callNumbers', async (req, res) => {
-  const { token, mobileNum } = req.body;
-  const mobNumber = `91${mobileNum}`;
-  const data = await callContactNumber(token, mobNumber);
-  res.json(data);
-});
+// app.post('/api/callNumbers', async (req, res) => {
+//   const { token, mobileNum } = req.body;
+//   const mobNumber = `91${mobileNum}`;
+//   const data = await callContactNumber(token, mobNumber);
+//   res.json(data);
+// });
+
+app.post('/api/callNumbers', callContactNumber);
 
 app.post('/api/getCallNumber', async (req, res) => {
   const { token } = req.body;
