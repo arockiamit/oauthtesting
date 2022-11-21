@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for server/spec/deleteContactNumber3.spec.js</title>
+    <title>Code coverage report for server/spec/deleteCallNumber.spec.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">server/spec</a> deleteContactNumber3.spec.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">server/spec</a> deleteCallNumber.spec.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -84,9 +84,7 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -105,30 +103,26 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable no-undef */
 const sinon = require('sinon');
-const deletecontactnumber = require('../testFunctions/deleteContactNumber');
+const { deleteCallNumber } = require('../testFunctions/deleteContactNumber');
 const { UserDetails } = require('../schema');
 &nbsp;
 const sandbox = sinon.createSandbox();
-describe('DELETECONTACTNUMBER', () =&gt; {
+describe('DELETE-CONTACT-NUMBER', () =&gt; {
   afterEach(() =&gt; {
     sandbox.restore();
   });
-  it('DELETENUMBER', async () =&gt; {
+  it('DELETE-NUMBER', async () =&gt; {
     sandbox.stub(UserDetails, 'updateOne');
     sandbox.stub(UserDetails, 'findOne').returns({ userData: 'testing success' });
-    const value = await deletecontactnumber.deleteContactNumber3('rsanthosh17c@gmail.com');
+    const value = await deleteCallNumber('rsanthosh17c@gmail.com');
     expect(value.userData).toEqual('testing success');
   });
   it('ERROR', async () =&gt; {
-    sandbox.stub(UserDetails, 'updateOne');
-    sandbox.stub(UserDetails, 'findOne').returns('error');
-    const value = await deletecontactnumber.deleteContactNumber3(undefined);
+    const value = await deleteCallNumber(undefined);
     expect(value.status).toEqual('error');
   });
 });

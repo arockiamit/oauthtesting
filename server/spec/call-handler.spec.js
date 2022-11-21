@@ -1,7 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 const sinon = require('sinon');
-const { callContactNumber } = require('../src/call-handler');
+const { callContactNumber } = require('../src/call-handlerAPI');
 
 const sandbox = sinon.createSandbox();
 
