@@ -16,7 +16,6 @@ const nodemailer = require('nodemailer');
 // const uploadPicture = require('./sample');
 // eslint-disable-next-line import/no-unresolved
 // const { UserDetails } = require('./schema');
-const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const {
   updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
@@ -29,6 +28,7 @@ const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMess
 const { alertMessage } = require('./testFunctions/alertMessage');
 const { callContactNumber } = require('./testFunctions/callContactNumber');
 const { getCallDetails } = require('./testFunctions/getCallDetails');
+const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -51,13 +51,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use('/static', express.static(path.join(__dirname, '/../client/build/static')));
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
-// app.post('/upload', uploadPicture);
-
-app.post('/userRegister', async (req, res) => {
-  const { name, email } = req.body;
-  const data = await userRegister(name, email);
-  res.json(data);
-});
+app.post('/userRegister', userRegisterAPI);
 
 app.post('/api/addContact', async (req, res) => {
   const { token, userName, mobileNumber } = req.body;
