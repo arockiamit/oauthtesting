@@ -10,10 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import './EditNumber.css';
 
 export default function Modify() {
-  const [data, setData] = useState('');
-  const [num1, setNum1] = useState('');
-  const [num2, setNum2] = useState('');
-  const [num3, setNum3] = useState('');
+  const [Data, setData] = useState('');
+  const [msg, setMsg] = useState('');
+  const [contactNumber1, setContactNumber1] = useState();
+  const [contactNumber2, setContactNumber2] = useState();
+  const [contactNumber3, setContactNumber3] = useState();
   const token = localStorage.getItem('accesstoken');
   const navigate = useNavigate();
   function HomePage() {
@@ -22,77 +23,93 @@ export default function Modify() {
   function Back() {
     return navigate('/Menu');
   }
-  const [updatePopup, setUpdatePopUp] = useState(false);
-
-  const toggleModal = () => {
-    setUpdatePopUp(!updatePopup);
-  };
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/ViewContact`, { method: 'post', body: JSON.stringify({ token }), headers: { 'content-type': 'application/json' } })
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/ViewContact`, { method: 'POST', body: JSON.stringify({ token }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
-        setNum1(data.contactNumber1);
-        setNum2(data.contactNumber2);
-        setNum3(data.contactNumber3);
+        console.log(data);
+        setData(data);
+        if (data.contactNumber1) {
+          setContactNumber1(data.contactNumber1);
+        }
+        if (data.contactNumber2) {
+          setContactNumber2(data.contactNumber2);
+        }
+        if (data.contactNumber3) {
+          setContactNumber3(data.contactNumber3);
+        }
       });
-  }, []);
+  }, [token]);
 
-  function updatenum() {
-    setData('');
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/modify`, {
+  function updatenum1() {
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/modify1`, {
       method: 'put',
       body: JSON.stringify({
-        token, num1, num2, num3,
+        token, contactNumber1,
       }),
       headers: { 'content-type': 'application/json' },
     })
       .then((res) => res.json())
-      .then((data) => {
-        setData(data);
+      .then(({ msg }) => {
+        setMsg(msg);
       });
-    if (num1 !== '' && num2 !== '' && num3 !== '') {
-      setUpdatePopUp(!updatePopup);
-    } else {
-      setUpdatePopUp(updatePopup);
-    }
+  }
+  function updatenum2() {
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/modify2`, {
+      method: 'put',
+      body: JSON.stringify({
+        token, contactNumber2,
+      }),
+      headers: { 'content-type': 'application/json' },
+    })
+      .then((res) => res.json())
+      .then(({ msg }) => {
+        setMsg(msg);
+      });
+  }
+
+  function updatenum3() {
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/modify3`, {
+      method: 'put',
+      body: JSON.stringify({
+        token, contactNumber3,
+      }),
+      headers: { 'content-type': 'application/json' },
+    })
+      .then((res) => res.json())
+      .then(({ msg }) => {
+        setMsg(msg);
+      });
   }
 
   return (
     <div className="content">
       <h2 className="editContactHeading"> EDIT CONTACT NUMBERS</h2>
       <table className="tab1">
-        <tr>
-          <th>contact 1</th>
-          <td className="phnNum"><input type="text" required value={num1} onChange={(e) => setNum1(e.target.value)} /></td>
-          <td><button type="button" className="editBtn" onClick={updatenum}>Edit</button></td>
-        </tr>
-        <tr>
-          <th>contact 2</th>
-          <td className="phnNum"><input type="text" required value={num2} onChange={(e) => setNum2(e.target.value)} /></td>
-          <td><button type="button" className="editBtn" onClick={updatenum}>Edit</button></td>
-        </tr>
-        <tr>
-          <th>contact 3</th>
-          <td className="phnNum"><input type="text" required value={num3} onChange={(e) => setNum3(e.target.value)} /></td>
-          <td><button type="button" className="editBtn" onClick={updatenum}>Edit</button></td>
-        </tr>
+        { Data.contactNumber1 ? (
+          <tr>
+            <th>contact 1</th>
+            <td className="phnNum"><input type="text" required value={contactNumber1} onChange={(e) => setContactNumber1(e.target.value)} /></td>
+            <td><button type="button" className="editBtn" onClick={updatenum1}>Edit</button></td>
+          </tr>
+        ) : ''}
+        { Data.contactNumber2 ? (
+          <tr>
+            <th>contact 2</th>
+            <td className="phnNum"><input type="text" required value={contactNumber2} onChange={(e) => setContactNumber2(e.target.value)} /></td>
+            <td><button type="button" className="editBtn" onClick={updatenum2}>Edit</button></td>
+          </tr>
+        ) : ''}
+        { Data.contactNumber3 ? (
+          <tr>
+            <th>contact 3</th>
+            <td className="phnNum"><input type="text" required value={contactNumber3} onChange={(e) => setContactNumber3(e.target.value)} /></td>
+            <td><button type="button" className="editBtn" onClick={updatenum3}>Edit</button></td>
+          </tr>
+        ) : ''}
       </table>
-      {updatePopup && (
-        <div className="updatePopup">
-          <div onClick={Modify} className="overlay" />
-          <div className="modal-content10">
-            <center>
-              <p className="updateMessage">{' ph.number updated successfully '}</p>
-              <br />
-              <button type="button" className="close-modal1" onClick={toggleModal}>
-                OK ✔
-              </button>
-            </center>
-          </div>
-        </div>
-      )}
-      <div className="atmsg">{data}</div>
+      <div className="atmsg">{msg}</div>
       <div className="footer">
         <div className="home">
           <button className="clear" type="submit">

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -10,7 +11,6 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
     trim: true,
-    match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
   },
   contactNumber1: {
     type: Number,
@@ -37,17 +37,17 @@ const userSchema = new mongoose.Schema({
     min: [13, 'Phone number should contain at least 10 digits..'],
     max: [13, 'Phone number should contain at most 10 digits..'],
   },
+  callingPersonName: {
+    type: String,
+  },
   contactName1: {
     type: String,
-    required: true,
   },
   contactName2: {
     type: String,
-    required: true,
   },
   contactName3: {
     type: String,
-    required: true,
   },
 }, { collection: 'userDetails' });
 

@@ -1,19 +1,18 @@
+/* eslint-disable no-else-return */
 /* eslint-disable no-new */
 /* eslint-disable no-console */
 const { UserDetails } = require('../schema');
 
-const createUserProfile = (name, email) => new Promise((resolve) => {
-  const data = UserDetails.findOne({ userEmail: email });
+const createUserProfile = async (name, email) => {
+  const data = await UserDetails.findOne({ userEmail: email });
   if (!data) {
-    UserDetails.create({ userName: name, userEmail: email })
-      .then(() => resolve({ status: 'success', email }))
-      .catch((error) => {
-        resolve({ status: 'error', error });
-      });
+    console.log(data);
+    await UserDetails.create({ userName: name, userEmail: email });
+    return ({ status: 'success', email });
   } else {
-    resolve({ status: 'success', email });
+    return ({ status: 'success', email });
   }
-});
+};
 
 function isEmail(email) {
   return String(email)
@@ -31,14 +30,14 @@ const mailId = (email) => new Promise((resolve) => {
   }
 });
 
-const userRegister = (name, email) => new Promise((resolve) => {
+const userRegister = async (name, email) => {
   if (name !== undefined && email !== undefined && mailId(email)) {
-    const data = createUserProfile(name, email);
-    resolve(data);
+    const data = await createUserProfile(name, email);
+    return data;
   } else {
-    resolve({ status: 'error' });
+    return ({ status: 'error' });
   }
-});
+};
 
 module.exports = {
   userRegister, createUserProfile, isEmail, mailId,

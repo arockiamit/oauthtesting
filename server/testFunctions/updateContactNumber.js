@@ -1,21 +1,56 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable no-else-return */
 /* eslint-disable no-return-await */
 const { UserDetails } = require('../schema');
 
-async function updateContactNumber(token, num1, num2, num3) {
-  if (num1 !== '' && num2 !== '' && num3 !== '') {
-    await UserDetails.updateOne(
+const isNumber = (number) => String(number)
+  .match(
+    /^(\91[\-\s]?)?[0]?(91)?[789]\d{9}$/,
+  );
+
+const updateContactNumber1 = (token, number) => new Promise((resolve) => {
+  if (isNumber(number)) {
+    UserDetails.updateOne(
       { userEmail: token },
       {
-        $set: { contactNumber1: num1, contactNumber2: num2, contactNumber3: num3 },
+        $set: { contactNumber1: number },
       },
-    );
-    const data = '';
-    return data;
+    )
+      .then(() => resolve({ status: 'success', msg: 'Updated Successfully' }));
   } else {
-    const data = 'Please fill all numbers';
-    return data;
+    const msg = 'Please Enter valid phone number';
+    resolve({ status: 'fail', msg });
   }
-}
+});
 
-module.exports = { updateContactNumber };
+const updateContactNumber2 = (token, number) => new Promise((resolve) => {
+  if (isNumber(number)) {
+    UserDetails.updateOne(
+      { userEmail: token },
+      {
+        $set: { contactNumber2: number },
+      },
+    )
+      .then(() => resolve({ status: 'success', msg: 'Updated Successfully' }));
+  } else {
+    const msg = 'Please Enter valid phone number';
+    resolve({ status: 'fail', msg });
+  }
+});
+
+const updateContactNumber3 = (token, number) => new Promise((resolve) => {
+  if (isNumber(number)) {
+    UserDetails.updateOne(
+      { userEmail: token },
+      {
+        $set: { contactNumber3: number },
+      },
+    )
+      .then(() => resolve({ status: 'success', msg: 'Updated Successfully' }));
+  } else {
+    const msg = 'Please Enter valid phone number';
+    resolve({ status: 'fail', msg });
+  }
+});
+
+module.exports = { updateContactNumber1, updateContactNumber2, updateContactNumber3 };

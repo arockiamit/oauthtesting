@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-undef */
 const sinon = require('sinon');
 const { callContactNumber } = require('../src/call-handler');
