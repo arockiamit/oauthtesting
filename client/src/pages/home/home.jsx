@@ -29,7 +29,7 @@ export default function Home() {
 
   useEffect(() => {
     // const getMobileNumber = () => {
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/getCallNumber`, { method: 'POST', body: JSON.stringify({ token }), headers: { 'content-type': 'application/json' } })
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/ViewContact`, { method: 'POST', body: JSON.stringify({ token }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
         setMobileNum(data.callingNumber);
