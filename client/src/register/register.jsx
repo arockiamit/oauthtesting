@@ -49,7 +49,7 @@ export default function Register() {
         <input type="text" name="otp" placeholder="ENTER OTP" onChange={(e) => setOtp(e.target.value)} />
         <button className="continueBtn" type="submit" onClick={submit}>REGISTER</button>
         <LoginSocialGoogle
-          client_id="530955858644-71apt0ig4qtbthpn284i54plflp5s0qs.apps.googleusercontent.com"
+          client_id="530955858644-kdkehhqf98s21lprjcm6hj8alnd6ddrd.apps.googleusercontent.com"
           scope="openid profile email"
           discoveryDocs="claims_supported"
           access_type="offline"

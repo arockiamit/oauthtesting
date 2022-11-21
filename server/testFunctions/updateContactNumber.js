@@ -5,7 +5,7 @@ const { UserDetails } = require('../schema');
 
 const isNumber = (number) => String(number)
   .match(
-    /^(\91[\-\s]?)?[0]?(91)?[789]\d{9}$/,
+    /^(\91[\-\s]?)?[0]?(91)?[6789]\d{9}$/,
   );
 
 const updateContactNumber1 = (token, number) => new Promise((resolve) => {
