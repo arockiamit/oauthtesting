@@ -16,7 +16,7 @@ const nodemailer = require('nodemailer');
 // const uploadPicture = require('./sample');
 // eslint-disable-next-line import/no-unresolved
 // const { UserDetails } = require('./schema');
-const { addContactNumber } = require('./testFunctions/addContactNumber');
+const { addContactNumberAPI } = require('./API-Test-Functions/addContactNumberAPI');
 const {
   updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
 } = require('./testFunctions/updateContactNumber');
@@ -53,12 +53,7 @@ app.use('/images', express.static(path.join(__dirname, '/../client/build/images'
 
 app.post('/userRegister', userRegisterAPI);
 
-app.post('/api/addContact', async (req, res) => {
-  const { token, userName, mobileNumber } = req.body;
-  const number = `91${mobileNumber}`;
-  const data = await addContactNumber(token, userName, number);
-  res.json(data);
-});
+app.post('/api/addContact', addContactNumberAPI);
 
 // API for call number
 app.post('/api/callNumbers', async (req, res) => {
@@ -166,12 +161,19 @@ app.post('/api/alertMessage', async (req, res) => {
 
 app.post('/image', async (req, res) => {
   const { picture } = req.body;
-  console.log(picture);
-  console.log(typeof (picture));
-  const imagebuffer = picture.substring(23);
-  const finalImg = new Buffer.from(imagebuffer, 'base64');
-  fs.writeFileSync('myImg.png', finalImg);
-  res.json(picture);
+  if (picture !== '') {
+    console.log(picture);
+    console.log(typeof (picture));
+    const imagebuffer = picture.substring(23);
+    const finalImg = new Buffer.from(imagebuffer, 'base64');
+    fs.writeFileSync('myImg.png', finalImg);
+    // const userData = {
+    //   image: fs.readFileSync('myImg.png'),
+    // };
+    // const img = new UserDetails(userData);
+    // img.save();
+    res.json(picture);
+  }
 });
 
 app.post('/otp', (req, res) => {

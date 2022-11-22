@@ -48,6 +48,9 @@ const userSchema = new mongoose.Schema({
   contactName3: {
     type: String,
   },
+  image: {
+    type: Buffer,
+  },
 }, { collection: 'userDetails' });
 
 const UserDetails = mongoose.model('userDetails', userSchema);
