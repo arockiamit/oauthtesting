@@ -1,8 +1,8 @@
-const { userRegister } = require('../testFunctions/userRegister');
+const registerUser = require('../testFunctions/userRegister');
 
-const userRegisterAPI = async (res, req) => {
+const userRegisterAPI = async (req, res) => {
   const { name, email } = req.body;
-  const data = await userRegister(name, email);
+  const data = await registerUser.userRegister(name, email);
   res.json(data);
 };
 
