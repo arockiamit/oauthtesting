@@ -116,8 +116,6 @@ app.put('/updateCallNumber', async (req, res) => {
 // API for alert message
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
-  // const userPhoneNUmber = tokenDecode(token);
-  console.log(location);
   const details = await getUserDetails(token);
   const locat = location;
   const data1 = await alertMessage(details.contactNumber1, details.userName, locat);
