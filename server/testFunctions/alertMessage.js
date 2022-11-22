@@ -15,12 +15,12 @@ const alertaxios = async (...args) => new Promise((resolve, reject) => {
 // eslint-disable-next-line consistent-return
 const alertMessage = async (contactNumber, userName, location) => {
   if (contactNumber !== undefined) {
-    const data = `{"messaging_product": "whatsapp", "to":${contactNumber}, "type": "template", "template": { "name": "alert_safe_wizards", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${userName}"},{"type":"text","text":"${location}"}]}] }}`;
+    const data = `{"messaging_product": "whatsapp", "to":${contactNumber}, "type": "template", "template": { "name": "safe_alert_wizards_image", "language": { "code": "en_US" },"components":[{"type":"body","parameters":[{"type":"text","text":"${userName}"},{"type":"text","text":"${location}"},{"type":"text","text":"https://safety-app-sctoc.ondigitalocean.app/imageCapture"}]}] }}`;
     const url = 'https://graph.facebook.com/v15.0/106768935582427/messages';
     const header = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer EAAP6obW3ZB1oBAINWzIiEztqKMSlD1F0MgPD8ZBNq3fN2KqWPonYD5u3CQWHW8kDSsEwPqw6liDsfLJTbG1UrkcUK2sP9mNzWns0UCHQHEn74tI82nNRSTCUmlRLXkIpSjaEIEpLfCo6REcNHZBfZCUr4BIWeiiZBt8NGcbWqTOpHiOa1iYXH8814IShY0C14G4176aSX7WZA3AOSZBNixn',
+        Authorization: 'Bearer EAAP6obW3ZB1oBAIXegZCSfxaveTMoLc4cRVgtaI6KHfHoVheB4rTNil9uBxUtNVD1BStBXVYwoKNeLCi20Tq0jujOBLPfdOP5GZCwyNOKN0mEejZAZAhzSEiOHGlEnFvF65yaIUK8h4bJhSzAM28HEhZAJFeZBUEDWZCZAxIxzjoJGzGyNZCaWdktI',
       },
     };
     try {
