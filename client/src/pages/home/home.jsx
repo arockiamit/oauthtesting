@@ -1,10 +1,25 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import './home.css';
 import { IoCall } from 'react-icons/io5';
+import Webcam from 'react-webcam';
 import toast from 'toast-me';
 import volume from './volume.png';
 import song from './audio/static/siren.mp3';
+
+const WebcamComponent = () => {
+  <Webcam />;
+};
+WebcamComponent();
+
+const videoConstraints = {
+  width: 400,
+  height: 400,
+  facingMode: 'user',
+};
 
 const siren = new Audio(song);
 siren.load();
@@ -15,7 +30,8 @@ export default function Home() {
   const [longitude, setLongitude] = useState();
   const [location, setLocation] = useState();
   const [mobileNum, setMobileNum] = useState();
-
+  const [picture, setPicture] = useState('');
+  const webcamRef = React.useRef(null);
   const token = localStorage.getItem('accesstoken');
   const sirenaudio = () => {
     if (audio === false) {
@@ -51,6 +67,20 @@ export default function Home() {
       });
   };
 
+  // const sendimage = () => {
+  // };
+
+  const capture = async () => {
+    const pictureSrc = webcamRef.current.getScreenshot();
+    setPicture(pictureSrc);
+    // console.log(picture);
+    // sendimage();
+  };
+
+  fetch(`${process.env.REACT_APP_SERVER_PREFIX}/image`, { method: 'POST', body: JSON.stringify({ picture }), headers: { 'content-type': 'application/json' } })
+    .then((res) => res.json())
+    .then((data) => setPicture(data));
+
   return (
     <div className="homePage">
       <div className="callalertbtn">
@@ -66,11 +96,23 @@ export default function Home() {
         </div>
       </div>
       <div className="messageButton">
-        <button className="button" type="button" onClick={() => { alertMessage(); }}>SOS</button>
+        <button className="button" type="button" onClick={() => { alertMessage(); capture(); }}>SOS</button>
       </div>
       <hr />
       <div className="menu">
         <a href="/menu">MENU</a>
+      </div>
+      <div className="web-image">
+        {picture === '' ? (
+          <Webcam
+            audio={false}
+            height={200}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            width={220}
+            videoConstraints={videoConstraints}
+          />
+        ) : <img hidden="hidden" src={picture} alt="MY img" />}
       </div>
     </div>
   );
