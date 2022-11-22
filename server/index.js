@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable new-cap */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable object-shorthand */
@@ -15,16 +16,15 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 // const uploadPicture = require('./sample');
 // eslint-disable-next-line import/no-unresolved
-// const { UserDetails } = require('./schema');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const {
   updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
 } = require('./testFunctions/updateContactNumber');
-const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { callContactNumberAPI } = require('./API-Test-Functions/callContactNumberAPI');
 const { alertMessage } = require('./testFunctions/alertMessage');
 const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
+const { viewContactAPI } = require('./API-Test-Functions/viewContactNumberAPI');
 const { deletenum1, deletenum2, deletenum3 } = require('./API-Test-Functions/deletenumberAPI');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
@@ -48,6 +48,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use('/static', express.static(path.join(__dirname, '/../client/build/static')));
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
+// API for User Register..
 app.post('/userRegister', userRegisterAPI);
 
 app.post('/api/addContact', async (req, res) => {
@@ -61,11 +62,7 @@ app.post('/api/addContact', async (req, res) => {
 app.post('/api/callNumbers', callContactNumberAPI);
 
 // API to View Registered Contact
-app.post('/api/ViewContact', async (req, res) => {
-  const { token } = req.body;
-  const data = await viewNumber(token);
-  res.json(data);
-});
+app.post('/api/ViewContact', viewContactAPI);
 
 // API to delete Registered Contact1
 app.post('/api/deleteContactNumber1', deletenum1);
@@ -99,7 +96,6 @@ app.put('/modify2', async (req, res) => {
     token, contactNumber2,
   } = req.body;
   const data = await updateContactNumber2(token, contactNumber2);
-  console.log(data, 452);
   res.json(data);
 });
 
@@ -109,7 +105,6 @@ app.put('/modify3', async (req, res) => {
     token, contactNumber3,
   } = req.body;
   const data = await updateContactNumber3(token, contactNumber3);
-  console.log(data, 452);
   res.json(data);
 });
 
@@ -119,19 +114,16 @@ app.put('/updateCallNumber', async (req, res) => {
     token, contactNumber3,
   } = req.body;
   const data = await updateCallNumber(token, contactNumber3);
-  console.log(data, 452);
   res.json(data);
 });
 
 // API for alert message
-// API for alert message
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
   // const userPhoneNUmber = tokenDecode(token);
+  console.log(location);
   const details = await getUserDetails(token);
   const locat = location;
-  console.log(locat, 567890);
-  console.log(details, 123);
   const data1 = await alertMessage(details.contactNumber1, details.userName, locat);
   await alertMessage(details.contactNumber2, details.userName, locat);
   await alertMessage(details.contactNumber3, details.userName, locat);
@@ -140,12 +132,12 @@ app.post('/api/alertMessage', async (req, res) => {
 
 app.post('/image', async (req, res) => {
   const { picture } = req.body;
-  console.log(picture);
-  console.log(typeof (picture));
-  const imagebuffer = picture.substring(23);
-  const finalImg = new Buffer.from(imagebuffer, 'base64');
-  fs.writeFileSync('myImg.png', finalImg);
-  res.json(picture);
+  if (picture !== '') {
+    const imagebuffer = picture.substring(23);
+    const finalImg = new Buffer.from(imagebuffer, 'base64');
+    fs.writeFileSync('myImg.png', finalImg);
+    res.json(picture);
+  }
 });
 
 app.post('/otp', (req, res) => {

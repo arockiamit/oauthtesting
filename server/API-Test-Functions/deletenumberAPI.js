@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-else-return */
 // const { deleteContactNumber1 } = require('./testFunctions/deleteContactNumber');
 const deletefunction = require('../testFunctions/deleteContactNumber');
@@ -24,4 +25,3 @@ const deletenum3 = async (req, res) => {
   return res.json({ data });
 };
 module.exports = { deletenum1, deletenum2, deletenum3 };
-
