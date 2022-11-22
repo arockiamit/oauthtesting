@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable object-shorthand */
 /* eslint-disable consistent-return */
@@ -11,8 +12,9 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-// eslint-disable-next-line import/no-unresolved
 const nodemailer = require('nodemailer');
+// const uploadPicture = require('./sample');
+// eslint-disable-next-line import/no-unresolved
 // const { UserDetails } = require('./schema');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const {
@@ -23,9 +25,8 @@ const {
 } = require('./testFunctions/deleteContactNumber');
 const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
+const { callContactNumberAPI } = require('./API-Test-Functions/callContactNumberAPI');
 const { alertMessage } = require('./testFunctions/alertMessage');
-const { callContactNumber } = require('./testFunctions/callContactNumber');
-const { getCallDetails } = require('./testFunctions/getCallDetails');
 const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
@@ -59,18 +60,7 @@ app.post('/api/addContact', async (req, res) => {
 });
 
 // API for call number
-app.post('/api/callNumbers', async (req, res) => {
-  const { token, userName, mobileNum } = req.body;
-  const mobileNumber = `+91${mobileNum}`;
-  const data = await callContactNumber(token, userName, mobileNumber);
-  res.json(data);
-});
-
-app.post('/api/getCallNumber', async (req, res) => {
-  const { token } = req.body;
-  const data = await getCallDetails(token);
-  res.json(data);
-});
+app.post('/api/callNumbers', callContactNumberAPI);
 
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
@@ -161,6 +151,17 @@ app.post('/api/alertMessage', async (req, res) => {
   await alertMessage(details.contactNumber3, details.userName, locat);
   return res.json(data1);
 });
+
+app.post('/image', async (req, res) => {
+  const { picture } = req.body;
+  console.log(picture);
+  console.log(typeof (picture));
+  const imagebuffer = picture.substring(23);
+  const finalImg = new Buffer.from(imagebuffer, 'base64');
+  fs.writeFileSync('myImg.png', finalImg);
+  res.json(picture);
+});
+
 app.post('/otp', (req, res) => {
   const { email } = req.body;
   let otp = '';
