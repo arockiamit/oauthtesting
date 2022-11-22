@@ -17,6 +17,7 @@ import DeleteRegNumber from './pages/DeleteRegNum/DeleteRegNum';
 import AddNumber from './pages/AddNumber/AddNumber';
 import ViewNumber from './pages/ViewNumber/ViewNumber';
 import CallNumber from './pages/CallNumber/CallNumber';
+import Imagecapture from './pages/Image/Image';
 
 function App() {
   const accessedUser = localStorage.getItem('accesstoken');
@@ -39,7 +40,7 @@ function App() {
           <Route path="/viewNumber" element={accessedUser ? <ViewNumber /> : <Navigate to="/" />} />
           <Route path="/location" element={accessedUser ? <Location /> : <Navigate to="/" />} />
           <Route path="/callNumber" element={accessedUser ? <CallNumber /> : <Navigate to="/" />} />
-          {/* <Route path="/imageCapture" element={} /> */}
+          <Route path="/imageCapture" element={<Imagecapture />} />
         </Routes>
       </BrowserRouter>
     </div>
