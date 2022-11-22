@@ -25,9 +25,8 @@ const {
 } = require('./testFunctions/deleteContactNumber');
 const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
+const { callContactNumberAPI } = require('./API-Test-Functions/callContactNumberAPI');
 const { alertMessage } = require('./testFunctions/alertMessage');
-const { callContactNumber } = require('./testFunctions/callContactNumber');
-const { getCallDetails } = require('./testFunctions/getCallDetails');
 const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
@@ -61,18 +60,7 @@ app.post('/api/addContact', async (req, res) => {
 });
 
 // API for call number
-app.post('/api/callNumbers', async (req, res) => {
-  const { token, userName, mobileNum } = req.body;
-  const mobileNumber = `+91${mobileNum}`;
-  const data = await callContactNumber(token, userName, mobileNumber);
-  res.json(data);
-});
-
-app.post('/api/getCallNumber', async (req, res) => {
-  const { token } = req.body;
-  const data = await getCallDetails(token);
-  res.json(data);
-});
+app.post('/api/callNumbers', callContactNumberAPI);
 
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
