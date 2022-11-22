@@ -26,6 +26,7 @@ const { alertMessage } = require('./testFunctions/alertMessage');
 const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
 const { viewContactAPI } = require('./API-Test-Functions/viewContactNumberAPI');
 const { deletenum1, deletenum2, deletenum3 } = require('./API-Test-Functions/deletenumberAPI');
+const { deleteCallNumber } = require('./testFunctions/deleteContactNumber');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -111,9 +112,9 @@ app.put('/modify3', async (req, res) => {
 // API to edit Registered Contact
 app.put('/updateCallNumber', async (req, res) => {
   const {
-    token, contactNumber3,
+    token,
   } = req.body;
-  const data = await updateCallNumber(token, contactNumber3);
+  const data = await updateCallNumber(token);
   res.json(data);
 });
 
@@ -128,15 +129,15 @@ app.post('/api/alertMessage', async (req, res) => {
   return res.json(data1);
 });
 
-app.post('/image', async (req, res) => {
-  const { picture } = req.body;
-  if (picture !== '') {
-    const imagebuffer = picture.substring(23);
-    const finalImg = new Buffer.from(imagebuffer, 'base64');
-    fs.writeFileSync('myImg.png', finalImg);
-    res.json(picture);
-  }
-});
+// app.post('/image', async (req, res) => {
+//   const { picture } = req.body;
+//   if (picture !== '') {
+//     const imagebuffer = picture.substring(23);
+//     const finalImg = new Buffer.from(imagebuffer, 'base64');
+//     fs.writeFileSync('myImg.png', finalImg);
+//     res.json(picture);
+//   }
+// });
 
 app.post('/otp', (req, res) => {
   const { email } = req.body;
