@@ -77,7 +77,7 @@ export default function Home() {
     // sendimage();
   };
 
-  // fetch(`${process.env.REACT_APP_SERVER_PREFIX}/image`, { method: 'POST', body: JSON.stringify({ picture, token }), headers: { 'content-type': 'application/json' } })
+  // fetch(`${process.env.REACT_APP_SERVER_PREFIX}/image`, { method: 'POST', body: JSON.stringify({ picture }), headers: { 'content-type': 'application/json' } })
   //   .then((res) => res.json())
   //   .then((data) => setPicture(data));
 
