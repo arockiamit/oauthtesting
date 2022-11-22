@@ -20,7 +20,7 @@ const alertMessage = async (contactNumber, userName, location) => {
     const header = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer EAAP6obW3ZB1oBAAbuI2q98KLe2ZA2vRFzm72EX6TdIy1fmXA1iRkwrDkrOzScyaIlLjCbAisPMbRx7hki2FrbenW5Og5vZCLVhpKZATrZBVYLwdqAyshi7LNjhdyugSOuhVV6fzY1Mj32igC4ELYp6SUtiEFo0KwehFxpynZATNaewuTviX7ZAqjJbmo99ndRID1XZASfZCaKeRMT7nArv2M3',
+        Authorization: 'Bearer EAAP6obW3ZB1oBAINWzIiEztqKMSlD1F0MgPD8ZBNq3fN2KqWPonYD5u3CQWHW8kDSsEwPqw6liDsfLJTbG1UrkcUK2sP9mNzWns0UCHQHEn74tI82nNRSTCUmlRLXkIpSjaEIEpLfCo6REcNHZBfZCUr4BIWeiiZBt8NGcbWqTOpHiOa1iYXH8814IShY0C14G4176aSX7WZA3AOSZBNixn',
       },
     };
     try {

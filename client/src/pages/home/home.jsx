@@ -78,9 +78,9 @@ export default function Home() {
     // sendimage();
   };
 
-  fetch(`${process.env.REACT_APP_SERVER_PREFIX}/image`, { method: 'POST', body: JSON.stringify({ picture }), headers: { 'content-type': 'application/json' } })
-    .then((res) => res.json())
-    .then((data) => setPicture(data));
+  // fetch(`${process.env.REACT_APP_SERVER_PREFIX}/image`, { method: 'POST', body: JSON.stringify({ picture }), headers: { 'content-type': 'application/json' } })
+  //   .then((res) => res.json())
+  //   .then((data) => setPicture(data));
 
   return (
     <div className="homePage">
@@ -97,7 +97,7 @@ export default function Home() {
         </div>
       </div>
       <div className="messageButton">
-        <button className="button" type="button" onClick={() => { alertMessage(); capture(); }}>SOS</button>
+        <button className="button" type="button" onClick={() => { alertMessage(); }}>SOS</button>
       </div>
       <hr />
       <div className="menu">

@@ -28,7 +28,6 @@ export default function Modify() {
     fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/ViewContact`, { method: 'POST', body: JSON.stringify({ token }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setData(data);
         if (data.contactNumber1) {
           setContactNumber1(data.contactNumber1);
