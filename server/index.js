@@ -27,6 +27,7 @@ const { alertMessage } = require('./testFunctions/alertMessage');
 const { callContactNumber } = require('./testFunctions/callContactNumber');
 const { getCallDetails } = require('./testFunctions/getCallDetails');
 const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
+const { updateContact1, updateContact2 ,updateContact3 } = require('./API-Test-Functions/updateContactApi');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -108,34 +109,13 @@ app.post('/api/deleteCallNumber', async (req, res) => {
 });
 
 // API to edit Registered Contact
-app.put('/modify1', async (req, res) => {
-  const {
-    token, contactNumber1,
-  } = req.body;
-
-  const data = await updateContactNumber1(token, contactNumber1);
-  res.json(data);
-});
+app.put('/modify1', updateContact1);
 
 // API to edit Registered Contact
-app.put('/modify2', async (req, res) => {
-  const {
-    token, contactNumber2,
-  } = req.body;
-  const data = await updateContactNumber2(token, contactNumber2);
-  console.log(data, 452);
-  res.json(data);
-});
+app.put('/modify2', updateContact2);
 
 // API to edit Registered Contact
-app.put('/modify3', async (req, res) => {
-  const {
-    token, contactNumber3,
-  } = req.body;
-  const data = await updateContactNumber3(token, contactNumber3);
-  console.log(data, 452);
-  res.json(data);
-});
+app.put('/modify3', updateContact3);
 
 // API to edit Registered Contact
 app.put('/updateCallNumber', async (req, res) => {
