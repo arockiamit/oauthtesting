@@ -20,14 +20,12 @@ const { addContactNumber } = require('./testFunctions/addContactNumber');
 const {
   updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
 } = require('./testFunctions/updateContactNumber');
-const {
-  deleteContactNumber2, deleteContactNumber1, deleteContactNumber3, deleteCallNumber,
-} = require('./testFunctions/deleteContactNumber');
 const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { callContactNumberAPI } = require('./API-Test-Functions/callContactNumberAPI');
 const { alertMessage } = require('./testFunctions/alertMessage');
 const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
+const { deletenum1, deletenum2, deletenum3 } = require('./API-Test-Functions/deletenumberAPI');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -70,25 +68,13 @@ app.post('/api/ViewContact', async (req, res) => {
 });
 
 // API to delete Registered Contact1
-app.post('/api/deleteContactNumber1', async (req, res) => {
-  const { token } = req.body;
-  const data = await deleteContactNumber1(token);
-  res.json(data);
-});
+app.post('/api/deleteContactNumber1', deletenum1);
 
 // API to delete Registered Contact2
-app.post('/api/deleteContactNumber2', async (req, res) => {
-  const { token } = req.body;
-  const data = await deleteContactNumber2(token);
-  res.json(data);
-});
+app.post('/api/deleteContactNumber2', deletenum2);
 
 // API to delete Registered Contact3
-app.post('/api/deleteContactNumber3', async (req, res) => {
-  const { token } = req.body;
-  const data = await deleteContactNumber3(token);
-  res.json(data);
-});
+app.post('/api/deleteContactNumber3', deletenum3);
 
 // API to delete Registered call number
 app.post('/api/deleteCallNumber', async (req, res) => {
