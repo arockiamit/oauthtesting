@@ -23,11 +23,11 @@ const {
 const {
   deleteContactNumber2, deleteContactNumber1, deleteContactNumber3, deleteCallNumber,
 } = require('./testFunctions/deleteContactNumber');
-const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { callContactNumberAPI } = require('./API-Test-Functions/callContactNumberAPI');
 const { alertMessage } = require('./testFunctions/alertMessage');
 const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
+const { viewContactAPI } = require('./API-Test-Functions/viewContactNumberAPI');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -50,6 +50,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use('/static', express.static(path.join(__dirname, '/../client/build/static')));
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
+// API for User Register..
 app.post('/userRegister', userRegisterAPI);
 
 app.post('/api/addContact', async (req, res) => {
@@ -63,11 +64,7 @@ app.post('/api/addContact', async (req, res) => {
 app.post('/api/callNumbers', callContactNumberAPI);
 
 // API to View Registered Contact
-app.post('/api/ViewContact', async (req, res) => {
-  const { token } = req.body;
-  const data = await viewNumber(token);
-  res.json(data);
-});
+app.post('/api/ViewContact', viewContactAPI);
 
 // API to delete Registered Contact1
 app.post('/api/deleteContactNumber1', async (req, res) => {
