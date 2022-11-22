@@ -16,14 +16,16 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 // const uploadPicture = require('./sample');
 // eslint-disable-next-line import/no-unresolved
-const { addContactNumber } = require('./testFunctions/addContactNumber');
+// const { UserDetails } = require('./schema');
+const { addContactNumberAPI } = require('./API-Test-Functions/addContactNumberAPI');
 const {
-  updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
+  updateCallNumber,
 } = require('./testFunctions/updateContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { callContactNumberAPI } = require('./API-Test-Functions/callContactNumberAPI');
 const { alertMessage } = require('./testFunctions/alertMessage');
 const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
+const { updateContact1, updateContact2, updateContact3 } = require('./API-Test-Functions/updateContactApi');
 const { viewContactAPI } = require('./API-Test-Functions/viewContactNumberAPI');
 const { deletenum1, deletenum2, deletenum3 } = require('./API-Test-Functions/deletenumberAPI');
 const { deleteCallNumber } = require('./testFunctions/deleteContactNumber');
@@ -52,12 +54,7 @@ app.use('/images', express.static(path.join(__dirname, '/../client/build/images'
 // API for User Register..
 app.post('/userRegister', userRegisterAPI);
 
-app.post('/api/addContact', async (req, res) => {
-  const { token, userName, mobileNumber } = req.body;
-  const number = `91${mobileNumber}`;
-  const data = await addContactNumber(token, userName, number);
-  res.json(data);
-});
+app.post('/api/addContact', addContactNumberAPI);
 
 // API for call number
 app.post('/api/callNumbers', callContactNumberAPI);
@@ -82,32 +79,13 @@ app.post('/api/deleteCallNumber', async (req, res) => {
 });
 
 // API to edit Registered Contact
-app.put('/modify1', async (req, res) => {
-  const {
-    token, contactNumber1,
-  } = req.body;
-
-  const data = await updateContactNumber1(token, contactNumber1);
-  res.json(data);
-});
+app.put('/modify1', updateContact1);
 
 // API to edit Registered Contact
-app.put('/modify2', async (req, res) => {
-  const {
-    token, contactNumber2,
-  } = req.body;
-  const data = await updateContactNumber2(token, contactNumber2);
-  res.json(data);
-});
+app.put('/modify2', updateContact2);
 
 // API to edit Registered Contact
-app.put('/modify3', async (req, res) => {
-  const {
-    token, contactNumber3,
-  } = req.body;
-  const data = await updateContactNumber3(token, contactNumber3);
-  res.json(data);
-});
+app.put('/modify3', updateContact3);
 
 // API to edit Registered Contact
 app.put('/updateCallNumber', async (req, res) => {
