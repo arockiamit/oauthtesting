@@ -53,4 +53,21 @@ const updateContactNumber3 = (token, number) => new Promise((resolve) => {
   }
 });
 
-module.exports = { updateContactNumber1, updateContactNumber2, updateContactNumber3 };
+const updateCallNumber = (token, number) => new Promise((resolve) => {
+  if (isNumber(number)) {
+    UserDetails.updateOne(
+      { userEmail: token },
+      {
+        $set: { contactNumber3: number },
+      },
+    )
+      .then(() => resolve({ status: 'success', msg: 'Updated Successfully' }));
+  } else {
+    const msg = 'Please Enter valid phone number';
+    resolve({ status: 'fail', msg });
+  }
+});
+
+module.exports = {
+  updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
+};

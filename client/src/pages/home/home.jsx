@@ -66,14 +66,15 @@ export default function Home() {
       .then((data) => {
         toast(data.status);
       });
+    const pictureSrc = webcamRef.current.getScreenshot();
+    setPicture(pictureSrc);
+    localStorage.setItem('image', pictureSrc);
   };
 
   // const sendimage = () => {
   // };
 
   const capture = async () => {
-    const pictureSrc = webcamRef.current.getScreenshot();
-    setPicture(pictureSrc);
     // console.log(picture);
     // sendimage();
   };

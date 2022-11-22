@@ -39,6 +39,7 @@ function App() {
           <Route path="/viewNumber" element={accessedUser ? <ViewNumber /> : <Navigate to="/" />} />
           <Route path="/location" element={accessedUser ? <Location /> : <Navigate to="/" />} />
           <Route path="/callNumber" element={accessedUser ? <CallNumber /> : <Navigate to="/" />} />
+          {/* <Route path="/imageCapture" element={} /> */}
         </Routes>
       </BrowserRouter>
     </div>
