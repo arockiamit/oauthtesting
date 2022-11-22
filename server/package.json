@@ -16,7 +16,8 @@
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20",
     "request": "^2.88.2",
-    "sinon": "^14.0.2"
+    "sinon": "^14.0.2",
+    "toast-me": "^1.4.8"
   },
   "devDependencies": {
     "eslint": "^8.27.0",

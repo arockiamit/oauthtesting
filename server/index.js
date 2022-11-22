@@ -14,7 +14,6 @@ const mongoose = require('mongoose');
 // eslint-disable-next-line import/no-unresolved
 const nodemailer = require('nodemailer');
 // const { UserDetails } = require('./schema');
-const { userRegister } = require('./testFunctions/userRegister');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const {
   updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
@@ -24,9 +23,9 @@ const {
 } = require('./testFunctions/deleteContactNumber');
 const { viewNumber } = require('./testFunctions/viewContactNumber');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
-const { callContactNumberAPI } = require('./src/call-handlerAPI');
+const { callContactNumberAPI } = require('./API-Test-Functions/callContactNumberAPI');
 const { alertMessage } = require('./testFunctions/alertMessage');
-const { getCallDetails } = require('./testFunctions/getCallDetails');
+const { userRegisterAPI } = require('./API-Test-Functions/userRegisterAPI');
 
 const NODE_ENV = process.env.NODE_ENV || 'DEV';
 
@@ -49,11 +48,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use('/static', express.static(path.join(__dirname, '/../client/build/static')));
 app.use('/images', express.static(path.join(__dirname, '/../client/build/images')));
 
-app.post('/userRegister', async (req, res) => {
-  const { name, email } = req.body;
-  const data = await userRegister(name, email);
-  res.json(data);
-});
+app.post('/userRegister', userRegisterAPI);
 
 app.post('/api/addContact', async (req, res) => {
   const { token, userName, mobileNumber } = req.body;
@@ -63,20 +58,7 @@ app.post('/api/addContact', async (req, res) => {
 });
 
 // API for call number
-// app.post('/api/callNumbers', async (req, res) => {
-//   const { token, userName, mobileNum } = req.body;
-//   const mobileNumber = `+91${mobileNum}`;
-//   const data = await callContactNumber(token, userName, mobileNumber);
-//   res.json(data);
-// });
-
 app.post('/api/callNumbers', callContactNumberAPI);
-
-app.post('/api/getCallNumber', async (req, res) => {
-  const { token } = req.body;
-  const data = await getCallDetails(token);
-  res.json(data);
-});
 
 // API to View Registered Contact
 app.post('/api/ViewContact', async (req, res) => {
@@ -154,21 +136,19 @@ app.put('/updateCallNumber', async (req, res) => {
 });
 
 // API for alert message
+// API for alert message
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
   // const userPhoneNUmber = tokenDecode(token);
   const details = await getUserDetails(token);
   const locat = location;
-
+  console.log(locat, 567890);
+  console.log(details, 123);
   const data1 = await alertMessage(details.contactNumber1, details.userName, locat);
-  const data2 = await alertMessage(details.contactNumber2, details.userName, locat);
-  const data3 = await alertMessage(details.contactNumber3, details.userName, locat);
-
-  console.log(data1, data2, data3);
-
-  return res.json('');
+  await alertMessage(details.contactNumber2, details.userName, locat);
+  await alertMessage(details.contactNumber3, details.userName, locat);
+  return res.json(data1);
 });
-
 app.post('/otp', (req, res) => {
   const { email } = req.body;
   let otp = '';
