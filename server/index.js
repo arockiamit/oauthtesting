@@ -15,7 +15,6 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 // const uploadPicture = require('./sample');
 // eslint-disable-next-line import/no-unresolved
-// const { UserDetails } = require('./schema');
 const { addContactNumber } = require('./testFunctions/addContactNumber');
 const {
   updateContactNumber1, updateContactNumber2, updateContactNumber3, updateCallNumber,
@@ -110,7 +109,6 @@ app.put('/modify2', async (req, res) => {
     token, contactNumber2,
   } = req.body;
   const data = await updateContactNumber2(token, contactNumber2);
-  console.log(data, 452);
   res.json(data);
 });
 
@@ -120,7 +118,6 @@ app.put('/modify3', async (req, res) => {
     token, contactNumber3,
   } = req.body;
   const data = await updateContactNumber3(token, contactNumber3);
-  console.log(data, 452);
   res.json(data);
 });
 
@@ -130,19 +127,16 @@ app.put('/updateCallNumber', async (req, res) => {
     token, contactNumber3,
   } = req.body;
   const data = await updateCallNumber(token, contactNumber3);
-  console.log(data, 452);
   res.json(data);
 });
 
 // API for alert message
-// API for alert message
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
   // const userPhoneNUmber = tokenDecode(token);
+  console.log(location);
   const details = await getUserDetails(token);
   const locat = location;
-  console.log(locat, 567890);
-  console.log(details, 123);
   const data1 = await alertMessage(details.contactNumber1, details.userName, locat);
   await alertMessage(details.contactNumber2, details.userName, locat);
   await alertMessage(details.contactNumber3, details.userName, locat);
@@ -151,12 +145,12 @@ app.post('/api/alertMessage', async (req, res) => {
 
 app.post('/image', async (req, res) => {
   const { picture } = req.body;
-  console.log(picture);
-  console.log(typeof (picture));
-  const imagebuffer = picture.substring(23);
-  const finalImg = new Buffer.from(imagebuffer, 'base64');
-  fs.writeFileSync('myImg.png', finalImg);
-  res.json(picture);
+  if (picture !== '') {
+    const imagebuffer = picture.substring(23);
+    const finalImg = new Buffer.from(imagebuffer, 'base64');
+    fs.writeFileSync('myImg.png', finalImg);
+    res.json(picture);
+  }
 });
 
 app.post('/otp', (req, res) => {
