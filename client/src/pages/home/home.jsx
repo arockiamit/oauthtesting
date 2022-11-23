@@ -68,6 +68,11 @@ export default function Home() {
       });
     const pictureSrc = webcamRef.current.getScreenshot();
     setPicture(pictureSrc);
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/imageStoring`, { method: 'POST', body: JSON.stringify({ token, pictureSrc }), headers: { 'content-type': 'application/json' } })
+      .then((res) => res.json())
+      .then((data) => {
+        toast(data.status);
+      });
     localStorage.setItem('image', pictureSrc);
   };
 

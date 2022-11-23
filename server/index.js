@@ -16,7 +16,7 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 // const uploadPicture = require('./sample');
 // eslint-disable-next-line import/no-unresolved
-// const { UserDetails } = require('./schema');
+const { ImageStoring } = require('./schema');
 const { addContactNumberAPI } = require('./API-Test-Functions/addContactNumberAPI');
 const {
   updateCallNumber,
@@ -116,6 +116,18 @@ app.post('/api/alertMessage', async (req, res) => {
 //     res.json(picture);
 //   }
 // });
+
+app.post('/api/imageStoring', async (req, res) => {
+  const { token, pictureSrc } = req.body;
+  await ImageStoring.create({ userEmail: token, image: pictureSrc });
+  res.json({ status: 'success' });
+});
+
+app.get('/api/getImage', async (req, res) => {
+  const { token } = req.body;
+  const data = await ImageStoring.findOne({ userEmail: token });
+  res.json(data);
+});
 
 app.post('/otp', (req, res) => {
   const { email } = req.body;
