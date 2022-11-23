@@ -31,6 +31,7 @@ export default function Home() {
   const [location, setLocation] = useState();
   const [mobileNum, setMobileNum] = useState();
   const [picture, setPicture] = useState('');
+  const [email, setEmail] = useState();
   const webcamRef = React.useRef(null);
   const token = localStorage.getItem('accesstoken');
   const sirenaudio = () => {
@@ -67,11 +68,11 @@ export default function Home() {
       .then((data) => {
         toast(data.status);
       });
-    // fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/imageStoring`, { method: 'POST', body: JSON.stringify({ token, pictureSrc }), headers: { 'content-type': 'application/json' } })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     toast(data.status);
-    //   });
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/imageStoring`, { method: 'POST', body: JSON.stringify({ token, pictureSrc }), headers: { 'content-type': 'application/json' } })
+      .then((res) => res.json())
+      .then((data) => {
+        setEmail(data.userEmail);
+      });
     // localStorage.setItem('image', pictureSrc);
   };
 

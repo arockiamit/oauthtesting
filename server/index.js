@@ -16,7 +16,7 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 // const uploadPicture = require('./sample');
 // eslint-disable-next-line import/no-unresolved
-// const { UserDetails } = require('./schema');
+const { UserDetails } = require('./schema');
 const { addContactNumberAPI } = require('./API-Test-Functions/addContactNumberAPI');
 const { getUserDetails } = require('./testFunctions/gettingUserDetails-alertMessage');
 const { callContactNumberAPI } = require('./API-Test-Functions/callContactNumberAPI');
@@ -87,34 +87,38 @@ app.put('/modify3', updateContact3);
 // API for alert message
 app.post('/api/alertMessage', async (req, res) => {
   const { token, location, pictureSrc } = req.body;
-  const imagebuffer = pictureSrc.substring(23);
-  const finalImg = new Buffer.from(imagebuffer, 'base64');
-  fs.writeFileSync('../client/src/pages/Image/myImg.png', finalImg);
   const details = await getUserDetails(token);
   const locat = location;
-  const data1 = await alertMessage(details.contactNumber1, details.userName, locat, token, finalImg);
-  await alertMessage(details.contactNumber2, details.userName, locat, token, finalImg);
-  await alertMessage(details.contactNumber3, details.userName, locat, token, finalImg);
+  const data1 = await alertMessage(details.contactNumber1, details.userName, locat, token, pictureSrc);
+  await alertMessage(details.contactNumber2, details.userName, locat, token, pictureSrc);
+  await alertMessage(details.contactNumber3, details.userName, locat, token, pictureSrc);
   return res.json(data1);
 });
 
 // app.post('/image', async (req, res) => {
 //   const { picture } = req.body;
+//   if (picture !== '') {
+//     const imagebuffer = picture.substring(23);
+//     const finalImg = new Buffer.from(imagebuffer, 'base64');
+//     fs.writeFileSync('myImg.png', finalImg);
+//     res.json(picture);
+//   }
 // });
 
-// app.post('/api/imageStoring', async (req, res) => {
-//   const { token, pictureSrc } = req.body;
-//   await UserDetails.updateOne({ userEmail: token }, { $set: { image: pictureSrc } });
-//   res.json({ status: 'success' });
-// });
+app.post('/api/imageStoring', async (req, res) => {
+  const { token, pictureSrc } = req.body;
+  await UserDetails.updateOne({ userEmail: token }, { $set: { image: pictureSrc } });
+  const data = await UserDetails.findOne({ image: pictureSrc });
+  res.json(data);
+});
 
-// app.post('/api/getImage', async (req, res) => {
-//   const { token } = req.body;
-//   console.log(token);
-//   const data = await UserDetails.findOne({ userEmail: Buffer.from(token, 'base64').toString('ascii') });
-//   console.log(data);
-//   res.json(data);
-// });
+app.post('/api/getImage', async (req, res) => {
+  const { email } = req.query;
+  console.log(email);
+  const data = await UserDetails.findOne({ userEmail: email });
+  console.log(data);
+  res.json(data);
+});
 
 app.post('/otp', (req, res) => {
   const { email } = req.body;
