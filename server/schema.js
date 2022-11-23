@@ -49,15 +49,15 @@ const userSchema = new mongoose.Schema({
   contactName3: {
     type: String,
   },
+  image: {
+    type: String,
+  },
 }, { collection: 'userDetails' });
 
 const ImageSchema = new mongoose.Schema({
   userEmail: {
     type: String,
     trim: true,
-  },
-  image: {
-    type: String,
   },
 });
 

@@ -16,7 +16,7 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 // const uploadPicture = require('./sample');
 // eslint-disable-next-line import/no-unresolved
-const { ImageStoring } = require('./schema');
+const { UserDetails } = require('./schema');
 const { addContactNumberAPI } = require('./API-Test-Functions/addContactNumberAPI');
 const {
   updateCallNumber,
@@ -119,13 +119,13 @@ app.post('/api/alertMessage', async (req, res) => {
 
 app.post('/api/imageStoring', async (req, res) => {
   const { token, pictureSrc } = req.body;
-  await ImageStoring.create({ userEmail: token, image: pictureSrc });
+  await UserDetails.updateOne({ userEmail: token }, { $set: { image: pictureSrc } });
   res.json({ status: 'success' });
 });
 
-app.get('/api/getImage', async (req, res) => {
+app.post('/api/getImage', async (req, res) => {
   const { token } = req.body;
-  const data = await ImageStoring.findOne({ userEmail: token });
+  const data = await UserDetails.findOne({ userEmail: token });
   res.json(data);
 });
 
