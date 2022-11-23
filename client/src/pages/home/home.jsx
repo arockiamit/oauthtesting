@@ -60,20 +60,19 @@ export default function Home() {
   });
 
   const alertMessage = () => {
-    console.log(location, 232345);
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/alertMessage`, { method: 'POST', body: JSON.stringify({ token, location }), headers: { 'content-type': 'application/json' } })
-      .then((res) => res.json())
-      .then((data) => {
-        toast(data.status);
-      });
     const pictureSrc = webcamRef.current.getScreenshot();
     setPicture(pictureSrc);
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/imageStoring`, { method: 'POST', body: JSON.stringify({ token, pictureSrc }), headers: { 'content-type': 'application/json' } })
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/alertMessage`, { method: 'POST', body: JSON.stringify({ token, location, pictureSrc }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
         toast(data.status);
       });
-    localStorage.setItem('image', pictureSrc);
+    // fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/imageStoring`, { method: 'POST', body: JSON.stringify({ token, pictureSrc }), headers: { 'content-type': 'application/json' } })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     toast(data.status);
+    //   });
+    // localStorage.setItem('image', pictureSrc);
   };
 
   // const sendimage = () => {

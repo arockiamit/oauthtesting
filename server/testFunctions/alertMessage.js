@@ -1,6 +1,7 @@
 /* eslint-disable no-new */
 /* eslint-disable no-console */
 const axios = require('axios');
+// const { UserDetails } = require('../schema');
 
 const alertaxios = async (...args) => new Promise((resolve, reject) => {
   axios.post(...args)
