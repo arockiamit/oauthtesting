@@ -51,6 +51,17 @@ const userSchema = new mongoose.Schema({
   },
 }, { collection: 'userDetails' });
 
-const UserDetails = mongoose.model('userDetails', userSchema);
+const ImageSchema = new mongoose.Schema({
+  userEmail: {
+    type: String,
+    trim: true,
+  },
+  image: {
+    type: String,
+  },
+});
 
-module.exports = { UserDetails };
+const UserDetails = mongoose.model('userDetails', userSchema);
+const ImageStoring = mongoose.model('imageStoring', ImageSchema);
+
+module.exports = { UserDetails, ImageStoring };
