@@ -86,12 +86,12 @@ app.put('/modify3', updateContact3);
 
 // API for alert message
 app.post('/api/alertMessage', async (req, res) => {
-  const { token, location, pictureSrc } = req.body;
+  const { token, location } = req.body;
   const details = await getUserDetails(token);
   const locat = location;
-  const data1 = await alertMessage(details.contactNumber1, details.userName, locat, token, pictureSrc);
-  await alertMessage(details.contactNumber2, details.userName, locat, token, pictureSrc);
-  await alertMessage(details.contactNumber3, details.userName, locat, token, pictureSrc);
+  const data1 = await alertMessage(details.contactNumber1, details.userName, locat, token);
+  await alertMessage(details.contactNumber2, details.userName, locat, token);
+  await alertMessage(details.contactNumber3, details.userName, locat, token);
   return res.json(data1);
 });
 
@@ -108,15 +108,13 @@ app.post('/api/alertMessage', async (req, res) => {
 app.post('/api/imageStoring', async (req, res) => {
   const { token, pictureSrc } = req.body;
   await UserDetails.updateOne({ userEmail: token }, { $set: { image: pictureSrc } });
-  const data = await UserDetails.findOne({ image: pictureSrc });
-  res.json(data);
+  res.json({ status: 'success' });
 });
 
-app.post('/api/getImage', async (req, res) => {
+app.get('/api/getImage', async (req, res) => {
   const { email } = req.query;
   console.log(email);
-  const data = await UserDetails.findOne({ userEmail: email });
-  console.log(data);
+  const data = await UserDetails.findOne({ userEmail: Buffer.from(email, 'base64').toString('ascii') });
   res.json(data);
 });
 

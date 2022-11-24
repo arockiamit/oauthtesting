@@ -49,7 +49,6 @@ export default function Home() {
     fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/ViewContact`, { method: 'POST', body: JSON.stringify({ token }), headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setMobileNum(data.callingNumber);
       });
     // };
