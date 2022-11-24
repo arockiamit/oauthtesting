@@ -5,11 +5,10 @@ import './image.css';
 
 export default function Imagecapture() {
   // const img = localStorage.getItem('image');
-  const email = localStorage.getItem('accesstoken');
   const [Data, setData] = useState();
 
   const getImage = () => {
-    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/getImage/?email=${email}`, { method: 'POST', headers: { 'content-type': 'application/json' } })
+    fetch(`${process.env.REACT_APP_SERVER_PREFIX}/api/getImage/`, { method: 'GET', headers: { 'content-type': 'application/json' } })
       .then((res) => res.json())
       .then((data) => {
         setData(data.image);
