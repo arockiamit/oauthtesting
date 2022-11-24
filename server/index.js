@@ -114,7 +114,7 @@ app.post('/api/imageStoring', async (req, res) => {
 app.get('/api/getImage', async (req, res) => {
   const { email } = req.query;
   console.log(email);
-  const data = await UserDetails.findOne({ userEmail: Buffer.from(email, 'base64').toString('ascii') });
+  const data = await UserDetails.findOne({ userEmail: Buffer.from(email, 'base64').toString('ascii') }).lean();
   res.json(data);
 });
 
