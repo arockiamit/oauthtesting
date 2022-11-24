@@ -75,18 +75,6 @@ export default function Home() {
     // localStorage.setItem('image', pictureSrc);
   };
 
-  // const sendimage = () => {
-  // };
-
-  const capture = async () => {
-    // console.log(picture);
-    // sendimage();
-  };
-
-  // fetch(`${process.env.REACT_APP_SERVER_PREFIX}/image`, { method: 'POST', body: JSON.stringify({ picture }), headers: { 'content-type': 'application/json' } })
-  //   .then((res) => res.json())
-  //   .then((data) => setPicture(data));
-
   return (
     <div className="homePage">
       <div className="callalertbtn">
@@ -112,10 +100,10 @@ export default function Home() {
         {picture === '' ? (
           <Webcam
             audio={false}
-            height={200}
+            height={300}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            width={220}
+            width={350}
             videoConstraints={videoConstraints}
           />
         ) : <img hidden="hidden" src={picture} alt="MY img" />}

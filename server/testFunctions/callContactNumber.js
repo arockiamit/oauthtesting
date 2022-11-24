@@ -11,17 +11,21 @@ const isNumber = (number) => String(number)
   );
 
 const callContactNumber = async (email, name, mobileNumber) => {
-  if (isNumber(mobileNumber) && name !== null && name !== undefined) {
-    // eslint-disable-next-line max-len
-    const data = await UserDetails.findOne({ userEmail: email });
-    if (data.callingNumber === undefined) {
-      await UserDetails.updateOne({ userEmail: email }, { $set: { callingNumber: mobileNumber, callingPersonName: name } });
-      return ({ status: 'success' });
+  try {
+    if (isNumber(mobileNumber) && name !== null && name !== undefined) {
+      // eslint-disable-next-line max-len
+      const data = await UserDetails.findOne({ userEmail: email });
+      if (data.callingNumber === undefined) {
+        await UserDetails.updateOne({ userEmail: email }, { $set: { callingNumber: mobileNumber, callingPersonName: name } });
+        return ({ status: 'success' });
+      } else {
+        return ({ status: 'Already 1 person for calling is added..' });
+      }
     } else {
-      return ({ status: 'Already 1 person for calling is added..' });
+      return ({ status: 'Please enter valid details' });
     }
-  } else {
-    return ({ status: 'Please enter valid details' });
+  } catch (err) {
+    return ({ status: 'failure' });
   }
 };
 
