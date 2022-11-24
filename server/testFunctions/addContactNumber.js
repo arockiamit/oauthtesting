@@ -42,15 +42,18 @@ const addContactNumbers = async (token, name, number, data) => {
 //   );
 
 const addContactNumber = async (token, name, number) => {
-  if (number !== null && number !== '91undefined' && name !== undefined && name !== null && name !== '') {
-    const data = await UserDetails.findOne({ userEmail: token }, { _id: 0 });
-    const status = await addContactNumbers(token, name, number, data);
-    return status;
-  } else {
-    return ({ status: 'Please enter valid details..' });
+  try {
+    if (number !== null && number !== '91undefined' && name !== undefined && name !== null && name !== '') {
+      const data = await UserDetails.findOne({ userEmail: token }, { _id: 0 });
+      const status = await addContactNumbers(token, name, number, data);
+      return status;
+    } else {
+      return ({ status: 'Please enter valid details..' });
+    }
+  } catch (err) {
+    return ({ status: 'failure' });
   }
 };
-
 module.exports = {
   addContactNumber, addContactNumbers, updateFunction1, updateFunction2, updateFunction3,
 };

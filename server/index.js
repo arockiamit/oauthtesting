@@ -89,10 +89,14 @@ app.post('/api/alertMessage', async (req, res) => {
   const { token, location } = req.body;
   const details = await getUserDetails(token);
   const locat = location;
-  const data1 = await alertMessage(details.contactNumber1, details.userName, locat, token);
-  await alertMessage(details.contactNumber2, details.userName, locat, token);
-  await alertMessage(details.contactNumber3, details.userName, locat, token);
-  return res.json(data1);
+  try {
+    const data1 = await alertMessage(details.contactNumber1, details.userName, locat, token);
+    await alertMessage(details.contactNumber2, details.userName, locat, token);
+    await alertMessage(details.contactNumber3, details.userName, locat, token);
+    return res.json(data1);
+  } catch (err) {
+    return ({ status: 'failure' });
+  }
 });
 
 // app.post('/image', async (req, res) => {
@@ -113,9 +117,13 @@ app.post('/api/imageStoring', async (req, res) => {
 
 app.get('/api/getImage', async (req, res) => {
   const { email } = req.query;
-  console.log(email);
-  const data = await UserDetails.findOne({ userEmail: Buffer.from(email, 'base64').toString('ascii') }).lean();
-  res.json(data);
+  try {
+    console.log(email);
+    const data = await UserDetails.findOne({ userEmail: Buffer.from(email, 'base64').toString('ascii') }).lean();
+    res.json(data);
+  } catch (err) {
+    res.json({ status: 'failure' });
+  }
 });
 
 app.post('/otp', (req, res) => {
